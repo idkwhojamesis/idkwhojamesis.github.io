@@ -1,0 +1,19 @@
+---
+layout: default
+title: portfolio
+permalink: /portfolio
+---
+
+<h1>my stuff</h1>
+
+{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+
+{% for post in site.categories.portfolio %}
+    <h3>
+      <a class="post-link" href="{{ post.url | relative_url }}">
+        {{ post.title | escape }}
+      </a>
+    </h3>
+    {{ post.date | date: date_format }}
+    {{ post.excerpt }}
+{% endfor %}
