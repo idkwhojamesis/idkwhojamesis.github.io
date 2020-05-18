@@ -14,7 +14,7 @@ permalink: /blog
         {{ post.title | escape }}
       </a>
     </h3>
-    {{ post.date | date: date_format }}
+    <i>{{ post.date | date: date_format }}</i>
     {{ post.excerpt }}
 {% endfor %}
 
