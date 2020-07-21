@@ -8,7 +8,7 @@ list_title: Latest Updates
 ---
 <img src="assets/portrait.jpg" alt="picture of me" width="200"/>
 
-# welcome to my site!
+# welcome :)
 I'm an undergrad studying New Media and Digital Design at Fordham University, soon to be a Masters CS grad student at Fordham GSAS. My lifelong interest and passion is in game design, but really my current area of focus depends on the latest project idea I'm working on. 
 
 Expect me to post in the [Blog]({% link main_blog.html %}) section about progress on projects, as well as any kind of observation on games, culture, style/aesthetics, music, or any train of thought best expressed in blog form. 
