@@ -6,6 +6,8 @@ layout: post
 published: true
 ---
 
+It's been two years since I started programming.
+
 I keep a tracker of how many days it's been since my first program on [repl.it] (https://repl.it/~) - it's first revision being dated Feb 27, 2019.
 
 <img src="assets/updates/2020-01-03/robotrat.png" alt="edit history of my first program" width="400" text-align="center"/>
