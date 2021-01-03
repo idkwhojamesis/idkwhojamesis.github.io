@@ -10,7 +10,7 @@ It's been two years since I started programming.
 
 I keep a tracker of how many days it's been since my first program on [repl.it] (https://repl.it/~) - it's first revision being dated Feb 27, 2019.
 
-<img src="assets/updates/2020-01-03/robotrat.png" alt="edit history of my first program" width="400" text-align="center"/>
+![edit history of my first program](assets/updates/2020-01-03/robotrat.png)
 
 It's when I started the book "C# for Artists" by Rick Miller, and the first assignment I completed when deciding to pick up programming seriously. "RobotRat" doesn't even compile and the indentation speaks for itself:
 
@@ -123,9 +123,7 @@ I used Twine to organize the plot, since it had multiple branches and endings. I
 
 [play on itch.io] (https://idkwhojamesis.itch.io/traces-of-poison)
 
-<img src="assets/updates/2020-01-03/twine-rpg.jpeg" alt="twine map of plot" width="400" text-align="center"/>
-
-*Twine map of plot*
+![Twine map of plot](/assets/updates/2020-01-03/twine-rpg.jpeg)
 
 # visualizer for 100 gecs - xXXi_wud_nvrstøp_ÜXXx
 
@@ -145,7 +143,7 @@ The actual implementation is a bit more hacky than that: rooms were rotated so i
 
 I played around with this a little bit with a custom level, throwing shopping carts at walls and using force points to make them stick. Once I rebuild my PC maybe I'll include some footage.
 
-<img src="assets/updates/2020-01-03/hla.png" alt="editor view of hallway in Half-Life: Alyx" width="400" text-align="center">
+![Half-Life: Alyx hallway level](assets/updates/2020-01-03/hla.png)
 
 *One of the Half-Life Alyx's trippiest rooms exposed: forces are added at different parts of the hallway to make some objects "fall" towards the upper "flipped" hallway's floor.*
 
@@ -155,7 +153,7 @@ Web project for my senior capstone project. Started with React for the site but 
 
 [site on codepen](https://codepen.io/idkwhojamesis/full/mdEYxwM)
 
-<img src="assets/updates/2020-01-03/twitter-crop-tool.gif" alt="mobile screenshot of twitter crop tool app" width="400" text-align="center">
+![mobile view of twitter crop tool](assets/updates/2020-01-03/twitter-crop-tool.gif)
 
 *The final result, in mobile view*
 
