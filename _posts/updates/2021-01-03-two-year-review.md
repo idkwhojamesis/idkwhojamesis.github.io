@@ -3,7 +3,7 @@ title: two years of CS - a review of 2019-2020
 categories: updates
 layout: post
 
-published: false
+published: true
 ---
 
 I keep a tracker of how many days it's been since my first program on [repl.it] (https://repl.it/~) - it's first revision being dated Feb 27, 2019.
