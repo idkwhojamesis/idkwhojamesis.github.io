@@ -8,7 +8,7 @@ published: true
 
 It's been two years since I started programming.
 
-I keep a tracker of how many days it's been since my first program on [repl.it](https://repl.it/~) - it's first revision being dated Feb 27, 2019.
+I keep a tracker of how many days it's been since my first program on [repl.it](https://repl.it/~) - its first revision being dated Feb 27, 2019.
 
 ![edit history of my first program](/assets/updates/2020-01-03/robotrat.png)
 
