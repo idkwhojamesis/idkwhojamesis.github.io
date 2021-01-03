@@ -123,7 +123,7 @@ RPGMaker game for Intro to Game Narrative final project. I didn't realize how us
 
 I used Twine to organize the plot, since it had multiple branches and endings. I may use it again for this purpose, but it's clearly a tool for making text-focused games such as visual novels.
 
-[play on itch.io] (https://idkwhojamesis.itch.io/traces-of-poison)
+[play on itch.io](https://idkwhojamesis.itch.io/traces-of-poison)
 
 ![Twine map of plot](/assets/updates/2020-01-03/twine-rpg.jpeg)
 
