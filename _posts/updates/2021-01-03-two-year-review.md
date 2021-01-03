@@ -12,6 +12,8 @@ I keep a tracker of how many days it's been since my first program on [repl.it](
 
 ![edit history of my first program](/assets/updates/2020-01-03/robotrat.png)
 
+*Edit history of RobotRat.cs*
+
 It's when I started the book "C# for Artists" by Rick Miller, and the first assignment I completed when deciding to pick up programming seriously. "RobotRat" doesn't even compile and the indentation speaks for itself:
 
 ```csharp
@@ -124,6 +126,8 @@ I used Twine to organize the plot, since it had multiple branches and endings. I
 [play on itch.io] (https://idkwhojamesis.itch.io/traces-of-poison)
 
 ![Twine map of plot](/assets/updates/2020-01-03/twine-rpg.jpeg)
+
+*Twine map of plot*
 
 # visualizer for 100 gecs - xXXi_wud_nvrstøp_ÜXXx
 
