@@ -11,12 +11,12 @@ Last updated: 18 May 2020
 * TOC
 {:toc}
 
-Links: [Github (code)](https://github.com/idkwhojamesis) - [itch.io (games)](https://idkwhojamesis.itch.io/) - [LinkedIn](https://www.linkedin.com/in/idkwhojamesis/)  
+Links: [Github (code)](https://github.com/idkwhojamesis) - [itch.io (games)](https://idkwhojamesis.itch.io/)
 
 ## Profile
 Developer and AR/VR enthusiast seeking hands-on experience in professional software development. Passionate about Human-Computer Interaction, gaming, and the integration of mixed-reality applications into work and play.  
 
-Currently based in Manhattan NYC (temporarily in Seattle during quarantine)  
+Currently based in Manhattan.
 
 ## Education
 
@@ -24,8 +24,8 @@ Currently based in Manhattan NYC (temporarily in Seattle during quarantine)
 - GSAS Accelerated Master's Program: Starting graduate classes during senior year of undergrad
 
 ### B.A., New Media and Digital Design, Fordham Univ. (2017-'21)
-- 3.5/4 GPA
-- Relevant Coursework: Computer Science I (C++), Info and Data Management (Python, SQL), Intro to Video Game Design (C#), Creative Coding (JS)
+- 3.5/4 GPA, Dean's List
+- Relevant Coursework: Computer Science I+II (C++), Data Structures, Info and Data Management (Python, SQL), Intro to Video Game Design (C#), Creative Coding (JS)
 - Member of Design for America, an idea incubator tackling social challenges through design
 
 ## Experience
