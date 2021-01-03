@@ -8,7 +8,7 @@ published: true
 
 It's been two years since I started programming.
 
-I keep a tracker of how many days it's been since my first program on [repl.it] (https://repl.it/~) - it's first revision being dated Feb 27, 2019.
+I keep a tracker of how many days it's been since my first program on [repl.it](https://repl.it/~) - it's first revision being dated Feb 27, 2019.
 
 ![edit history of my first program](/assets/updates/2020-01-03/robotrat.png)
 
@@ -143,7 +143,7 @@ The actual implementation is a bit more hacky than that: rooms were rotated so i
 
 I played around with this a little bit with a custom level, throwing shopping carts at walls and using force points to make them stick. Once I rebuild my PC maybe I'll include some footage.
 
-![Half-Life: Alyx hallway level](assets/updates/2020-01-03/hla.png)
+![Half-Life: Alyx hallway level](/assets/updates/2020-01-03/hla.png)
 
 *One of the Half-Life Alyx's trippiest rooms exposed: forces are added at different parts of the hallway to make some objects "fall" towards the upper "flipped" hallway's floor.*
 
@@ -153,7 +153,7 @@ Web project for my senior capstone project. Started with React for the site but 
 
 [site on codepen](https://codepen.io/idkwhojamesis/full/mdEYxwM)
 
-![mobile view of twitter crop tool](assets/updates/2020-01-03/twitter-crop-tool.gif)
+![mobile view of twitter crop tool](/assets/updates/2020-01-03/twitter-crop-tool.gif)
 
 *The final result, in mobile view*
 
