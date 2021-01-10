@@ -6,6 +6,8 @@ permalink: /resume
 
 # James Park - cs student and developer
 
+[view designed resume PDF here](/assets/resume.pdf)
+
 Last updated: 03 Jan 2021
 
 * TOC
