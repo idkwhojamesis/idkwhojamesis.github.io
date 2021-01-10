@@ -4,7 +4,7 @@ title: resume
 permalink: /resume
 ---
 
-# James Park
+# James Park - cs student and developer
 
 Last updated: 03 Jan 2021
 
