@@ -5,8 +5,8 @@ permalink: /resume
 ---
 
 # James Park
-<img src="assets/portrait.jpg" alt="picture of me" width="200"/>  
-Last updated: 18 May 2020  
+
+Last updated: 03 Jan 2021
 
 * TOC
 {:toc}
