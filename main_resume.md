@@ -10,15 +10,15 @@ permalink: /resume
 
 Last updated: 03 Jan 2021
 
-* TOC
-{:toc}
-
 Links: [Github (code)](https://github.com/idkwhojamesis) - [itch.io (games)](https://idkwhojamesis.itch.io/)
 
 ## Profile
 Developer and AR/VR enthusiast seeking hands-on experience in professional software development. Passionate about Human-Computer Interaction, gaming, and the integration of mixed-reality applications into work and play.  
 
 Currently based in Manhattan.
+
+* TOC
+{:toc}
 
 ## Education
 
