@@ -6,7 +6,7 @@ layout: home
 title: home
 list_title: Latest Updates
 ---
-![portrait](assets/portrait.jpg)
+<img src="assets/portrait.jpg" alt="portrait" style="width:200px">
 
 # welcome!
 I'm an undergrad studying New Media and Digital Design at Fordham University, soon to be a Masters CS grad student at Fordham GSAS. My lifelong interest and passion is in game design, but really my current area of focus depends on the latest project idea I'm working on.
