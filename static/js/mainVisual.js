@@ -23,10 +23,12 @@ mat.roughness = 0.1;
 mat.metallic = 0.7;
 mat.alpha = 0.1;
 mat.backFaceCulling = false;
+/*
+doesn't go back to green on mobile
 const matTexture = new BABYLON.NoiseProceduralTexture("perlin", 10, scene);
 matTexture.octaves = 6;
 mat.albedoTexture = matTexture;
-
+*/
 const cylinder = MeshBuilder.CreateCylinder('', { height: 11, diameter: 11, tessellation: 12 });
 const knot = MeshBuilder.CreateTorusKnot('', {radius: 5, tube: 1.2, radialSegments: 16, tubularSegments: 12}) // magic
 const jelly = CSG.FromMesh(cylinder).subtract(CSG.FromMesh(knot)).toMesh('', mat, scene, false);
