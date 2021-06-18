@@ -1,7 +1,7 @@
 ---
 title: blog template
 layout: post
-
+draft: true
 published: false
 ---
 

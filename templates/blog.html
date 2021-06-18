@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="textbox-wrap">
+  <div class="textbox">
+      <h1>{{ section.title }}</h1>
+      {% for page in section.pages %}
+      <a href="{{ page.permalink | safe }}"><p>{{ page.date }}: {{ page.title }}</p></a>
+      {% endfor %}
+  </div>
+  </div>
+{% endblock content %}

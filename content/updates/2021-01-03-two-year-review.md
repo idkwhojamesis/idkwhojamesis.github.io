@@ -70,53 +70,6 @@ A startup pitch challenge was held at my college during the spring, so I decided
 
 [source code](https://github.com/idkwhojamesis/brokebook_web)
 
-```python
-# models.py had only one model - the Book object designed for
-# posting an offer or a request for a textbook.
-from django.db import models
-
-class Book(models.Model):
-    CAMPUS_CHOICES = [
-        ('LC', 'Lincoln Center'),
-        ('RH', 'Rose Hill'),
-        ('LR', 'Both'),
-    ]
-    SEMESTER_CHOICES = [
-        ('F', 'Fall'),
-        ('S', 'Spring'),
-        ('U', 'Summer'),
-    ]
-    CONDITION_CHOICES = [
-        (1, 'New'),
-        (2, 'Mint'),
-        (3, 'Used'),
-        (4, 'Bad'),
-        (5, 'Unusable/Missing Parts'),
-    ]
-    # Add email EmailField (adds validation)
-    # (?) Change class fields to subj(options) + class number
-    date_created= models.DateTimeField(auto_now=True, editable=False)
-    post_type= models.BooleanField('Offer(T)/Ask(F)')
-    book_title= models.CharField(max_length=150)
-    book_author= models.CharField(max_length=150, null=True, blank=True)
-    campus= models.CharField(max_length=2, choices=CAMPUS_CHOICES)
-    professor= models.CharField(max_length=20)
-    class_subject= models.CharField(max_length=8)
-    class_section= models.CharField(max_length=3, null=True, blank=True)
-    semester= models.CharField(max_length=1, choices=SEMESTER_CHOICES)
-    year= models.SmallIntegerField(choices=YEAR_CHOICES)
-    online_code= models.BooleanField(null=True, blank=True)
-    edition= models.CharField(max_length=20, null=True, blank=True)
-    condition= models.SmallIntegerField(choices=CONDITION_CHOICES)
-    contact_info = models.TextField(max_length=200, default="Contact info not provided.")
-
-    def get_absolute_url(self):
-        return "detail/%i" % self.pk
-
-    def __str__(self):
-        return self.book_title
-```
-
 # traces of poison
 
 RPGMaker game for Intro to Game Narrative final project. I didn't realize how useful RPGMaker could be for implementing plot structure, dialogue, characters, locations, etc. in exponentially shorter time than any other game engine. It was so easy to just go in and start making a game that I'll definitely use it again if I ever have a good story or setting idea. 

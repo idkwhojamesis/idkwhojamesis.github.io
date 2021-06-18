@@ -1,29 +1,26 @@
----
-layout: default
-title: resume
-permalink: /resume
----
++++
+path = "/resume"
++++
 
-# James Park - cs student and developer
+# James Park
+## front-end web developer
 
-[view designed resume PDF here](/assets/resume.pdf)
+Last updated: 18 June 2021
 
-Last updated: 03 Jan 2021
-
-Links: [Github (code)](https://github.com/idkwhojamesis) - [itch.io (games)](https://idkwhojamesis.itch.io/)
+[github (code)](https://github.com/idkwhojamesis)  
+[codepen (front-end demos)](https://codepen.io/idkwhojamesis)  
+[itch.io (games)](https://idkwhojamesis.itch.io/)
 
 ## Profile
-Developer and AR/VR enthusiast seeking hands-on experience in professional software development. Passionate about Human-Computer Interaction, gaming, and the integration of mixed-reality applications into work and play.  
+Front-end web developer seeking hands-on industry experience and mentorship. Passionate about UI/UX and making the web a fun, accessible, and safe place. 
 
-Currently based in Manhattan.
-
-* TOC
-{:toc}
+Currently based in Seattle, remote preferred (+ flexible with most time zones)  
+Open to contract work.  
 
 ## Education
 
 ### M.S., Computer Science, Fordham Univ. (2021-'22)
-- GSAS Accelerated Master's Program: Starting graduate classes during senior year of undergrad
+- Relevant Coursework: Object Software Design (JS), Computer Algorithms (Python), Artificial Intelligence (Python)
 
 ### B.A., New Media and Digital Design, Fordham Univ. (2017-'21)
 - 3.5/4 GPA, Dean's List
@@ -55,21 +52,23 @@ Currently based in Manhattan.
 ## Skills
 
 ### Languages
-- Python - 2 yrs. (*preferred* for general use)
-- C# - 3 yrs. (Unity scripting)
 - JavaScript (JS) - 3 yrs. (p5/frontend)
-- Other languages: C++, C
+- Python - 2 yrs.
+- Other languages: C++, C, C#
 
 ### Web
-- Django, Shopify, Jekyll (eg. this site)
-- HTML/CSS, Markdown (eg. this resume)
+- UI Frameworks: React
+- CSS Frameworks: Bootstrap, Tailwind
+- Node.js/NPM package management
+- WebGL/3D: Babylon.js (check out the interactive site background!)
+- HTML/CSS, Markdown
 - MySQL, SQLite
 
 ### Games and XR
-- Unity (3 yrs.)
-- SteamVR, MRTK, Depthkit (volumetric video), RealityCapture (photogrammetry assets)
+- Unity
+- SteamVR, MRTK, 
+- RealityCapture (photogrammetry asset capture)
 
-### Etc. 
-- Blender (3D modelling)
+### Etc.
 - Microsoft Office (Excel, Word, PowerPoint, OneNote)
 - Photoshop, Illustrator, GIMP
