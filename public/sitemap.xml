@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://idkwhojamesis.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://idkwhojamesis.github.io/content/</loc>
+    </url>
+    <url>
+        <loc>https://idkwhojamesis.github.io/portfolio/</loc>
+    </url>
+    <url>
+        <loc>https://idkwhojamesis.github.io/portfolio/games/</loc>
+        <lastmod>2020-05-18</lastmod>
+    </url>
+    <url>
+        <loc>https://idkwhojamesis.github.io/resume/</loc>
+    </url>
+    <url>
+        <loc>https://idkwhojamesis.github.io/updates/</loc>
+    </url>
+    <url>
+        <loc>https://idkwhojamesis.github.io/updates/two-year-review/</loc>
+        <lastmod>2021-01-03</lastmod>
+    </url>
+    <url>
+        <loc>https://idkwhojamesis.github.io/updates/welcome/</loc>
+        <lastmod>2020-05-18</lastmod>
+    </url>
+</urlset>

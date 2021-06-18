@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>james park</title>
+
+  <style>
+    canvas {
+      width: 100vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: 0;
+      top: 0;
+    }
+
+    body {
+      height: 100vh;
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      background: black;
+    }
+
+    img {
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    a {
+      font-style: italic;
+      color: white;
+    }
+
+    .textbox-wrap {
+      min-width: 400px;
+      width: 70vw;
+      max-width: 90vw;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      background: repeating-linear-gradient(-45deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0.3) 7.14%, rgba(0, 255, 0, 0.3) 14.28%, rgba(0,255,255, 0.3) 21.42%, rgba(0,0,255, 0.3) 35.7%, rgba(255, 0, 0, 0.3) 50%);
+      background-size: 600vw 600vw;
+      animation: 10s infinite linear forwards slide;
+      z-index: 1;
+    }
+
+    .textbox {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 1rem;
+    }
+
+    @keyframes slide{
+      0%{
+        background-position-x: 0%;
+      }
+      100%{
+        background-position-x: 600vw;
+      }
+    }
+
+    nav {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-evenly;
+    }
+  </style>
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div class="textbox-wrap">
+    <div class="textbox">
+      <nav>
+        <div><a href="/">idkwhojamesis</a></div>
+        <div><a href="/portfolio/">portfolio</a></div>
+        <div><a href="/resume/">resume</a></div>
+        <div><a href="/updates/">updates</a></div>
+      </nav>
+    </div>
+  </div>
+  <div>
+    
+<div class="textbox-wrap">
+    <div class="textbox">
+        <h1 class="title">
+            welcome to the site!
+        </h1>
+        <p class="subtitle"><strong>2020-05-18</strong></p>
+        <p>If you're reading this then I have finished the initial setup of this website. I'm hoping to use it as an easier, centralized way to track and record anything I've been working on. </p>
+<p>things I want to add to the site:</p>
+<ol>
+<li>banner image in portfolio (maybe use it in resume too)</li>
+<li>interactive p5 gallery in portfolio (ideally hosting the scripts externally on their existing repo)</li>
+<li>Locally host WebGL builds and download links? doesn't matter too much and it would fatten the filesize.</li>
+<li>Also have some misc. things to blog about, not really urgent.</li>
+</ol>
+<p>Building this was another harsh reminder that hours to days are wasted when you don't read the documentation carefully. I could have saved a whole day if I realized how the included Minima theme does almost everything for you. That being said, once you figure it out it seems really easy to use, so to anyone reading this let me know if you want a site like this. </p>
+<p>I'm also kind of hoping that using the blog here as an outlet to post will keep me off of other social media sites and keep me accountable for following through on ideas. Even after deleting Twitter and my old Facebook account, I still get a lot of stress about interactions on Instagram. Very few people are going to read this and most of the stuff I want to post about is better handled in long-form anyway.</p>
+<p>what I'm up to:</p>
+<ul>
+<li>currently re-downloading Half-Life: Alyx for the new Workshop tools</li>
+<li>Trying to register for summer and fall classes and having to email a bunch of staff bc the registration system is terrible</li>
+<li>updating resumes, i got into the grad school but technically I don't start until next year? Still putting it on lol</li>
+<li>Planning an essay about this one rich guy who paid to have his OC character in a handful of different indie RPGs and Shovel Knight. Does this make them a connected universe? </li>
+<li>creative block on telegolf, should just focus on making a level and game manager</li>
+<li>waiting on if im getting a technical interview</li>
+<li>should be doing interview prep for winter/spring</li>
+<li>listening to Charli XCX - Detonate and Sega Bodega &amp; Dorian Electra - Teenage Dirtbag (Cover)</li>
+<li>did not sleep</li>
+</ul>
+<p>I hope you're doing well. Thanks for reading! - James</p>
+
+    </div>
+  </div>
+
+  </div>
+  <canvas></canvas>
+  <script src="/js/mainVisual.js"></script>
+</body>
+
+</html>

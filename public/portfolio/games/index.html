@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>james park</title>
+
+  <style>
+    canvas {
+      width: 100vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: 0;
+      top: 0;
+    }
+
+    body {
+      height: 100vh;
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      background: black;
+    }
+
+    img {
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    a {
+      font-style: italic;
+      color: white;
+    }
+
+    .textbox-wrap {
+      min-width: 400px;
+      width: 70vw;
+      max-width: 90vw;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      background: repeating-linear-gradient(-45deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0.3) 7.14%, rgba(0, 255, 0, 0.3) 14.28%, rgba(0,255,255, 0.3) 21.42%, rgba(0,0,255, 0.3) 35.7%, rgba(255, 0, 0, 0.3) 50%);
+      background-size: 600vw 600vw;
+      animation: 10s infinite linear forwards slide;
+      z-index: 1;
+    }
+
+    .textbox {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 1rem;
+    }
+
+    @keyframes slide{
+      0%{
+        background-position-x: 0%;
+      }
+      100%{
+        background-position-x: 600vw;
+      }
+    }
+
+    nav {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-evenly;
+    }
+  </style>
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div class="textbox-wrap">
+    <div class="textbox">
+      <nav>
+        <div><a href="/">idkwhojamesis</a></div>
+        <div><a href="/portfolio/">portfolio</a></div>
+        <div><a href="/resume/">resume</a></div>
+        <div><a href="/updates/">updates</a></div>
+      </nav>
+    </div>
+  </div>
+  <div>
+    
+<div class="textbox-wrap">
+    <div class="textbox">
+        <h1 class="title">
+            Games and interaction concepts
+        </h1>
+        <p class="subtitle"><strong>2020-05-18</strong></p>
+        <p>Some games and prototypes I have made or helped make. </p>
+<p>All of these can be played on my <a href="https://idkwhojamesis.itch.io/"><strong>itch.io page.</strong></a></p>
+<p><strong>Novel and experimental game mechanics</strong> are my main interests and biggest pool of ideas. My favorite game of all time is Portal (the original, not 2) and from some of these concepts you can probably see the inspiration.</p>
+<h2 id="as-tensions-rise-2021">&quot;...as tensions rise&quot; (2021)</h2>
+<p><img src="/assets/portfolio/atr-gif.gif" alt="as tensions rise screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/as-tensions-rise">Play in browser</a></p>
+<p>For GMTK Game Jam 2021: &quot;Joined Together&quot;. You are watching the perspective of an aerial news crew as they broadcast a mass gathering in front of a corporate building. 
+This project uses Babylon's Solid Particle System to depict a lively crowd that can rapidly increase in population. </p>
+<h2 id="7-33-2021">-7.33- (2021)</h2>
+<p><img src="/assets/portfolio/seventhirtythree.png" alt="7.33 screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/seventhirtythree">Play in browser</a></p>
+<p>Final group project for a Game Design Projects class.</p>
+<p>A girl and her dog look too far into the mysterious connection between her parents and the monster in the basement. We were assigned to make a project surrounding a serious topic, and this project deals with the trauma of parental emotional abuse and alcoholism.</p>
+<p>Team:
+Julia Sparago - concept, story, level design, dialogue<br />
+Kyle Horstmann  - topic research and interviews, dialogue</p>
+<h2 id="traces-of-poison-2020">Traces of Poison (2020)</h2>
+<p><img src="/assets/portfolio/poison.jpg" alt="Traces of Poison screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/traces-of-poison">Play in browser</a></p>
+<p>Final project for an Intro to Game Narrative class.</p>
+<p>Two friends have to fight each other for their freedom. Change the outcome with your actions to unlock 7 different endings.</p>
+<p>Thank you to Prof. Chris Vicari and the class for a fun semester (despite the pandemic cutting it short)! Also, shoutout to my friend Kevin for extensive and extremely helpful QA. </p>
+<h2 id="fix-the-penguin-2020">Fix The Penguin (2020)</h2>
+<p><img src="/assets/portfolio/penguin-gif.gif" alt="penguin game screenshot" />
+<em>Now I am become death, destroyer of worlds</em></p>
+<p><a href="https://idkwhojamesis.itch.io/fix-the-penguin-gamejam">Play in browser (requires keyboard+mouse)</a></p>
+<p>Team submission for 2020 Playcrafting Global Game Jam NYC. I did audioMixer programming and some bug fixing. </p>
+<p>After a majestic penguin statue is blown to bits, you must pick up its limbs and put it back together. How exactly these limbs are arranged, however, is up to you...</p>
+<p>Team:<br />
+<a href="https://degugames.itch.io/">Paul Blieka</a> - lead programmer<br />
+<a href="https://www.artstation.com/joel0827">Joel Sanchez</a> - art, modeling, post-processing<br />
+<a href="https://www.robertkarpay.com">Robert Karpay</a> - music<br />
+Mike Thompson - UI<br />
+me - adaptive audio programming, bug fixing</p>
+<h2 id="telegolf-2019-on-pause">Telegolf (2019 - on pause)</h2>
+<p><img src="/assets/portfolio/telegolf-gif.gif" alt="telegolf screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/telegolf">Play in browser (requires keyboard+mouse) (demo)</a></p>
+<p>Navigate courses and find secrets with a golf ball that can teleport you to its location. Planning to turn this into a full game, although admittedly progress as been slow as I am struggling to design interesting levels around this mechanic.</p>
+
+    </div>
+  </div>
+
+  </div>
+  <canvas></canvas>
+  <script src="/js/mainVisual.js"></script>
+</body>
+
+</html>

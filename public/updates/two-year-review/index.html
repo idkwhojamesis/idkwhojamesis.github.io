@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>james park</title>
+
+  <style>
+    canvas {
+      width: 100vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: 0;
+      top: 0;
+    }
+
+    body {
+      height: 100vh;
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      background: black;
+    }
+
+    img {
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    a {
+      font-style: italic;
+      color: white;
+    }
+
+    .textbox-wrap {
+      min-width: 400px;
+      width: 70vw;
+      max-width: 90vw;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      background: repeating-linear-gradient(-45deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0.3) 7.14%, rgba(0, 255, 0, 0.3) 14.28%, rgba(0,255,255, 0.3) 21.42%, rgba(0,0,255, 0.3) 35.7%, rgba(255, 0, 0, 0.3) 50%);
+      background-size: 600vw 600vw;
+      animation: 10s infinite linear forwards slide;
+      z-index: 1;
+    }
+
+    .textbox {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 1rem;
+    }
+
+    @keyframes slide{
+      0%{
+        background-position-x: 0%;
+      }
+      100%{
+        background-position-x: 600vw;
+      }
+    }
+
+    nav {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-evenly;
+    }
+  </style>
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div class="textbox-wrap">
+    <div class="textbox">
+      <nav>
+        <div><a href="/">idkwhojamesis</a></div>
+        <div><a href="/portfolio/">portfolio</a></div>
+        <div><a href="/resume/">resume</a></div>
+        <div><a href="/updates/">updates</a></div>
+      </nav>
+    </div>
+  </div>
+  <div>
+    
+<div class="textbox-wrap">
+    <div class="textbox">
+        <h1 class="title">
+            two years of CS - a review of 2019-2020
+        </h1>
+        <p class="subtitle"><strong>2021-01-03</strong></p>
+        <p>It's been two years since I started programming.</p>
+<p>I keep a tracker of how many days it's been since my first program on <a href="https://repl.it/%7E">repl.it</a> - its first revision being dated Feb 27, 2019.</p>
+<p><img src="/assets/updates/2020-01-03/robotrat.png" alt="edit history of my first program" /></p>
+<p><em>Edit history of RobotRat.cs</em></p>
+<p>It's when I started the book &quot;C# for Artists&quot; by Rick Miller, and the first assignment I completed when deciding to pick up programming seriously. &quot;RobotRat&quot; doesn't even compile and the indentation speaks for itself:</p>
+<pre><code class="language-csharp" data-lang="csharp">// Chunk from after defining RobotRat class
+public void Run() {
+
+  while (keep_going){
+
+  PrintMenu();
+  ProcessMenuChoice();
+  }
+ }
+
+  public static void Main (string[] args) {
+   RobotRat rr = new RobotRat(10,10);
+   rr.Run();
+  }
+</code></pre>
+<p>Regardless, it was the first step in an ongoing journey to become a 'good' programmer - someone capable of building their many ideas into high-quality projects and holding a conversation with a FAANG intern at a party. Since then, I've learned enough to start a couple projects, actually <a href="https://devdocs.io">read documentation</a> and even indent properly. There's still a lot of work to be done, but looking back has shown me how much I've learned.</p>
+<p>Since this first program, the upcoming two-year anniversary since its inception - and the beginning of my pursuit of programming - has encouraged me to evaluate my overall progress. The following is a brief overview of my first year of dedicated coding (2019), and then I will more closely review the past year (2020) and what I've learned + done.</p>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h1 id="2019-resolution-and-starting">2019: Resolution and Starting</h1>
+<p>I had always wanted to be a coder since childhood, to the extent that my parents graciously paid for two years of summer camp at ID Tech to see if I'd pick it up. Vague memories of C++ &quot;Hello World!&quot; programs and asterisk pyramids, 2008 Minecraft Alpha and Team Fortress 2 tournaments make up my recollection of one of those years, the other which is somehow completely absent from my memory save for a Battlefield 2142 giveaway. As it turned out, my fourth-grade self hardly resembled any sort of coding genius and none of it really stuck. Despite my overbearing enthusiasm for computers and video game hardware trivia, I struggled to focus on even the most basic programming concepts. This, plus another significant time investment in classical violin, as well as a teacher who humiliated me for my shameless over-enthusiasm, convinced me and my parents to drop the path altogether and instead expand on my demonstrated talent for the violin. </p>
+<p>Ten years later, the winter break of 2018-2019 was a period of significant self-reflection. I had finished freshman year at Fordham University as a music major, only to realize (or honestly, to admit to myself) that the major had nothing to do with my actual interests. Expanding on my initial college pursuit of producing electronic pop music, and with a growing fascination for VR, I decided to switch over to the school's New Media and Digital Design major that fall to explore computer science and design courses. During the winter break, I had become so invested in exploring new ideas for VR user interaction that I resolved to learn enough C# to use the Unity game engine. As I considered myself an artist, it seemed that Rick Miller's &quot;C# for Artists&quot; textbook would be a good start alongside some Unity tutorials on YouTube. (I honestly can't recommend the textbook, and if you want to learn Unity, use the official tutorials then read the documentation)</p>
+<p>With every course I took both in school and online, it became very apparent that I had to grasp some universal concepts of programming first. My resolution snowballed into a greater mission to become an adept programmer capable of developing new ideas with little friction. The first course to &quot;click&quot; the ideas and flow of programming for me was <a href="https://www.edx.org/course/cs50s-introduction-to-computer-science">Harvard CS50x</a>, which I started that spring and wrapped up by the next winter. It taught me proper formatting and syntax and how to play with data structures - namely hash tables - to make real-world tools and solutions. I would recommend the course to any beginner as it gets real low-level with its C assignments, although I would still have a very fuzzy grasp of data structures by the end of the course.</p>
+<p>With CS50x, some volunteer work at tech conventions and a handful of Comp Sci courses peppered throughout my resume, I was happy to find that I had been approved for interview testing for an SDE internship at Amazon. With that, I would begin investing more time into interview coding and Cracking the Coding Interview throughout the finals period of the fall semester.</p>
+<h1 id="amazon-interview">amazon interview</h1>
+<p>I had learned a lot about my programming 'comfort level' during the SDE interview process, and I have to give credit to Amazon for giving me a path through skill-based testing compared to the dozens of smaller companies who understandably ignored my non-CS, niche and amateur resume (most of the internships I applied to had no form option for a &quot;New Media&quot; major on their application page). The first couple rounds of AI-based testing were a breeze, given that they were mostly a filter to see if you could use bare-minimum programming principles such as conditional and iterative logic. The in-person coding interview was where I visibly struggled, and not solely due to my insufficient technical knowledge.</p>
+<p>The question was simply how to move a binary tree to an array, then restore the tree from said array. It was a question that with a clearer mindset (and admittedly a little more practice with binary trees) I would have been able to dig into my understanding of a binary tree and make an array that could easily find a node's children using its index positions. Instead, I was helplessly running myself into an over-complicated wall of nonsense and couldn't figure to take a step back amidst my stress. I mumbled and spouted randomly about depth-first search, and even as the interviewer helped guide me along a possible solution with my existing knowledge I only got more lost. </p>
+<p>For a first tech interview it certainly could have gone worse. My interviewer was incredibly friendly even after the awkward technical portion and went into a lot of detail about life at Amazon. Most importantly, it served as a wake-up call and the start of an ongoing goal to improve both my comfort level with interview-type questions and my ability to think clearly under pressure. I've found that improving myself in one of those areas also benefits the other.</p>
+<h1 id="global-game-jam">global game jam</h1>
+<p>I went to the NYC Playcrafting Global Game Jam in February of this year per the recommendation of my professor from Intro to Game Narrative and had the incredibly valuable experience of working on a real project, with a team of fellow programmers and artists, for the first time. My comfort level with Unity was not sufficient enough to do significant work, and the senior programmer handled most of the game's logic and asset management, so I helped fix some bugs and worked closely with the music person to make a dynamic soundtrack using AudioMixer.</p>
+<p><a href="https://idkwhojamesis.itch.io/fix-the-penguin-gamejam">play the game on itch.io</a></p>
+<h1 id="brokebook">brokebook</h1>
+<p>A startup pitch challenge was held at my college during the spring, so I decided that it would be a good opportunity to practice web development. My idea, a campus-bound textbook exchange, turned into a database-driven craigslist clone using Django + Bootstrap.</p>
+<p><a href="https://github.com/idkwhojamesis/brokebook_web">source code</a></p>
+<h1 id="traces-of-poison">traces of poison</h1>
+<p>RPGMaker game for Intro to Game Narrative final project. I didn't realize how useful RPGMaker could be for implementing plot structure, dialogue, characters, locations, etc. in exponentially shorter time than any other game engine. It was so easy to just go in and start making a game that I'll definitely use it again if I ever have a good story or setting idea. </p>
+<p>I used Twine to organize the plot, since it had multiple branches and endings. I may use it again for this purpose, but it's clearly a tool for making text-focused games such as visual novels.</p>
+<p><a href="https://idkwhojamesis.itch.io/traces-of-poison">play on itch.io</a></p>
+<p><img src="/assets/updates/2020-01-03/twine-rpg.jpeg" alt="Twine map of plot" /></p>
+<p><em>Twine map of plot</em></p>
+<h1 id="visualizer-for-100-gecs-xxxi-wud-nvrstop-uxxx">visualizer for 100 gecs - xXXi_wud_nvrstøp_ÜXXx</h1>
+<p>p5.js sketch for Creative Coding final project. The lyrics are stored in a JSON file in key-value (timestamp, lyric line) pairs, and the sketch updates the displayed lyric line when a timestamp from lyrics.json matches the song time. The inner sphere inside the larger sphere + tree reacts to the song's amplitude and slowly increases in size as the song progresses.</p>
+<p><a href="https://www.youtube.com/watch?v=Dk0ctImbsMk">video of sketch</a></p>
+<p><a href="https://editor.p5js.org/jamesparknmdd/sketches/zRbPJcqZa">link to sketch</a></p>
+<h1 id="half-life-alyx-modding">half-life: alyx modding</h1>
+<p>(spoilers for Half-Life: Alyx)</p>
+<p>Following the release of the Half-Life: Alyx Workshop Tools, I wanted to see how the later anti-gravity levels worked and see if I could make my own. I had thought that maybe the gravity of parts of the level had actually changed and affected which direction the player would stand. </p>
+<p>The actual implementation is a bit more hacky than that: rooms were rotated so its &quot;floor&quot; would be a wall/ceiling, giving the illusion of anti-gravity, and forces would be applied to parts of the level so that objects would &quot;fall&quot; in ways that would disobey gravity.</p>
+<p>I played around with this a little bit with a custom level, throwing shopping carts at walls and using force points to make them stick. Once I rebuild my PC maybe I'll include some footage.</p>
+<p><img src="/assets/updates/2020-01-03/hla.png" alt="Half-Life: Alyx hallway level" /></p>
+<p><em>One of the Half-Life Alyx's trippiest rooms exposed: forces are added at different parts of the hallway to make some objects &quot;fall&quot; towards the upper &quot;flipped&quot; hallway's floor.</em></p>
+<h1 id="twitter-crop-tool">twitter crop tool</h1>
+<p>Web project for my senior capstone project. Started with React for the site but scrapped that for HTML + Bootstrap CSS. The interactive part uses Konva.</p>
+<p><a href="https://codepen.io/idkwhojamesis/full/mdEYxwM">site on codepen</a></p>
+<p><img src="/assets/updates/2020-01-03/twitter-crop-tool.gif" alt="mobile view of twitter crop tool" /></p>
+<p><em>The final result, in mobile view</em></p>
+<h1 id="other-things">other things</h1>
+<ul>
+<li>A data structures class that really helped me; I recommend the textbook we used, &quot;C++ Plus Data Structures&quot; by Neil Dale</li>
+<li>Notion - this is the greatest organization tool I've ever used. After many hours re-organizing all my notes I've slowly moved all my web resources there, from essays to assignment calendars to bookmarks etc. My only major gripe is that it takes forever to load.</li>
+</ul>
+<h1 id="wins">wins:</h1>
+<p>I'm glad that I have some projects that I can show on a website, portfolio, etc. It was nice for some of my classes to have their finals be in project form; it gave me a deadline to push more stuff out and the extra time given during school to work on these projects made the workload more bearable.</p>
+<h1 id="things-i-wish-i-did">things i wish i did:</h1>
+<p>One interview I did had me explaining the more technical parts of the brokebook website, specifically about some Python-specific syntax within Django. My answers were vague due to both not having a full grasp of Python or Django, and just being bad at explaining things under pressure. This encapsulates what I need to work on in 2021:</p>
+<ul>
+<li>Communicating clearly - this also includes having clearer thoughts and ideas</li>
+<li>Grokking any topics relevant to a project or an interview to a level that I can talk comfortably about them</li>
+<li>Making projects that I am passionate to talk about</li>
+</ul>
+<p>All my projects this year never went past the &quot;workable prototype/demo&quot; stage - I wish that I had spent some time polishing a couple of these and showing them off.</p>
+<h1 id="plans-for-2021">plans for 2021</h1>
+<ul>
+<li>Full grasp of basic data structures + (sorting/search) algorithms - I also want to make a project(s) that demonstrates effective uses of these structures</li>
+<li>Pass a coding interview</li>
+<li>Read more source code - I don't do this nearly enough, to the point where I can't clearly tell you what a well-written program or a well-organized project looks like.</li>
+<li>Finish and polish one project - that includes designing and planning for long-term development and maintenance.</li>
+</ul>
+<p>It's been a <em>very</em> interesting year, for me and the rest of the world. I'm keeping realistic expectations for 2021, but I aim to spend most of my time on becoming a kinder, more helpful, more active person than I am today.</p>
+<p>Thanks for reading through this with me, and I wish you a great year full of love, self-care, good food, goals met, and many more good things. - James</p>
+
+    </div>
+  </div>
+
+  </div>
+  <canvas></canvas>
+  <script src="/js/mainVisual.js"></script>
+</body>
+
+</html>
