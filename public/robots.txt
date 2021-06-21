@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://idkwhojamesis.github.io/sitemap.xml

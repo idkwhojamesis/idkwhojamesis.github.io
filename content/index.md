@@ -15,8 +15,8 @@ Contact: (hmu with job offers and/or contract work! I'll take pretty much anythi
 
 Most of my stuff is here:
 - [itch: games](https://idkwhojamesis.itch.io/)
-- [sketchfab: photogrammetry scans](https://sketchfab.com/idkwhojamesis)
 - [codepen: front-end stuff](https://codepen.io/idkwhojamesis) 
 - [github](https://github.com/idkwhojamesis)   
+- [sketchfab: photogrammetry scans](https://sketchfab.com/idkwhojamesis)
 
 Thanks for stopping by!
