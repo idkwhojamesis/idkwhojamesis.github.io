@@ -1,0 +1,94 @@
+{
+  "main": {
+    "id": "67c471fbc1948044",
+    "type": "split",
+    "children": [
+      {
+        "id": "376c0d9dd65b6a5a",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "portfolio/2020-05-18-games.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "47cb3aa38286db03",
+    "type": "split",
+    "children": [
+      {
+        "id": "94b84bfdf6607bfc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "efb48a9c3594b3c8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "f5a5702ce6f6f0f4",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b2262c59261f984b",
+    "type": "split",
+    "children": [
+      {
+        "id": "272ac790786d9985",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ff0e730da31c5394",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "portfolio/2020-05-18-games.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "376c0d9dd65b6a5a",
+  "lastOpenFiles": [
+    "portfolio/2020-05-18-games.md",
+    "index.md"
+  ]
+}

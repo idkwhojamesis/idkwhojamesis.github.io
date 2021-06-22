@@ -19,4 +19,10 @@ Most of my stuff is here:
 - [github](https://github.com/idkwhojamesis)   
 - [sketchfab: photogrammetry scans](https://sketchfab.com/idkwhojamesis)
 
+**If you have money,** please provide **direct aid** to people who need it:
+-  [BLACK TRANS/QUEERFEMME SUPPORT | Linktree](https://linktr.ee/btqflist/)
+- [@blackwomenexhale - mutual aid for black women, femmes and gnc individuals](https://www.instagram.com/blackwomenexhale/)
+- [@openyrpurse - mutual aid prioritizing black and brown people](https://www.instagram.com/openyrpurse/)
+- [Fundraiser for my girlfriend's feminization surgeries](https://www.gofundme.com/f/sofies-feminization-surgeries)
+
 Thanks for stopping by!
