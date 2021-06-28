@@ -37,9 +37,6 @@ Regardless, it was the first step in an ongoing journey to become a 'good' progr
 
 Since this first program, the upcoming two-year anniversary since its inception - and the beginning of my pursuit of programming - has encouraged me to evaluate my overall progress. The following is a brief overview of my first year of dedicated coding (2019), and then I will more closely review the past year (2020) and what I've learned + done.
 
-* TOC
-{:toc}
-
 # 2019: Resolution and Starting
 
 I had always wanted to be a coder since childhood, to the extent that my parents graciously paid for two years of summer camp at ID Tech to see if I'd pick it up. Vague memories of C++ "Hello World!" programs and asterisk pyramids, 2008 Minecraft Alpha and Team Fortress 2 tournaments make up my recollection of one of those years, the other which is somehow completely absent from my memory save for a Battlefield 2142 giveaway. As it turned out, my fourth-grade self hardly resembled any sort of coding genius and none of it really stuck. Despite my overbearing enthusiasm for computers and video game hardware trivia, I struggled to focus on even the most basic programming concepts. This, plus another significant time investment in classical violin, as well as a teacher who humiliated me for my shameless over-enthusiasm, convinced me and my parents to drop the path altogether and instead expand on my demonstrated talent for the violin. 

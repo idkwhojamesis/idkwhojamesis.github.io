@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="textbox-wrap">
   <div class="textbox">
-      <h1>{{ section.title }}</h1>
+      <h1 class="title">{{ section.title }}</h1>
       {% for page in section.pages %}
       <a href="{{ page.permalink | safe }}"><p>{{ page.title }}</p></a>
       {% endfor %}
   </div>
-  </div>
-{% endblock content %}
+{% endblock %}
+{% block style %} 
+<style>
+.link {
+  background-color: black;
+}
+#menu {
+  background-color: black;
+}
+</style>
+{% endblock %}
+{% block homelink %}
+<a class="subtitle link" href="/">idkwhojamesis</a>
+{% endblock %}
+{% block visual %}
+<script src="/js/dirVisual.js"></script>
+{% endblock %}

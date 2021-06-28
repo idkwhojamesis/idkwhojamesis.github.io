@@ -42,7 +42,7 @@ const rnds = (a = 0, b = 1) => (a + Math.random() * (b - a)) * (Math.random() < 
 const sps = new SolidParticleSystem('', scene, {});
 sps.addShape(jelly, 16);
 sps.updateParticle = (p) => {
-    p.color?.set(0.1, 0.3, 0.1, 1);
+    p.color?.set(0.1, 0.3, 0.1);
     p.position.set(rnds(0, 24), rnds(0, 36), rnds(0,24));
     p.rotation.set(rnds(0, 2 * Math.PI), rnds(0, 2 * Math.PI), 0);
     return p;
