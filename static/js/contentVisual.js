@@ -55,8 +55,7 @@ spsmesh.alwaysSelectAsActiveMesh = true;
 scene.onBeforeRenderObservable.add(() => spsmesh.rotation.y -= 0.001);
 
 const pp = new DefaultRenderingPipeline('');
-pp.bloomEnabled = true;
-pp.bloomWeight = 0.05;
+pp.bloomEnabled = false;
 pp.sharpenEnabled = true;
 pp.sharpen.edgeAmount = 1;
 
