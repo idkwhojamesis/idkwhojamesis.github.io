@@ -18,13 +18,14 @@
       left: -10px;
       top: 0;
     }
+    h1 {
+      line-height: 100%;
+    }
     .title {
       font-size: 2em;
-      opacity: 0.9;
       margin: 0;
     }
     .desc {
-      opacity: 0.9;
       margin: 0;
     }
     body {
@@ -37,6 +38,7 @@
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
+      overflow-wrap: break-word;
     }
     img {
       display: block;
@@ -50,6 +52,9 @@
       font-style: italic;
       color: white;
     }
+    code {
+      white-space: pre-wrap;
+    }
     .textbox {
       color: white;
       min-width: 300px;
@@ -58,57 +63,74 @@
       position: relative;
       padding: 2px;
       margin: 20px;
-      margin-top: 5%;
-      margin-bottom: 20%;
+      margin-top: 100px;
+      margin-bottom: 100px;
       z-index: 1;
       line-height: 150%;
     }
     .landing-content {
       position: fixed;
-      bottom:2%;
-      left:2%;
-      text-align:left;
       z-index: 2;
       padding: 1rem;
     }
-    @keyframes menu-fade {
-      0% {opacity: 0;}
-      100% {opacity: 0.8;}
+    .dropdown {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .navbar {
+      opacity: 0;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      visibility: hidden;
+      transition: opacity 0.7s;
+    }
+    #menu {
+      font-style:normal; 
+      background-color:black; 
+      text-align: right;
+    }
+    #home-menu {
+      opacity: 1;
+      transition: opacity 0.7s;
     }
     .subtitle {
       font-size: 1.3em;
       font-style: italic;
       text-decoration: none;
       padding: 5px;
-      transition: letter-spacing 0.3s;
-    }
-    .navbar {
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: space-around;
     }
     .link {
-      width: 170px;
-      opacity: 0;
-      transition: opacity 0.7s, letter-spacing 0.3s;
+      width: 120px;
+      transition: letter-spacing 0.3s;
     }
     .link:hover {
       letter-spacing: 0.1em;
     }
-    .navbar:hover .link {
-      opacity: 0.9;
+    .dropdown:focus-within .navbar {
+      opacity: 1;
+      visibility: visible;
     }
-    .navbar:hover #menu {
+    .dropdown:focus-within #home-menu {
       opacity: 0;
-    }
-    #menu {
-      opacity: 0.8;
-      transition: opacity 0.7s;
     }
   </style>
 
   {% block style %}
-  {% endblock style %}
+  <style>
+    .landing-content {
+      top:2%;
+      right:2%;
+    }
+    .navbar {
+      text-align: right;
+    }
+    .link {
+      background-color: black;
+      padding-right: 20px;
+    }
+  </style>
+  {% endblock %}
 
   <script src="https://cdn.babylonjs.com/babylon.js"></script>
   <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
@@ -120,14 +142,19 @@
     <div class="landing-content">
       {% block landingtitle %}
       {% endblock %}
-      <nav class="navbar">
-          {% block homelink %}{% endblock %}
+      <div class="dropdown">
+        {% block menuhead %}<a class="subtitle" id="menu" href="javascript:;">[ j p ]</a>{% endblock %}
+        <nav class="navbar">
+          {% block homelink %}<a class="subtitle link" href="/">home</a>{% endblock %}
           <a class="subtitle link" href="/about/">about</a>
           <a class="subtitle link" href="/portfolio/">portfolio</a>
           <a class="subtitle link" href="/resume/">resume</a>
           <a class="subtitle link" href="/updates/">updates</a>
-          <a class="subtitle" id="menu">menu</a>
-      </nav>
+        </nav>
+        {% block menutail %}{% endblock %}
+      </div>
+      </div>
+      </div>
     </div>  
     {% block content %}{% endblock %}                                
     <canvas></canvas>

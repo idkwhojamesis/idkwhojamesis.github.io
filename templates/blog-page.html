@@ -1,29 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="textbox">
-    <h1 class="title">
-        {{ page.title }}
-    </h1>
-    <p class="subtitle"><strong>{{ page.date }}</strong></p>
-    {{ page.content | safe }}
+  <h1 class="title">
+    {{ page.title }}
+  </h1>
+  <p class="subtitle"><strong>{{ page.date }}</strong></p>
+  {{ page.content | safe }}
 </div>
 {% endblock content %}
-{% block style %} 
-<style>
-.link {
-  background-color: black;
-}
-#menu {
-  background-color: black;
-}
-canvas {
-    pointer-events: none;
-}
-</style>
-{% endblock %}
-{% block homelink %}
-<a class="subtitle link" href="/">idkwhojamesis</a>
-{% endblock %}
 {% block visual %}
 <script src="/js/contentVisual.js"></script>
 {% endblock %}
