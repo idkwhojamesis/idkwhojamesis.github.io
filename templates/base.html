@@ -21,6 +21,14 @@
     h1 {
       line-height: 100%;
     }
+    #landing-title {
+      opacity: 0.8;
+      position: fixed;
+      bottom: 35%;
+      left: 2%;
+      padding: 1rem;
+      z-index: 2;
+    }
     .title {
       font-size: 2em;
       margin: 0;
@@ -68,22 +76,21 @@
       z-index: 1;
       line-height: 150%;
     }
-    .landing-content {
+    .dropdown {
       position: fixed;
       z-index: 2;
       padding: 1rem;
-    }
-    .dropdown {
       display: flex;
       flex-flow: column nowrap;
     }
     .navbar {
+      display: none;
       opacity: 0;
-      display: flex;
       flex-flow: column nowrap;
       justify-content: space-around;
-      visibility: hidden;
       transition: opacity 0.7s;
+      transition-delay: 1s;
+      transition-property: opacity;
     }
     #menu {
       font-style:normal; 
@@ -107,18 +114,18 @@
     .link:hover {
       letter-spacing: 0.1em;
     }
-    .dropdown:focus-within .navbar {
+    .dropdown:hover .navbar {
+      display: flex;
       opacity: 1;
-      visibility: visible;
     }
-    .dropdown:focus-within #home-menu {
+    .dropdown:hover #home-menu {
       opacity: 0;
     }
   </style>
 
   {% block style %}
   <style>
-    .landing-content {
+    .dropdown {
       top:2%;
       right:2%;
     }
@@ -139,11 +146,10 @@
 
 <body>
   <div id="fullpage">
-    <div class="landing-content">
       {% block landingtitle %}
       {% endblock %}
       <div class="dropdown">
-        {% block menuhead %}<a class="subtitle link" id="menu" href="javascript:void(0);">[ j p ]</a>{% endblock %}
+        {% block menuhead %}<a class="subtitle link" id="menu" >[ j p ]</a>{% endblock %}
         <nav class="navbar">
           {% block homelink %}<a class="subtitle link" href="/">home</a>{% endblock %}
           <a class="subtitle link" href="/about/">about</a>
@@ -152,7 +158,6 @@
           <a class="subtitle link" href="/updates/">updates</a>
         </nav>
         {% block menutail %}{% endblock %}
-      </div>
       </div>
       </div>
     </div>  

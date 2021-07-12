@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% block landingtitle %}
-<h1 class="title">james park</h1>
-<h2 class="desc">&nbsp;developer</h2>
-</br>
+<div id="landing-title">
+  <h1 class="title">james park</h1>
+  <h2 class="desc">&nbsp;developer</h2>
+</div>
 {% endblock content %}
 {% block homelink %}{% endblock %}
 {% block menuhead %}{% endblock %}
 {% block style %}
 <style>
-  .landing-content {
+  .dropdown {
     opacity: 0.8;
     bottom: 2%;
     left: 2%;
   }
 </style>
 {% endblock %}
-{% block menutail %}<a class="subtitle link" id="home-menu" href="javascript:void(0);">menu</a>{% endblock %}
+{% block menutail %}<a class="subtitle" id="home-menu">menu</a>{% endblock %}
