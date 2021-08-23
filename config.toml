@@ -4,6 +4,10 @@ base_url = "https://idkwhojamesis.github.io/"
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
+# for rss feed
+generate_feed = true
+feed_filename = "rss.xml"
+
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
@@ -14,4 +18,3 @@ highlight_code = false
 
 [extra]
 # Put all your custom variables here
-generate_feed = true
