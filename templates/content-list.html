@@ -2,9 +2,11 @@
 {% block content %}
   <div class="textbox">
       <h1 class="title">{{ section.title }}</h1>
+      <ol>
       {% for page in section.pages %}
-      <p>{{page.date}} <a href="{{ page.permalink | safe }}">{{ page.title }}</a></p>
+        <li style="list-style-type: none;"><time datetime="{{ page.date }}">{{ page.date }}</time> <a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
       {% endfor %}
+      </ol>
   </div>
 {% endblock %}
 {% block visual %}

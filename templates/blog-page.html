@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="textbox">
-  <h1 class="title">
-    {{ page.title }}
-  </h1>
-  <p class="subtitle"><strong>{{ page.date }}</strong></p>
-  {{ page.content | safe }}
+  <article>
+    <h1 class="title">{{ page.title }}</h1>
+    <time datetime="{{ page.date }}" class="subtitle">{{ page.date }}</time>
+    {{ page.content | safe }}
+  </article>
 </div>
 {% endblock content %}
 {% block visual %}
