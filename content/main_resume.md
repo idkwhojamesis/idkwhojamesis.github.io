@@ -5,7 +5,7 @@ path = "/resume"
 # James Park
 ## front-end web developer
 
-Last updated: 6 May 2022
+Last updated: 25 July 2022
 
 [github (code)](https://github.com/idkwhojamesis)  
 [codepen (front-end demos)](https://codepen.io/idkwhojamesis)  
@@ -14,15 +14,14 @@ Last updated: 6 May 2022
 ## Profile
 Front-end web developer seeking hands-on industry experience and mentorship. Passionate about UI/UX and making the web a fun, accessible, and safe place. 
 
-Currently based in Seattle, remote preferred (+ flexible with most time zones)  
-Open to contract work.  
+Currently based in Seattle, remote preferred (+ flexible with most time zones)
 
 ## Education
 
 ### M.S., Computer Science, Georgia Tech (2022)
-- I accepted my admission for the fall, but to be honest my future's pretty open right now. If I find work that is fulfilling but does not give me time to study, I am open to holding off on this.
+- Starting August
 
-### M.S., Computer Science, Fordham Univ. (2021, left)
+### M.S., Computer Science, Fordham Univ. (Spring 2021 only)
 - Relevant Coursework: Object Software Design (JS), Computer Algorithms (Python), Artificial Intelligence (Python)
 
 ### B.A., New Media and Digital Design, Fordham Univ. (2017-'21)
@@ -31,6 +30,14 @@ Open to contract work.
 - Member of Design for America, an idea incubator tackling social challenges through design
 
 ## Experience
+
+### Software Development Engineer, Amazon Web Services (Aug 2022 - Present)
+- Starting August
+
+## Contributions
+- [Include router.asPath caveats in docs by idkwhojamesis · Pull Request #36876 · vercel/next.js](https://github.com/vercel/next.js/pull/36876) (May 2022)
+
+## Projects and Activities
 
 ### Volunteer, IEEEVR 2020 Research Conference; Remote (Mar 2020)
 [Organization homepage](http://www.ieeevr.org/2020/)  
