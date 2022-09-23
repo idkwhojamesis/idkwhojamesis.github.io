@@ -3,28 +3,25 @@ path = "/resume"
 +++
 
 # James Park
-## front-end web developer
+## Software Development Engineer
 
-Last updated: 25 July 2022
+Last updated: 23 Sep 2022
 
 [github (code)](https://github.com/idkwhojamesis)  
 [codepen (front-end demos)](https://codepen.io/idkwhojamesis)  
 [itch.io (games)](https://idkwhojamesis.itch.io/)
 
-## Profile
-Front-end web developer seeking hands-on industry experience and mentorship. Passionate about UI/UX and making the web a fun, accessible, and safe place. 
-
-Currently based in Seattle, remote preferred (+ flexible with most time zones)
+Currently based in Seattle area
 
 ## Education
 
-### M.S., Computer Science, Georgia Tech (2022)
-- Starting August
+### M.S., Computer Science, Georgia Tech (2022 - Present)
+- Relevant Coursework: Human-Computer Interaction
 
 ### M.S., Computer Science, Fordham Univ. (Spring 2021 only)
 - Relevant Coursework: Object Software Design (JS), Computer Algorithms (Python), Artificial Intelligence (Python)
 
-### B.A., New Media and Digital Design, Fordham Univ. (2017-'21)
+### B.A., New Media and Digital Design, Fordham Univ. (2017 - '21)
 - 3.5/4 GPA, Dean's List
 - Relevant Coursework: Computer Science I+II (C++), Data Structures, Info and Data Management (Python, SQL), Intro to Video Game Design (C#), Creative Coding (JS)
 - Member of Design for America, an idea incubator tackling social challenges through design
@@ -32,7 +29,7 @@ Currently based in Seattle, remote preferred (+ flexible with most time zones)
 ## Experience
 
 ### Software Development Engineer, Amazon Web Services (Aug 2022 - Present)
-- Starting August
+- Working on Session Manager within AWS Systems Manager
 
 ## Contributions
 - [Include router.asPath caveats in docs by idkwhojamesis · Pull Request #36876 · vercel/next.js](https://github.com/vercel/next.js/pull/36876) (May 2022)
