@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - updates</title>
+      <link>https://idkwhojamesis.com/updates/</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://idkwhojamesis.com/updates/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Wed, 01 May 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>cloud-based nerfstudio using AWS EC2 and S3 Mountpoint</title>
+          <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://idkwhojamesis.com/updates/nerfstudio-on-aws/</link>
+          <guid>https://idkwhojamesis.com/updates/nerfstudio-on-aws/</guid>
+          <description>&lt;p&gt;Below are notes on how I set up &lt;a href=&quot;https:&#x2F;&#x2F;docs.nerf.studio&#x2F;index.html&quot;&gt;Nerfstudio&lt;&#x2F;a&gt; on an EC2 g5.xlarge instance, for &lt;a href=&quot;https:&#x2F;&#x2F;idkwhojamesis.itch.io&#x2F;factoria-2018&quot;&gt;a project where I reconstruct a mall using pictures I took in 2018&lt;&#x2F;a&gt;. I turned these images into Gaussian splats, then used the &lt;a href=&quot;https:&#x2F;&#x2F;lumalabs.ai&#x2F;ue&quot;&gt;Luma AI plugin for Unreal Engine 5&lt;&#x2F;a&gt; to stitch the splats together into a walkable first-person experience. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;nerfstudio&#x2F;mall_gaussian.png&quot; alt=&quot;Screenshot of the mall project&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;https:&#x2F;&#x2F;docs.nerf.studio&#x2F;quickstart&#x2F;installation.html&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;set-up-aws-resources&quot;&gt;Set up AWS resources&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;ec2-instance&quot;&gt;EC2 Instance&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Plan is to install nerfstudio on a fresh GPU-enabled EC2 instance running Ubuntu.&lt;&#x2F;li&gt;
+&lt;li&gt;You will need to request a quota increase on G-type instances if you haven&#x27;t already. 
+&lt;ul&gt;
+&lt;li&gt;Quota for G-type on-demand instances: https:&#x2F;&#x2F;us-west-2.console.aws.amazon.com&#x2F;servicequotas&#x2F;home&#x2F;services&#x2F;ec2&#x2F;quotas&#x2F;L-DB2E81BA&lt;&#x2F;li&gt;
+&lt;li&gt;Need to increase vCPU limit to at least 4 to run a g5.xlarge instance.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;aws.amazon.com&#x2F;releasenotes&#x2F;aws-deep-learning-base-gpu-ami-ubuntu-20-04&#x2F;&quot;&gt;AWS Deep Learning Base GPU AMI&lt;&#x2F;a&gt; seems to have all the base requirements. It runs Ubuntu 20.04 and installs both CUDA 12.1 and CUDA 11.8. 
+&lt;ul&gt;
+&lt;li&gt;A major pain point with installation is making sure that the default CUDA is set to 11.8. The default in this AMI is 12.1, so once the instance is launched you need to make sure to configure 11.8 to be the default. &lt;&#x2F;li&gt;
+&lt;li&gt;The AMI link above says to change running CUDA version by updating the symbolic link &lt;code&gt;&#x2F;usr&#x2F;local&#x2F;cuda&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;sudo rm &#x2F;usr&#x2F;local&#x2F;cuda&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;sudo ln -sfn &#x2F;usr&#x2F;local&#x2F;cuda-11.8 &#x2F;usr&#x2F;local&#x2F;cuda&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Allocated 75GB on disk and wasn&#x27;t enough later on, so extending to 200. &lt;&#x2F;li&gt;
+&lt;li&gt;I started a g5.xlarge instance with the AWS Deep Learning Base GPU AMI.&lt;&#x2F;li&gt;
+&lt;li&gt;to SSH into the host on Windows OpenSSH with a .pem file, need to change the key file&#x27;s permissions to ONLY Read, on ONLY your user specifically.&lt;&#x2F;li&gt;
+&lt;li&gt;In the instance&#x27;s security group open port 7007 to use the nerfstudio viewer. You can access it on your local machine on the address &lt;code&gt;http:&#x2F;&#x2F;&amp;lt;instance address&amp;gt;:7007&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre&gt;&lt;code&gt;conda activate nerfstudio
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;change-default-cuda-version&quot;&gt;change default CUDA version&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Git clone and use this script to switch CUDA version to 11.8: https:&#x2F;&#x2F;github.com&#x2F;phohenecker&#x2F;switch-cuda&#x2F;tree&#x2F;master&lt;&#x2F;li&gt;
+&lt;li&gt;Or just change running CUDA version by updating the symbolic link &lt;code&gt;&#x2F;usr&#x2F;local&#x2F;cuda&lt;&#x2F;code&gt;.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo rm &#x2F;usr&#x2F;local&#x2F;cuda&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;sudo ln -sfn &#x2F;usr&#x2F;local&#x2F;cuda-11.8 &#x2F;usr&#x2F;local&#x2F;cuda&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;install-nerfstudio&quot;&gt;install nerfstudio&lt;&#x2F;h2&gt;
+&lt;p&gt;https:&#x2F;&#x2F;docs.nerf.studio&#x2F;quickstart&#x2F;installation.html&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;install miniconda https:&#x2F;&#x2F;docs.anaconda.com&#x2F;free&#x2F;miniconda&#x2F;#quick-command-line-install then restart the shell. I had to do &lt;code&gt;exit&lt;&#x2F;code&gt; then &lt;code&gt;&#x2F;bin&#x2F;bash&lt;&#x2F;code&gt; then &lt;code&gt;cd &#x2F;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;install as specified above.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;s3-mountpoint&quot;&gt;s3 mountpoint&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;AmazonS3&#x2F;latest&#x2F;userguide&#x2F;mountpoint-installation.html#mountpoint.install.deb&lt;&#x2F;li&gt;
+&lt;li&gt;did credentials by having the instance profile provide full s3 access.&lt;&#x2F;li&gt;
+&lt;li&gt;create folder where you want to mount, then &lt;code&gt;mount-s3 &amp;lt;bucket name&amp;gt; &amp;lt;folder name&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Currently not able to have the output dir for &lt;code&gt;ns-process-data&lt;&#x2F;code&gt; as a folder inside the s3 bucket; &lt;code&gt;PermissionError: [Errno 1] Operation not permitted: &#x27;processed-data&#x2F;images&#x2F;frame_00001.jpg&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;remount-when-restarting-instance-after-stopping&quot;&gt;remount when restarting instance after stopping&lt;&#x2F;h3&gt;
+&lt;pre&gt;&lt;code&gt;mount-s3 factoria-2018-dataset .&amp;#x2F;s3mount-factoria-2018-dataset
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;install-colmap-and-ffmpeg&quot;&gt;install COLMAP and ffmpeg&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;needed to train custom image sets.&lt;&#x2F;li&gt;
+&lt;li&gt;https:&#x2F;&#x2F;docs.nerf.studio&#x2F;quickstart&#x2F;custom_dataset.html#installing-colmap&lt;&#x2F;li&gt;
+&lt;li&gt;worked without issue.&lt;&#x2F;li&gt;
+&lt;li&gt;Just installed ffmpeg using conda &lt;code&gt;conda install ffmpeg&lt;&#x2F;code&gt; and works without issue&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;creating-the-splat&quot;&gt;creating the splat!!!&lt;&#x2F;h2&gt;
+&lt;p&gt;Process image data&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt; ns-process-data images --data .&amp;#x2F;s3mount-factoria-2018-dataset&amp;#x2F;area-4&amp;#x2F; --output-dir ~&amp;#x2F;area-4-processed
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Generate the splat&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;ns-train splatfacto --data ~&amp;#x2F;area-4-processed --output-dir ~&amp;#x2F;area-4-outputs
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre&gt;&lt;code&gt;ns-render camera-path --load-config &amp;#x2F;home&amp;#x2F;ubuntu&amp;#x2F;area-4-outputs-ingp&amp;#x2F;area-4-processed&amp;#x2F;instant-ngp&amp;#x2F;2024-04-14_080837&amp;#x2F;config.yml --camera-path-filename &amp;#x2F;home&amp;#x2F;ubuntu&amp;#x2F;area-4-processed&amp;#x2F;camera_paths&amp;#x2F;2024-04-14-09-59-00.json --output-path renders&amp;#x2F;area-4-processed&amp;#x2F;2024-04-14-09-59-00.mp4
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;do-the-command-in-background-even-after-terminal-exits&quot;&gt;do the command in background even after terminal exits&lt;&#x2F;h2&gt;
+&lt;p&gt;https:&#x2F;&#x2F;phoenixnap.com&#x2F;kb&#x2F;linux-run-command-background&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;nohup [command] &amp;amp;
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Check the background processes&#x27; status in the current shell session with the &lt;strong&gt;&lt;code&gt;jobs&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt; command:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;jobs
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The output saves in the &lt;strong&gt;nohup.out&lt;&#x2F;strong&gt; log file. Verify the log with &lt;a href=&quot;https:&#x2F;&#x2F;phoenixnap.com&#x2F;kb&#x2F;linux-cat-command&quot;&gt;cat&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;cat nohup.out
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To bring a background process back to the foreground, use &lt;strong&gt;&lt;code&gt;fg&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt; followed by the job ID or process ID.&lt;&#x2F;p&gt;
+&lt;p&gt;For instance, if Vim had job ID 1, bring it back to the foreground using the job ID with:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;fg 1%
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To use the process ID, execute:&lt;&#x2F;p&gt;
+&lt;pre&gt;&lt;code&gt;fg 2781
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+      </item>
+      <item>
+          <title>migrating from Notion to Obsidian</title>
+          <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://idkwhojamesis.com/updates/notion-to-obsidian/</link>
+          <guid>https://idkwhojamesis.com/updates/notion-to-obsidian/</guid>
+          <description>&lt;p&gt;Earlier this year, Notion&#x27;s flaws had frustrated me enough to get me to spend days moving all my stuff to a new notes application called &lt;a href=&quot;https:&#x2F;&#x2F;obsidian.md&#x2F;&quot;&gt;Obsidian&lt;&#x2F;a&gt;. Unlike Notion, Obsidian is a notes system that operates on top of a simple folder of notes - notes are stored as plain .md files, organized in regular folders. All notes and attachments are local and can be regularly accessed with a file explorer. .md files can always be opened in a plain text editor as well. The rest - cross-linking, graphs, organizing tags, etc. - is handled within Obsidian and doesn&#x27;t interfere with your actual notes. &lt;&#x2F;p&gt;
+&lt;p&gt;If you have used Notion you may understand the appeal of this as it makes the bold decision of, well, actually giving you access to your valuable notes offline and outside the app.&lt;&#x2F;p&gt;
+&lt;p&gt;Below are my notes on my experience of the pros and cons of both Notion and Obsidian, my experience transferring Notion data to Obsidian, and some screenshots of how I worked within both. Overall, while I miss some stuff about Notion, I also definitely don&#x27;t miss some other parts. Obsidian is more basic but ultimately is designed around a different agenda, and so far I enjoy it more. If you&#x27;ve been thinking of escaping Notion I hope this helps. &lt;&#x2F;p&gt;
+&lt;h1 id=&quot;tldr-pros-and-cons&quot;&gt;TLDR &#x2F; pros and cons&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;notion-as-of-late-2020&quot;&gt;Notion (as of late 2020)&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;pros&quot;&gt;Pros&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Powerful and extremely flexible, but still very easy to learn
+&lt;ul&gt;
+&lt;li&gt;Structuring my stuff around tables as databases for knowledge worked perfectly. Categorizations and tagging especially were very satisfying to use, and worked very well for search. &lt;&#x2F;li&gt;
+&lt;li&gt;Without plugins, it has the perfect amount of customization for people to make websites, organization systems, agendas, note-taking systems, interactive calendars, and more without being overwhelming.&lt;&#x2F;li&gt;
+&lt;li&gt;Once you realize &amp;quot;everything is a page&amp;quot; its easy to figure out how Notion works&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Templates allow newcomers to get tons of functionality out-the-box&lt;&#x2F;li&gt;
+&lt;li&gt;web-based&lt;&#x2F;li&gt;
+&lt;li&gt;Shared workspaces and collaborating works great&lt;&#x2F;li&gt;
+&lt;li&gt;Instantly share or privatize any page&lt;&#x2F;li&gt;
+&lt;li&gt;visual, intuitive, drag-and-drop block system
+&lt;ul&gt;
+&lt;li&gt;WYSIWYG editing&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;regularly updated with new (and useful) features and performance improvements&lt;&#x2F;li&gt;
+&lt;li&gt;Aesthetically pleasing&lt;&#x2F;li&gt;
+&lt;li&gt;API allows for interactions with other services (I haven&#x27;t tried it though)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;cons&quot;&gt;Cons&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;UNUSABLE OFFLINE&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;This is pretty much what made me switch. On trains, planes, basements with poor wifi, you are completely locked out from your stuff without a decent internet connection.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Poor performance, even slower on mobile
+&lt;ul&gt;
+&lt;li&gt;Recent updates have apparently improved the speed&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Memory hog, which is especially bad for something you typically keep open all day&lt;&#x2F;li&gt;
+&lt;li&gt;Formatting can get weird on mobile&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;obsidian&quot;&gt;Obsidian&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;pros-1&quot;&gt;Pros&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Available offline&lt;&#x2F;li&gt;
+&lt;li&gt;Files are organized sanely and are accessible outside the app with no friction&lt;&#x2F;li&gt;
+&lt;li&gt;Also easy to learn; if you don&#x27;t want most of the fancy stuff and just want a notes app, you can start instantly. The fancy stuff stays out of your way if you don&#x27;t want it.&lt;&#x2F;li&gt;
+&lt;li&gt;Powerful search and connection features
+&lt;ul&gt;
+&lt;li&gt;In a note, hyperlinks to other notes create a connection that will be visible in search&lt;&#x2F;li&gt;
+&lt;li&gt;Add tags to notes to search by topics; notes with the same tag also will have a visible connection&lt;&#x2F;li&gt;
+&lt;li&gt;Connections will literally visualize via the &lt;a href=&quot;https:&#x2F;&#x2F;help.obsidian.md&#x2F;Plugins&#x2F;Graph+view&quot;&gt;Graph view (Obsidian docs page)&lt;&#x2F;a&gt; - definitely a more &amp;quot;fancy&amp;quot; feature but if you&#x27;re into &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Zettelkasten&quot;&gt;Zettelkasten&lt;&#x2F;a&gt; and the idea of notes as your &amp;quot;second brain&amp;quot; it&#x27;s cool seeing your notes collection interconnect as they grow over time. Check the docs page above for an example; the Obsidian docs themselves have a graph view of their structure to the right of the text.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Themes and custom plugins built-in and can sync across devices (I think?)
+&lt;ul&gt;
+&lt;li&gt;I use the Atom theme from the theme browser&lt;&#x2F;li&gt;
+&lt;li&gt;The good plugins feel like native features; I strongly recommend &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tgrosinger&#x2F;advanced-tables-obsidian&quot;&gt;Advanced Tables&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Efficient UI&lt;&#x2F;li&gt;
+&lt;li&gt;Panel splitting like VS Code: unexpectedly this is my favorite feature that Notion doesn&#x27;t have. This one feature has turned Obsidian into a self-contained system for eg. referencing notes when writing a paper.&lt;&#x2F;li&gt;
+&lt;li&gt;Save panel layouts aka &amp;quot;workspaces&amp;quot;: Save panel and menu configs for different contexts. Examples of this are in my workflow screenshots at the bottom of this post.&lt;&#x2F;li&gt;
+&lt;li&gt;App is lightweight and fast on all platforms (although it does use Electron)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;cons-1&quot;&gt;Cons&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;(less a con than disclosure) if you were a Notion superuser, used tables, or mainly used it for purposes other than a pure notes app, you will have to adapt to a different system or be disappointed. You can probably replicate most of it, like the calendar and integrations, through custom plugins but personally I didn&#x27;t want to rely too much on those and ended up simplifying a lot of my Notion stuff. Trying to 1:1 your Notion setup will probably be an uphill battle.&lt;&#x2F;li&gt;
+&lt;li&gt;you might not like Electron&lt;&#x2F;li&gt;
+&lt;li&gt;not open source! Some popular alternatives (I haven&#x27;t tried these)
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;foambubble.github.io&#x2F;foam&#x2F;&quot;&gt;Foam | A personal knowledge management and sharing system for VSCode&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;tiddlywiki.com&#x2F;&quot;&gt;TiddlyWiki — a non-linear personal web notebook&lt;&#x2F;a&gt; &lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;no web app available &lt;&#x2F;li&gt;
+&lt;li&gt;no collaboration features that I know of&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;migrating-my-notes-to-obsidian&quot;&gt;migrating my notes to obsidian&lt;&#x2F;h1&gt;
+&lt;p&gt;These notes are really rough, sorry. If you have any other questions check the &lt;a href=&quot;https:&#x2F;&#x2F;forum.obsidian.md&#x2F;t&#x2F;notion-2-obsidian-migration-instructions&#x2F;2728&quot;&gt;Obsidian forums&lt;&#x2F;a&gt; or send me a message.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;packing-for-the-move&quot;&gt;packing for the move&lt;&#x2F;h2&gt;
+&lt;p&gt;Notion&#x27;s export options are a bit messy as the way everything is either a Page or a database of Pages doesn&#x27;t perfectly translate to any common file format. There are a handful of &lt;a href=&quot;https:&#x2F;&#x2F;forum.obsidian.md&#x2F;t&#x2F;notion-2-obsidian-migration-instructions&#x2F;2728&quot;&gt;discussions&lt;&#x2F;a&gt; on the Obsidian forums on how to clean your Notion export as much as possible for Obsidian, but I mostly just skimmed through them and did the basics without trying to match organization perfectly. I chose the .CSV + .MD export, which is recommended as it translates your notes directly to Markdown and pretty much keeps them intact except for any included databases or internal links to other pages which won&#x27;t really be usable. As far as I remember, the .CSVs don&#x27;t matter too much in terms of content storage as all the Pages stored in a certain table are collected in a folder as .MD files. If you had some tables where you just stored a value or text in each cell (eg. bookmarks), however, you&#x27;ll have to get it from the .CSV&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;export-in-excel.png&quot; alt=&quot;Notion dump of my bookmarks to .csv&quot; &#x2F;&gt;
+Notion dump of my bookmarks to .csv&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;structure-of-notion-workspace&quot;&gt;structure of notion workspace&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;notion-map.png&quot; alt=&quot;map of how my notion stuff was structured&quot; &#x2F;&gt;
+map of how my notion stuff was structured&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;main: quick notes + link to important resources&lt;&#x2F;li&gt;
+&lt;li&gt;bookmarks - ALL web links stored here
+&lt;ul&gt;
+&lt;li&gt;all pages referenced a bookmarks listing to refer to a link&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;library - list of books, with attached PDFs + notes
+&lt;ul&gt;
+&lt;li&gt;similar to bookmarks as a general database&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;notes - database of misc. uncategorized notes, mostly personal or rough ideas &lt;&#x2F;li&gt;
+&lt;li&gt;site updates - draft blog posts&lt;&#x2F;li&gt;
+&lt;li&gt;work applications - database of application links with status tracker&lt;&#x2F;li&gt;
+&lt;li&gt;resume - edit markdown of resume content to be used in resume builders&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;translating-tables-and-pages-to-folders-and-docs&quot;&gt;translating tables and pages to folders and docs&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;tags-and-mentions&quot;&gt;tags and mentions&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;organize bookmarks by tags
+&lt;ul&gt;
+&lt;li&gt;should links be all in one file or a folder of individual files per link?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;bookmarks&quot;&gt;Bookmarks&lt;&#x2F;h3&gt;
+&lt;ol&gt;
+&lt;li&gt;from notion backup used .csv of Bookmarks table&lt;&#x2F;li&gt;
+&lt;li&gt;formatted cells into a link format + tags
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;notion-bookmarks.png&quot; alt=&quot;my notion bookmarks page&quot; &#x2F;&gt;
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-bookmarks-main.png&quot; alt=&quot;my obsidian bookmarks page&quot; &#x2F;&gt;
+looking at the two side-by-side makes me miss Notion more than usual. I liked having the &amp;quot;Date Created&amp;quot; attribute tell me when I added a bookmark.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;library&quot;&gt;Library&lt;&#x2F;h3&gt;
+&lt;p&gt;similar to bookmarks
+save PDFs in Library Files folder and reference&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;notes&quot;&gt;notes&lt;&#x2F;h3&gt;
+&lt;p&gt;imported apple notes to markdown with &lt;a href=&quot;https:&#x2F;&#x2F;apps.apple.com&#x2F;us&#x2F;app&#x2F;exporter&#x2F;id1099120373?ls=1&amp;amp;mt=12&quot;&gt;Exporter&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+trimmed current note titles + formatting with &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;connertennery&#x2F;Notion-to-Obsidian-Converter&quot;&gt;Notion to Obsidian Converter&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;site-updates&quot;&gt;site updates&lt;&#x2F;h3&gt;
+&lt;p&gt;formatted into a list of links&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;work-applications&quot;&gt;work applications&lt;&#x2F;h3&gt;
+&lt;p&gt;formatted into a list of links separated by headers&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;resume&quot;&gt;resume&lt;&#x2F;h3&gt;
+&lt;p&gt;merged MD from notion and my website&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;learning-projects&quot;&gt;learning + projects&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;separated&lt;&#x2F;li&gt;
+&lt;li&gt;just ported over my CTCI page from learning&lt;&#x2F;li&gt;
+&lt;li&gt;project pages were ported with asset folders for screenshots&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;finally-main&quot;&gt;finally... main&lt;&#x2F;h3&gt;
+&lt;p&gt;stripped down to just the immediate todo list; i have a directory of all my stuff right here&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;other-things-to-consider&quot;&gt;Other things to consider&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;what-about-synchronization&quot;&gt;what about synchronization?&lt;&#x2F;h2&gt;
+&lt;p&gt;I recently bought Obsidian Sync and it works well for syncing with my phone and iPad.&lt;br &#x2F;&gt;
+Before buying it I set up a crontab job that automatically commits and pushes the notes folder on my mac; here&#x27;s my note on how to get it done bc it can be a bit frustrating:&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;automating-git-with-crontab-for-mac&quot;&gt;automating git with crontab for mac&lt;&#x2F;h3&gt;
+&lt;p&gt;#git #cron #obsidian #mac&lt;br &#x2F;&gt;
+for mac:&lt;br &#x2F;&gt;
+make sure cron has path to your scripts&lt;br &#x2F;&gt;
+GIT PUSH DOESNT WORK, you have to generate a SSH key on mac then add it to github&lt;br &#x2F;&gt;
+https:&#x2F;&#x2F;askubuntu.com&#x2F;questions&#x2F;117978&#x2F;script-doesnt-run-via-crontab-but-works-fine-standalone&lt;br &#x2F;&gt;
+https:&#x2F;&#x2F;superuser.com&#x2F;questions&#x2F;564829&#x2F;git-push-to-github-via-cron-on-mac&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;mobile-app&quot;&gt;mobile app&lt;&#x2F;h2&gt;
+&lt;p&gt;It just came out so I haven&#x27;t used it much. It&#x27;s definitely a little different from the desktop app and it feels like it works best with a connected keyboard, but it seems to include everything including themes and custom plugins. For touch control you either swipe from the edges for the gray menus to navigate files, outlines, etc. or from swipe down to reveal the command palette from the top edge. I&#x27;m still getting used to it but its a clever way to find your way towards essential actions. I think the iPad version needs some formatting adjustment so the gray menus don&#x27;t take up so much space when opened.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-mobile5.png&quot; alt=&quot;on Obsidian mobile, my &amp;quot;home&amp;quot; workspace with my main to-do and bookmarks.&quot; &#x2F;&gt;&lt;br &#x2F;&gt;
+my &amp;quot;home&amp;quot; workspace with my main to-do and bookmarks.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-mobile4.png&quot; alt=&quot;on Obsidian mobile, swipe for the menu.&quot; &#x2F;&gt;
+swipe for the menu.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-mobile3.png&quot; alt=&quot;on Obsidian mobile, editing view with keyboard.&quot; &#x2F;&gt;
+editing view with keyboard.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-mobile1.png&quot; alt=&quot;on Obsidian mobile, full-page editing view.&quot; &#x2F;&gt;
+full-page editing view.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-mobile2.png&quot; alt=&quot;on Obsidian mobile, full-page reading view.&quot; &#x2F;&gt;
+full-page reading view.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;more-screenshots&quot;&gt;more screenshots&lt;&#x2F;h1&gt;
+&lt;p&gt;I was going to describe my Obsidian and Notion workflows and compare them, but it&#x27;s been difficult trying to put the experience into words. When revisiting my Notion workspace to take screenshots I remembered that one thing I realized when switching to Obsidian was just how over-engineered I made everything in Notion; I re-organized the Skills section of my resume into a table just so I could have it sync in both my Skills page and Resume page, and for what? I have to admit that most of my interest in Notion was spending hours reorganizing my notes to use fancy new features when I should have been doing work. Obsidian made me flatten everything down into plain Markdown, headings, tags, and cross-linking which has been sufficient. &lt;&#x2F;p&gt;
+&lt;p&gt;So, instead of describing my workflow I will show you some of the main pages I used in Notion as well as the workspace layouts I currently use in Obsidian.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;notion-screenshots&quot;&gt;Notion screenshots&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;notion-structure.png&quot; alt=&quot;the directory of my Notion system.&quot; &#x2F;&gt;&lt;br &#x2F;&gt;
+the directory of my Notion system.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;notion-main.png&quot; alt=&quot;my main Notion page where I would link to important stuff and to-do.&quot; &#x2F;&gt; 
+my main Notion page where I would link to important stuff and to-do. The top quote block would usually have the most important thing I had to do that day.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;notion-classes.png&quot; alt=&quot;Notion page for managing classes.&quot; &#x2F;&gt;
+Notion page for managing classes.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;notion-resume.png&quot; alt=&quot;Notion page for managing resume.&quot; &#x2F;&gt;
+Notion page for managing resume.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;obsidian-screenshots&quot;&gt;Obsidian screenshots&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-example.png&quot; alt=&quot;typical layout. current writing in the center, and bookmarks and my main to-do pinned to the right.&quot; &#x2F;&gt;
+typical layout. current writing in the center, and bookmarks and my main to-do pinned to the right. If I need to open something else I split panels horizontally and &lt;code&gt;Cmd+O&lt;&#x2F;code&gt; what I&#x27;m looking for.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-bookmarks-main.png&quot; alt=&quot;&amp;quot;bookmarks + main&amp;quot; layout. When I&#x27;m web browsing or not doing anything I have this layout open.&quot; &#x2F;&gt;
+&amp;quot;bookmarks + main&amp;quot; layout. When I&#x27;m web browsing or not doing anything I have this layout open. One of the biggest differences I&#x27;ve had to adjust to in Obsidian was when importing my bookmarks; you might have noticed that a lot of them remain uncategorized. In Notion, categorizing was pretty easy as I could search for the right tag and then have the bookmarks table sort by topic. I could also have multiple topics tagged for each without hassle. Since there&#x27;s no such thing in stock Obsidian, I&#x27;ve opted for a plain-Markdown list organized by headers. This lead to a dilemma: do I have to pick just one category for each? do I add extra tags? Since I can&#x27;t re-sort a plaintext list easily, I just chose to put bookmarks under one header by their most relevant topic. This has taken a bit more effort so currently I have 200 or so bookmarks just listed under &amp;quot;to file&amp;quot;. Also, Obsidian&#x27;s tags don&#x27;t really work for this since searching through tags means going one by one through each mention of the tag instead of something like a filtered list of what you want. I think tags were designed with the assumption that you are tagging the page, not specific content. Been looking at the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;blacksmithgu&#x2F;obsidian-dataview&quot;&gt;dataview&lt;&#x2F;a&gt; plugin to maybe make a better bookmarks thing; reach out if you have a solution of your own.
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-workspaces.png&quot; alt=&quot;save and load different &amp;quot;workspaces&amp;quot; which are saved panel configurations.&quot; &#x2F;&gt;&lt;br &#x2F;&gt;
+save and load different &amp;quot;workspaces&amp;quot; which are saved panel configurations. 
+&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;notion-to-obsidian&#x2F;obsidian-graph.png&quot; alt=&quot;unlabeled graph view of all my notes.&quot; &#x2F;&gt;
+unlabeled graph view of all my notes. yellow dots represent tags present in the notes (gray) they are connected to. bigger gray dots are notes with more text. connections between gray dots mean one note is hyperlinked to the other. Unlike the world wide web, you can see the &amp;quot;backlinks&amp;quot; of each note, or every instance of that note being hyperlinked in another note, letting you backtrack to see the context around that note.&lt;&#x2F;p&gt;
+&lt;p&gt;Ultimately, Notion and Obsidian become very different beasts if you want to use them as more than a basic place to write and store your notes. For a note-taker who needs something for school, I can wholeheartedly recommend Obsidian. The context and search features help you revisit and re-contextualize your notes when it&#x27;s time to review them, and otherwise it functions as a minimalist note-taking app suited for someone who, for example, might have had issues or hit roadblocks with Apple Notes or Evernote. I can only recommend Notion if you are willing to compromise basic necessities like offline access for a more complex platform that can more broadly manage various parts of your life beyond note-taking. &lt;&#x2F;p&gt;
+&lt;p&gt;I really miss that aspect of Notion where it has really gone beyond note-taking - once you discover its powers you can kind of map out your entire life on it, like a &amp;quot;life system&amp;quot; that surpasses the typical system of using your OS Desktop as a space to stuff random docs, spreadsheets, screenshots, notes, etc. I don&#x27;t know how to convey the satisfaction of mapping out my mental lists of movies, books, video games, bookmarks, study areas, and more onto tables where I can store what I know, how I feel, and what I want to explore, all with very little friction. It&#x27;s a shame that this amazing software had to manifest as a web-based lagfest that keeps all its data in a black box that I lose access to when my wi-fi cuts out. &lt;&#x2F;p&gt;
+&lt;p&gt;Notion&#x27;s flaws have created a demand for something similar built on saner foundations. The most hyped platform I have seen so far is &lt;a href=&quot;https:&#x2F;&#x2F;anytype.io&#x2F;&quot;&gt;Anytype.io&lt;&#x2F;a&gt;, which seems to be more self-aware about being an operating environment for people whose lives revolve around files and data. They promise an open-source platform that runs completely locally like Obsidian while providing the flexibility to essentially make your own apps and workflows like Notion, among many more promised features like using IPFS protocol and encrypted peer-to-peer data exchange&#x2F;sync. &lt;&#x2F;p&gt;
+&lt;p&gt;Until then, I am sticking with Obsidian. I used Obsidian to write most of the stuff for this website and it&#x27;s worked well for that as the Markdown transfers to Zola; I just have to redo all the image links. If you&#x27;re deciding between platforms for school, work, research, anything like that I hope this helped.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>kenopsia, liminal spaces, malls, nostalgia, the end of retail</title>
+          <pubDate>Sat, 14 Aug 2021 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://idkwhojamesis.com/updates/kenopsia/</link>
+          <guid>https://idkwhojamesis.com/updates/kenopsia/</guid>
+          <description>&lt;p&gt;Sometime last year was when I think the Internet&#x27;s fascination with &amp;quot;liminal spaces&amp;quot; reached its peak, mostly with the &amp;quot;backrooms&amp;quot; greentext reaching tumblr, youtube, twitter, etc., and in context I think the fascination with images like that of the backrooms makes perfect sense. It ties deeply with the Y2K nostalgia of today&#x27;s gen Z and millenials, part of a greater nostalgia wave that exploded with the 2015-2017 vaporwave phenomenon and has only grown since. It’s literally everywhere, seen in the tastes of Depop’s top thrift resellers, the ridiculous value of 1st-gen Pokemon cards, the front page of Netflix overtaken by reboots and reunions of every single 90’s sitcom. The saying “everything old is new” has been taken to the extreme, and there is nothing interesting except for the old. Modern stuff is a bore; it’s the “startup aesthetic”, its what you see while working your middle-of-the-ladder office job. It’s the clean, redesigned bank app telling you with a smile that you’ve overdrafted once again. It reeks of passive-aggressive HR manager and unbearable social media marketer. If you could, you would run away from all that and embrace the colorful and fantastic designs that built the physical and digital places you used to play in.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;kenopsia&#x2F;mcds.jpg&quot; alt=&quot;Nintendo 64 kiosk at a McDonald&#x27;s&quot; &#x2F;&gt;
+&lt;a href=&quot;https:&#x2F;&#x2F;old.reddit.com&#x2F;r&#x2F;retrogaming&#x2F;comments&#x2F;5pzzrc&#x2F;i_stumbled_upon_a_mcdonalds_with_a_nintendo_64&#x2F;&quot;&gt;I stumbled upon a McDonalds with a Nintendo 64 setup. I&#x27;m mildly entertained... : retrogaming&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I remember my obsession with vaporwave in high school extending to the adjacent fascination of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Dead_mall&quot;&gt;abandoned malls&lt;&#x2F;a&gt; and the way they were empty remnants of 80s&#x2F;90s&#x2F;00s culture, designed with the optimistic vision of being a new social space focused on coolness and having a good time. As the 2010s progressed and especially as online shopping has become the norm, it was hard to ignore that visiting the mall was becoming less and less a desired experience in American middle class life. Malls started to fade away in a way they were never supposed to; its depressing to see these once inviting places, built on massive plots of land in probably the most commercially viable locations in their regions, now be taken over by supermarket chains and&#x2F;or becoming vacant hallways of nothingness, as smaller stores and restaurants get driven out by greedy mall owners and rising leases. As the first year of the COVID-19 pandemic came and went, it has plunged the knife far deeper into the already-dying mall, finishing off countless chains that were already on their last legs, some of them given a swan song as &lt;a href=&quot;https:&#x2F;&#x2F;www.cnn.com&#x2F;2021&#x2F;01&#x2F;15&#x2F;business&#x2F;malls-vaccination-sites&#x2F;index.html&quot;&gt;sheltered waiting areas for long vaccination lines&lt;&#x2F;a&gt;. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;kenopsia&#x2F;mall.jpeg&quot; alt=&quot;abandoned mall&quot; &#x2F;&gt;
+&lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;SpaceLiminalBot&#x2F;status&#x2F;1339355255235096580&quot;&gt;Tweet by @SpaceLiminalBot&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Observation of the continuing &amp;quot;abandoned mall&amp;quot; phenomenon was the root of a fascination that, tied in with &amp;quot;cursed&amp;quot; meme culture, broadened into a general fascination with abandoned architecture similar to malls, where the interior is more a highway or &amp;quot;hub&amp;quot; to transition people from one &amp;quot;real&amp;quot; place to another - the mall, for example, serving as a hub to go between restaurants, shops, etc. - which extends to empty airports, school hallways, bus stops, old offices, amusement parks, and countless other settings where, I think the closest way to describe it is where it seems like &lt;em&gt;an area was once of great use or desire to the public, but has since outlived its purpose&lt;&#x2F;em&gt;. &lt;&#x2F;p&gt;
+&lt;p&gt;(this next part is me trying to explain the nuances of this aesthetic without knowing that a word has already been invented for what I&#x27;m describing: &lt;a href=&quot;https:&#x2F;&#x2F;www.dictionaryofobscuresorrows.com&#x2F;post&#x2F;27720773573&#x2F;kenopsia&quot;&gt;kenopsia&lt;&#x2F;a&gt;. In my opinion kenopsia is a much better descriptor for the aesthetic I&#x27;m describing rather than putting it all under the generic category of liminal spaces.)&lt;&#x2F;p&gt;
+&lt;p&gt;This is the fascination that the internet likes to categorize as &amp;quot;liminal spaces&amp;quot;, but it’s a bit more specific than that. Liminal spaces are everywhere; every time you walk through an airport or a hallway to go from one location to another that’s by definition a liminal space. In addition to being liminal, the spaces that interest internet people are almost always &lt;em&gt;abandoned&lt;&#x2F;em&gt; or otherwise empty (a popular subset I&#x27;ve noticed is when the space seems like its closed for the night, but the photographer is still inside, giving a vague sense that you&#x27;re not supposed to be seeing this). There’s never anyone else around… no one you can see, at least. This emptiness brings a sense of dread to places where you might usually feel normal or even homely. This is arguably even more important to the phenomenon than actually being a liminal space, extending to pools, arcades, empty homes, etc. If you ever went to an arcade as a kid, think of the warm feeling you get from the swarm of sound effects, colorful lights and energetic crowds all around you. The “liminal spaces” phenomenon is revisiting that same place in a state you’re never supposed to see: deafening silence, there is no energy, everything has faded and the world has forgotten it.&lt;&#x2F;p&gt;
+&lt;p&gt;This explanation makes liminal spaces seem scary or something to be avoided, but for me I have found a lot of calm and comfort in looking at them. I think a lot of the attraction lies in the unexpected familiarity of these spaces. What sets liminal spaces apart from the locations they bridge together is that they’re both invisible and omnipresent. You’re not really supposed to think about them, but if you and your online circle are confronted with them, you will all universally recognize them, and have a conscious thought about them for the first time even though they’ve always been in your lives.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;kenopsia&#x2F;fac18.png&quot; alt=&quot;The mall near my high school. Taken by me&quot; &#x2F;&gt;
+The mall near my high school. Taken by me&lt;&#x2F;p&gt;
+&lt;p&gt;When I was a senior in high school my favorite pastime was to wander in the aisles without buying anything in the Target in the local mall by my high school. I would also walk around the mall’s perimeter and see where the cargo trucks dock in and where the shopping carts were stored. The mall had hidden entrances and a sealed-off section where you could sneak in and there were two abandoned stores and a brass water fountain. A couple times I went in the early morning and other times late at night and would have the entire building to myself save for one security guard at most. Even as a smaller mall, it felt vast and spaced out, like the inside a tall cathedral. To be honest I think it was built to handle much more traffic than it ever got usually. For each section of the mall it was like a massive hallway with stores on both sides, and you would only ever pass by like 3-4 people or a family at most.&lt;&#x2F;p&gt;
+&lt;p&gt;It’s jarring to realize that some liminal spaces have begun to lose their importance in the past decade or so. I don’t go out much for mundane things anymore and neither do many other upper-middle-class Americans. When I lived in Manhattan I almost always get my groceries delivered to the door. For restaurants I pretty much only had the choice of getting it delivered due to pandemic shutdowns. I haven’t gotten clothes, towels, furniture, tools from anywhere except online for years now. I only ever have to go out to take out the trash or whenever I have a job that’s not online. Retail is either dying or, if it’s due for a revival, it will be mainly for the social contact that it once facilitated.&lt;&#x2F;p&gt;
+&lt;p&gt;Nostalgia feels like a yin-yang of comfort and longing. It’s a lot more abstract than reminiscing on certain memories and more like a temporary mental escape to a more liberating mindset about life that I used to have. When the nostalgia goggles are strong I think about how far I’ve strayed from being an optimistic, enthusiastic kid who showed potential in many things.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>two years of CS - a review of 2019-2020</title>
+          <pubDate>Sun, 03 Jan 2021 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://idkwhojamesis.com/updates/two-year-review/</link>
+          <guid>https://idkwhojamesis.com/updates/two-year-review/</guid>
+          <description>&lt;p&gt;It&#x27;s been two years since I started programming.&lt;&#x2F;p&gt;
+&lt;p&gt;I keep a tracker of how many days it&#x27;s been since my first program on &lt;a href=&quot;https:&#x2F;&#x2F;repl.it&#x2F;~&quot;&gt;repl.it&lt;&#x2F;a&gt; - its first revision being dated Feb 27, 2019.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;2020-01-03&#x2F;robotrat.png&quot; alt=&quot;edit history of my first program&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Edit history of RobotRat.cs&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s when I started the book &amp;quot;C# for Artists&amp;quot; by Rick Miller, and the first assignment I completed when deciding to pick up programming seriously. &amp;quot;RobotRat&amp;quot; doesn&#x27;t even compile and the indentation speaks for itself:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;csharp&quot; class=&quot;language-csharp &quot;&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&amp;#x2F;&amp;#x2F; Chunk from after defining RobotRat class
+public void Run() {
+
+  while (keep_going){
+
+  PrintMenu();
+  ProcessMenuChoice();
+  }
+ }
+
+  public static void Main (string[] args) {
+   RobotRat rr = new RobotRat(10,10);
+   rr.Run();
+  }
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Regardless, it was the first step in an ongoing journey to become a &#x27;good&#x27; programmer - someone capable of building their many ideas into high-quality projects and holding a conversation with a FAANG intern at a party. Since then, I&#x27;ve learned enough to start a couple projects, actually &lt;a href=&quot;https:&#x2F;&#x2F;devdocs.io&quot;&gt;read documentation&lt;&#x2F;a&gt; and even indent properly. There&#x27;s still a lot of work to be done, but looking back has shown me how much I&#x27;ve learned.&lt;&#x2F;p&gt;
+&lt;p&gt;Since this first program, the upcoming two-year anniversary since its inception - and the beginning of my pursuit of programming - has encouraged me to evaluate my overall progress. The following is a brief overview of my first year of dedicated coding (2019), and then I will more closely review the past year (2020) and what I&#x27;ve learned + done.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;2019-resolution-and-starting&quot;&gt;2019: Resolution and Starting&lt;&#x2F;h1&gt;
+&lt;p&gt;I had always wanted to be a coder since childhood, to the extent that my parents graciously paid for two years of summer camp at ID Tech to see if I&#x27;d pick it up. Vague memories of C++ &amp;quot;Hello World!&amp;quot; programs and asterisk pyramids, 2008 Minecraft Alpha and Team Fortress 2 tournaments make up my recollection of one of those years, the other which is somehow completely absent from my memory save for a Battlefield 2142 giveaway. As it turned out, my fourth-grade self hardly resembled any sort of coding genius and none of it really stuck. Despite my overbearing enthusiasm for computers and video game hardware trivia, I struggled to focus on even the most basic programming concepts. This, plus another significant time investment in classical violin, as well as a teacher who humiliated me for my shameless over-enthusiasm, convinced me and my parents to drop the path altogether and instead expand on my demonstrated talent for the violin. &lt;&#x2F;p&gt;
+&lt;p&gt;Ten years later, the winter break of 2018-2019 was a period of significant self-reflection. I had finished freshman year at Fordham University as a music major, only to realize (or honestly, to admit to myself) that the major had nothing to do with my actual interests. Expanding on my initial college pursuit of producing electronic pop music, and with a growing fascination for VR, I decided to switch over to the school&#x27;s New Media and Digital Design major that fall to explore computer science and design courses. During the winter break, I had become so invested in exploring new ideas for VR user interaction that I resolved to learn enough C# to use the Unity game engine. As I considered myself an artist, it seemed that Rick Miller&#x27;s &amp;quot;C# for Artists&amp;quot; textbook would be a good start alongside some Unity tutorials on YouTube. (I honestly can&#x27;t recommend the textbook, and if you want to learn Unity, use the official tutorials then read the documentation)&lt;&#x2F;p&gt;
+&lt;p&gt;With every course I took both in school and online, it became very apparent that I had to grasp some universal concepts of programming first. My resolution snowballed into a greater mission to become an adept programmer capable of developing new ideas with little friction. The first course to &amp;quot;click&amp;quot; the ideas and flow of programming for me was &lt;a href=&quot;https:&#x2F;&#x2F;www.edx.org&#x2F;course&#x2F;cs50s-introduction-to-computer-science&quot;&gt;Harvard CS50x&lt;&#x2F;a&gt;, which I started that spring and wrapped up by the next winter. It taught me proper formatting and syntax and how to play with data structures - namely hash tables - to make real-world tools and solutions. I would recommend the course to any beginner as it gets real low-level with its C assignments, although I would still have a very fuzzy grasp of data structures by the end of the course.&lt;&#x2F;p&gt;
+&lt;p&gt;With CS50x, some volunteer work at tech conventions and a handful of Comp Sci courses peppered throughout my resume, I was happy to find that I had been approved for interview testing for an SDE internship at Amazon. With that, I would begin investing more time into interview coding and Cracking the Coding Interview throughout the finals period of the fall semester.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;amazon-interview&quot;&gt;amazon interview&lt;&#x2F;h1&gt;
+&lt;p&gt;I had learned a lot about my programming &#x27;comfort level&#x27; during the SDE interview process, and I have to give credit to Amazon for giving me a path through skill-based testing compared to the dozens of smaller companies who understandably ignored my non-CS, niche and amateur resume (most of the internships I applied to had no form option for a &amp;quot;New Media&amp;quot; major on their application page). The first couple rounds of AI-based testing were a breeze, given that they were mostly a filter to see if you could use bare-minimum programming principles such as conditional and iterative logic. The in-person coding interview was where I visibly struggled, and not solely due to my insufficient technical knowledge.&lt;&#x2F;p&gt;
+&lt;p&gt;The question was simply how to move a binary tree to an array, then restore the tree from said array. It was a question that with a clearer mindset (and admittedly a little more practice with binary trees) I would have been able to dig into my understanding of a binary tree and make an array that could easily find a node&#x27;s children using its index positions. Instead, I was helplessly running myself into an over-complicated wall of nonsense and couldn&#x27;t figure to take a step back amidst my stress. I mumbled and spouted randomly about depth-first search, and even as the interviewer helped guide me along a possible solution with my existing knowledge I only got more lost. &lt;&#x2F;p&gt;
+&lt;p&gt;For a first tech interview it certainly could have gone worse. My interviewer was incredibly friendly even after the awkward technical portion and went into a lot of detail about life at Amazon. Most importantly, it served as a wake-up call and the start of an ongoing goal to improve both my comfort level with interview-type questions and my ability to think clearly under pressure. I&#x27;ve found that improving myself in one of those areas also benefits the other.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;global-game-jam&quot;&gt;global game jam&lt;&#x2F;h1&gt;
+&lt;p&gt;I went to the NYC Playcrafting Global Game Jam in February of this year per the recommendation of my professor from Intro to Game Narrative and had the incredibly valuable experience of working on a real project, with a team of fellow programmers and artists, for the first time. My comfort level with Unity was not sufficient enough to do significant work, and the senior programmer handled most of the game&#x27;s logic and asset management, so I helped fix some bugs and worked closely with the music person to make a dynamic soundtrack using AudioMixer.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;idkwhojamesis.itch.io&#x2F;fix-the-penguin-gamejam&quot;&gt;play the game on itch.io&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;brokebook&quot;&gt;brokebook&lt;&#x2F;h1&gt;
+&lt;p&gt;A startup pitch challenge was held at my college during the spring, so I decided that it would be a good opportunity to practice web development. My idea, a campus-bound textbook exchange, turned into a database-driven craigslist clone using Django + Bootstrap.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;idkwhojamesis&#x2F;brokebook_web&quot;&gt;source code&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;traces-of-poison&quot;&gt;traces of poison&lt;&#x2F;h1&gt;
+&lt;p&gt;RPGMaker game for Intro to Game Narrative final project. I didn&#x27;t realize how useful RPGMaker could be for implementing plot structure, dialogue, characters, locations, etc. in exponentially shorter time than any other game engine. It was so easy to just go in and start making a game that I&#x27;ll definitely use it again if I ever have a good story or setting idea. &lt;&#x2F;p&gt;
+&lt;p&gt;I used Twine to organize the plot, since it had multiple branches and endings. I may use it again for this purpose, but it&#x27;s clearly a tool for making text-focused games such as visual novels.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;idkwhojamesis.itch.io&#x2F;traces-of-poison&quot;&gt;play on itch.io&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;2020-01-03&#x2F;twine-rpg.jpeg&quot; alt=&quot;Twine map of plot&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Twine map of plot&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;visualizer-for-100-gecs-xxxi-wud-nvrstop-uxxx&quot;&gt;visualizer for 100 gecs - xXXi_wud_nvrstøp_ÜXXx&lt;&#x2F;h1&gt;
+&lt;p&gt;p5.js sketch for Creative Coding final project. The lyrics are stored in a JSON file in key-value (timestamp, lyric line) pairs, and the sketch updates the displayed lyric line when a timestamp from lyrics.json matches the song time. The inner sphere inside the larger sphere + tree reacts to the song&#x27;s amplitude and slowly increases in size as the song progresses.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=Dk0ctImbsMk&quot;&gt;video of sketch&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;editor.p5js.org&#x2F;jamesparknmdd&#x2F;sketches&#x2F;zRbPJcqZa&quot;&gt;link to sketch&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;half-life-alyx-modding&quot;&gt;half-life: alyx modding&lt;&#x2F;h1&gt;
+&lt;p&gt;(spoilers for Half-Life: Alyx)&lt;&#x2F;p&gt;
+&lt;p&gt;Following the release of the Half-Life: Alyx Workshop Tools, I wanted to see how the later anti-gravity levels worked and see if I could make my own. I had thought that maybe the gravity of parts of the level had actually changed and affected which direction the player would stand. &lt;&#x2F;p&gt;
+&lt;p&gt;The actual implementation is a bit more hacky than that: rooms were rotated so its &amp;quot;floor&amp;quot; would be a wall&#x2F;ceiling, giving the illusion of anti-gravity, and forces would be applied to parts of the level so that objects would &amp;quot;fall&amp;quot; in ways that would disobey gravity.&lt;&#x2F;p&gt;
+&lt;p&gt;I played around with this a little bit with a custom level, throwing shopping carts at walls and using force points to make them stick. Once I rebuild my PC maybe I&#x27;ll include some footage.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;2020-01-03&#x2F;hla.png&quot; alt=&quot;Half-Life: Alyx hallway level&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;One of the Half-Life Alyx&#x27;s trippiest rooms exposed: forces are added at different parts of the hallway to make some objects &amp;quot;fall&amp;quot; towards the upper &amp;quot;flipped&amp;quot; hallway&#x27;s floor.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;twitter-crop-tool&quot;&gt;twitter crop tool&lt;&#x2F;h1&gt;
+&lt;p&gt;Web project for my senior capstone project. Started with React for the site but scrapped that for HTML + Bootstrap CSS. The interactive part uses Konva.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;codepen.io&#x2F;idkwhojamesis&#x2F;full&#x2F;mdEYxwM&quot;&gt;site on codepen&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;assets&#x2F;updates&#x2F;2020-01-03&#x2F;twitter-crop-tool.gif&quot; alt=&quot;mobile view of twitter crop tool&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;The final result, in mobile view&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;other-things&quot;&gt;other things&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;A data structures class that really helped me; I recommend the textbook we used, &amp;quot;C++ Plus Data Structures&amp;quot; by Neil Dale&lt;&#x2F;li&gt;
+&lt;li&gt;Notion - this is the greatest organization tool I&#x27;ve ever used. After many hours re-organizing all my notes I&#x27;ve slowly moved all my web resources there, from essays to assignment calendars to bookmarks etc. My only major gripe is that it takes forever to load.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;wins&quot;&gt;wins:&lt;&#x2F;h1&gt;
+&lt;p&gt;I&#x27;m glad that I have some projects that I can show on a website, portfolio, etc. It was nice for some of my classes to have their finals be in project form; it gave me a deadline to push more stuff out and the extra time given during school to work on these projects made the workload more bearable.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;things-i-wish-i-did&quot;&gt;things i wish i did:&lt;&#x2F;h1&gt;
+&lt;p&gt;One interview I did had me explaining the more technical parts of the brokebook website, specifically about some Python-specific syntax within Django. My answers were vague due to both not having a full grasp of Python or Django, and just being bad at explaining things under pressure. This encapsulates what I need to work on in 2021:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Communicating clearly - this also includes having clearer thoughts and ideas&lt;&#x2F;li&gt;
+&lt;li&gt;Grokking any topics relevant to a project or an interview to a level that I can talk comfortably about them&lt;&#x2F;li&gt;
+&lt;li&gt;Making projects that I am passionate to talk about&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;All my projects this year never went past the &amp;quot;workable prototype&#x2F;demo&amp;quot; stage - I wish that I had spent some time polishing a couple of these and showing them off.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;plans-for-2021&quot;&gt;plans for 2021&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Full grasp of basic data structures + (sorting&#x2F;search) algorithms - I also want to make a project(s) that demonstrates effective uses of these structures&lt;&#x2F;li&gt;
+&lt;li&gt;Pass a coding interview&lt;&#x2F;li&gt;
+&lt;li&gt;Read more source code - I don&#x27;t do this nearly enough, to the point where I can&#x27;t clearly tell you what a well-written program or a well-organized project looks like.&lt;&#x2F;li&gt;
+&lt;li&gt;Finish and polish one project - that includes designing and planning for long-term development and maintenance.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;It&#x27;s been a &lt;em&gt;very&lt;&#x2F;em&gt; interesting year, for me and the rest of the world. I&#x27;m keeping realistic expectations for 2021, but I aim to spend most of my time on becoming a kinder, more helpful, more active person than I am today.&lt;&#x2F;p&gt;
+&lt;p&gt;Thanks for reading through this with me, and I wish you a great year full of love, self-care, good food, goals met, and many more good things. - James&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>welcome to the site!</title>
+          <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://idkwhojamesis.com/updates/welcome/</link>
+          <guid>https://idkwhojamesis.com/updates/welcome/</guid>
+          <description>&lt;p&gt;If you&#x27;re reading this then I have finished the initial setup of this website. I&#x27;m hoping to use it as an easier, centralized way to track and record anything I&#x27;ve been working on. &lt;&#x2F;p&gt;
+&lt;p&gt;things I want to add to the site:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;banner image in portfolio (maybe use it in resume too)&lt;&#x2F;li&gt;
+&lt;li&gt;interactive p5 gallery in portfolio (ideally hosting the scripts externally on their existing repo)&lt;&#x2F;li&gt;
+&lt;li&gt;Locally host WebGL builds and download links? doesn&#x27;t matter too much and it would fatten the filesize.&lt;&#x2F;li&gt;
+&lt;li&gt;Also have some misc. things to blog about, not really urgent.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Building this was another harsh reminder that hours to days are wasted when you don&#x27;t read the documentation carefully. I could have saved a whole day if I realized how the included Minima theme does almost everything for you. That being said, once you figure it out it seems really easy to use, so to anyone reading this let me know if you want a site like this. &lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m also kind of hoping that using the blog here as an outlet to post will keep me off of other social media sites and keep me accountable for following through on ideas. Even after deleting Twitter and my old Facebook account, I still get a lot of stress about interactions on Instagram. Very few people are going to read this and most of the stuff I want to post about is better handled in long-form anyway.&lt;&#x2F;p&gt;
+&lt;p&gt;what I&#x27;m up to:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;currently re-downloading Half-Life: Alyx for the new Workshop tools&lt;&#x2F;li&gt;
+&lt;li&gt;Trying to register for summer and fall classes and having to email a bunch of staff bc the registration system is terrible&lt;&#x2F;li&gt;
+&lt;li&gt;updating resumes, i got into the grad school but technically I don&#x27;t start until next year? Still putting it on lol&lt;&#x2F;li&gt;
+&lt;li&gt;Planning an essay about this one rich guy who paid to have his OC character in a handful of different indie RPGs and Shovel Knight. Does this make them a connected universe? &lt;&#x2F;li&gt;
+&lt;li&gt;creative block on telegolf, should just focus on making a level and game manager&lt;&#x2F;li&gt;
+&lt;li&gt;waiting on if im getting a technical interview&lt;&#x2F;li&gt;
+&lt;li&gt;should be doing interview prep for winter&#x2F;spring&lt;&#x2F;li&gt;
+&lt;li&gt;listening to Charli XCX - Detonate and Sega Bodega &amp;amp; Dorian Electra - Teenage Dirtbag (Cover)&lt;&#x2F;li&gt;
+&lt;li&gt;did not sleep&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;I hope you&#x27;re doing well. Thanks for reading! - James&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
