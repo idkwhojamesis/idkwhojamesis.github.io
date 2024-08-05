@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- generics -->
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="/android-chrome-192x192.png" sizes="192x192">
+  <!-- Android -->
+  <link rel="shortcut icon" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="shortcut icon" sizes="512x512" href="/android-chrome-512x512.png">
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  
+    <link rel="alternate" type="application/rss+xml" title="idkwhojamesis" href="https://idkwhojamesis.com/rss.xml">
+    
+
+  <title>james park</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+    canvas {
+      width: 120vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: -10px;
+      top: 0;
+    }
+    h1 {
+      line-height: 100%;
+    }
+    #landing-title {
+      opacity: 0.8;
+      position: fixed;
+      bottom: 35%;
+      left: 2%;
+      padding: 1rem;
+      z-index: 2;
+    }
+    .title {
+      font-size: 2em;
+      margin: 0;
+    }
+    .desc {
+      margin: 0;
+    }
+    body {
+      font-size: 1.2em;
+      height: 100vh;
+      font-family: 'EB Garamond', serif;
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      overflow-wrap: break-word;
+    }
+    img {
+      display: block;
+      max-width: 80%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+    }
+    a {
+      font-style: italic;
+      color: white;
+    }
+    code {
+      white-space: pre-wrap;
+    }
+    .textbox {
+      color: white;
+      min-width: 300px;
+      width: 50vw;
+      max-width: 600px;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      z-index: 1;
+      line-height: 150%;
+    }
+    .dropdown {
+      position: fixed;
+      z-index: 2;
+      padding: 1rem;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .navbar {
+      display: none;
+      opacity: 0;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      transition: opacity 0.7s;
+      transition-delay: 1s;
+      transition-property: opacity;
+    }
+    #menu {
+      font-style:normal; 
+      background-color:black; 
+      text-align: right;
+    }
+    #home-menu {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    .subtitle {
+      font-size: 1.3em;
+      font-style: italic;
+      text-decoration: none;
+      padding: 5px;
+    }
+    .link {
+      width: 120px;
+      transition: letter-spacing 0.3s;
+    }
+    .link:hover {
+      letter-spacing: 0.1em;
+    }
+    .dropdown:hover .navbar {
+      display: flex;
+      opacity: 1;
+    }
+    .dropdown:hover #home-menu {
+      opacity: 0;
+    }
+  </style>
+
+  
+  <style>
+    .dropdown {
+      top:2%;
+      right:2%;
+    }
+    .navbar {
+      text-align: right;
+    }
+    .link {
+      background-color: black;
+      padding-right: 20px;
+    }
+  </style>
+  
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div id="fullpage">
+      
+      
+      <div class="dropdown">
+        <a class="subtitle link" id="menu" >[ j p ]</a>
+        <nav class="navbar">
+          <a class="subtitle link" href="/">home</a>
+          <a class="subtitle link" href="/about/">about</a>
+          <a class="subtitle link" href="/portfolio/">portfolio</a>
+          <a class="subtitle link" href="/resume/">resume</a>
+          <a class="subtitle link" href="/updates/">updates</a>
+        </nav>
+        
+      </div>
+      </div>
+    </div>  
+    
+<div class="textbox">
+  <article>
+    <h1 class="title">migrating from Notion to Obsidian</h1>
+    <time datetime="2021-08-23" class="subtitle">2021-08-23</time>
+    <p>Earlier this year, Notion's flaws had frustrated me enough to get me to spend days moving all my stuff to a new notes application called <a href="https://obsidian.md/">Obsidian</a>. Unlike Notion, Obsidian is a notes system that operates on top of a simple folder of notes - notes are stored as plain .md files, organized in regular folders. All notes and attachments are local and can be regularly accessed with a file explorer. .md files can always be opened in a plain text editor as well. The rest - cross-linking, graphs, organizing tags, etc. - is handled within Obsidian and doesn't interfere with your actual notes. </p>
+<p>If you have used Notion you may understand the appeal of this as it makes the bold decision of, well, actually giving you access to your valuable notes offline and outside the app.</p>
+<p>Below are my notes on my experience of the pros and cons of both Notion and Obsidian, my experience transferring Notion data to Obsidian, and some screenshots of how I worked within both. Overall, while I miss some stuff about Notion, I also definitely don't miss some other parts. Obsidian is more basic but ultimately is designed around a different agenda, and so far I enjoy it more. If you've been thinking of escaping Notion I hope this helps. </p>
+<h1 id="tldr-pros-and-cons">TLDR / pros and cons</h1>
+<h2 id="notion-as-of-late-2020">Notion (as of late 2020)</h2>
+<h3 id="pros">Pros</h3>
+<ul>
+<li>Powerful and extremely flexible, but still very easy to learn
+<ul>
+<li>Structuring my stuff around tables as databases for knowledge worked perfectly. Categorizations and tagging especially were very satisfying to use, and worked very well for search. </li>
+<li>Without plugins, it has the perfect amount of customization for people to make websites, organization systems, agendas, note-taking systems, interactive calendars, and more without being overwhelming.</li>
+<li>Once you realize &quot;everything is a page&quot; its easy to figure out how Notion works</li>
+</ul>
+</li>
+<li>Templates allow newcomers to get tons of functionality out-the-box</li>
+<li>web-based</li>
+<li>Shared workspaces and collaborating works great</li>
+<li>Instantly share or privatize any page</li>
+<li>visual, intuitive, drag-and-drop block system
+<ul>
+<li>WYSIWYG editing</li>
+</ul>
+</li>
+<li>regularly updated with new (and useful) features and performance improvements</li>
+<li>Aesthetically pleasing</li>
+<li>API allows for interactions with other services (I haven't tried it though)</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<ul>
+<li><strong>UNUSABLE OFFLINE</strong>
+<ul>
+<li>This is pretty much what made me switch. On trains, planes, basements with poor wifi, you are completely locked out from your stuff without a decent internet connection.</li>
+</ul>
+</li>
+<li>Poor performance, even slower on mobile
+<ul>
+<li>Recent updates have apparently improved the speed</li>
+</ul>
+</li>
+<li>Memory hog, which is especially bad for something you typically keep open all day</li>
+<li>Formatting can get weird on mobile</li>
+</ul>
+<h2 id="obsidian">Obsidian</h2>
+<h3 id="pros-1">Pros</h3>
+<ul>
+<li>Available offline</li>
+<li>Files are organized sanely and are accessible outside the app with no friction</li>
+<li>Also easy to learn; if you don't want most of the fancy stuff and just want a notes app, you can start instantly. The fancy stuff stays out of your way if you don't want it.</li>
+<li>Powerful search and connection features
+<ul>
+<li>In a note, hyperlinks to other notes create a connection that will be visible in search</li>
+<li>Add tags to notes to search by topics; notes with the same tag also will have a visible connection</li>
+<li>Connections will literally visualize via the <a href="https://help.obsidian.md/Plugins/Graph+view">Graph view (Obsidian docs page)</a> - definitely a more &quot;fancy&quot; feature but if you're into <a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten</a> and the idea of notes as your &quot;second brain&quot; it's cool seeing your notes collection interconnect as they grow over time. Check the docs page above for an example; the Obsidian docs themselves have a graph view of their structure to the right of the text.</li>
+</ul>
+</li>
+<li>Themes and custom plugins built-in and can sync across devices (I think?)
+<ul>
+<li>I use the Atom theme from the theme browser</li>
+<li>The good plugins feel like native features; I strongly recommend <a href="https://github.com/tgrosinger/advanced-tables-obsidian">Advanced Tables</a></li>
+</ul>
+</li>
+<li>Efficient UI</li>
+<li>Panel splitting like VS Code: unexpectedly this is my favorite feature that Notion doesn't have. This one feature has turned Obsidian into a self-contained system for eg. referencing notes when writing a paper.</li>
+<li>Save panel layouts aka &quot;workspaces&quot;: Save panel and menu configs for different contexts. Examples of this are in my workflow screenshots at the bottom of this post.</li>
+<li>App is lightweight and fast on all platforms (although it does use Electron)</li>
+</ul>
+<h3 id="cons-1">Cons</h3>
+<ul>
+<li>(less a con than disclosure) if you were a Notion superuser, used tables, or mainly used it for purposes other than a pure notes app, you will have to adapt to a different system or be disappointed. You can probably replicate most of it, like the calendar and integrations, through custom plugins but personally I didn't want to rely too much on those and ended up simplifying a lot of my Notion stuff. Trying to 1:1 your Notion setup will probably be an uphill battle.</li>
+<li>you might not like Electron</li>
+<li>not open source! Some popular alternatives (I haven't tried these)
+<ul>
+<li><a href="https://foambubble.github.io/foam/">Foam | A personal knowledge management and sharing system for VSCode</a> </li>
+<li><a href="https://tiddlywiki.com/">TiddlyWiki — a non-linear personal web notebook</a> </li>
+</ul>
+</li>
+<li>no web app available </li>
+<li>no collaboration features that I know of</li>
+</ul>
+<h1 id="migrating-my-notes-to-obsidian">migrating my notes to obsidian</h1>
+<p>These notes are really rough, sorry. If you have any other questions check the <a href="https://forum.obsidian.md/t/notion-2-obsidian-migration-instructions/2728">Obsidian forums</a> or send me a message.</p>
+<h2 id="packing-for-the-move">packing for the move</h2>
+<p>Notion's export options are a bit messy as the way everything is either a Page or a database of Pages doesn't perfectly translate to any common file format. There are a handful of <a href="https://forum.obsidian.md/t/notion-2-obsidian-migration-instructions/2728">discussions</a> on the Obsidian forums on how to clean your Notion export as much as possible for Obsidian, but I mostly just skimmed through them and did the basics without trying to match organization perfectly. I chose the .CSV + .MD export, which is recommended as it translates your notes directly to Markdown and pretty much keeps them intact except for any included databases or internal links to other pages which won't really be usable. As far as I remember, the .CSVs don't matter too much in terms of content storage as all the Pages stored in a certain table are collected in a folder as .MD files. If you had some tables where you just stored a value or text in each cell (eg. bookmarks), however, you'll have to get it from the .CSV</p>
+<p><img src="/assets/updates/notion-to-obsidian/export-in-excel.png" alt="Notion dump of my bookmarks to .csv" />
+Notion dump of my bookmarks to .csv</p>
+<h2 id="structure-of-notion-workspace">structure of notion workspace</h2>
+<p><img src="/assets/updates/notion-to-obsidian/notion-map.png" alt="map of how my notion stuff was structured" />
+map of how my notion stuff was structured</p>
+<ul>
+<li>main: quick notes + link to important resources</li>
+<li>bookmarks - ALL web links stored here
+<ul>
+<li>all pages referenced a bookmarks listing to refer to a link</li>
+</ul>
+</li>
+<li>library - list of books, with attached PDFs + notes
+<ul>
+<li>similar to bookmarks as a general database</li>
+</ul>
+</li>
+<li>notes - database of misc. uncategorized notes, mostly personal or rough ideas </li>
+<li>site updates - draft blog posts</li>
+<li>work applications - database of application links with status tracker</li>
+<li>resume - edit markdown of resume content to be used in resume builders</li>
+</ul>
+<h2 id="translating-tables-and-pages-to-folders-and-docs">translating tables and pages to folders and docs</h2>
+<h3 id="tags-and-mentions">tags and mentions</h3>
+<ul>
+<li>organize bookmarks by tags
+<ul>
+<li>should links be all in one file or a folder of individual files per link?</li>
+</ul>
+</li>
+</ul>
+<h3 id="bookmarks">Bookmarks</h3>
+<ol>
+<li>from notion backup used .csv of Bookmarks table</li>
+<li>formatted cells into a link format + tags
+<img src="/assets/updates/notion-to-obsidian/notion-bookmarks.png" alt="my notion bookmarks page" />
+<img src="/assets/updates/notion-to-obsidian/obsidian-bookmarks-main.png" alt="my obsidian bookmarks page" />
+looking at the two side-by-side makes me miss Notion more than usual. I liked having the &quot;Date Created&quot; attribute tell me when I added a bookmark.</li>
+</ol>
+<h3 id="library">Library</h3>
+<p>similar to bookmarks
+save PDFs in Library Files folder and reference</p>
+<h3 id="notes">notes</h3>
+<p>imported apple notes to markdown with <a href="https://apps.apple.com/us/app/exporter/id1099120373?ls=1&amp;mt=12">Exporter</a><br />
+trimmed current note titles + formatting with <a href="https://github.com/connertennery/Notion-to-Obsidian-Converter">Notion to Obsidian Converter</a></p>
+<h3 id="site-updates">site updates</h3>
+<p>formatted into a list of links</p>
+<h3 id="work-applications">work applications</h3>
+<p>formatted into a list of links separated by headers</p>
+<h3 id="resume">resume</h3>
+<p>merged MD from notion and my website</p>
+<h3 id="learning-projects">learning + projects</h3>
+<ul>
+<li>separated</li>
+<li>just ported over my CTCI page from learning</li>
+<li>project pages were ported with asset folders for screenshots</li>
+</ul>
+<h3 id="finally-main">finally... main</h3>
+<p>stripped down to just the immediate todo list; i have a directory of all my stuff right here</p>
+<h1 id="other-things-to-consider">Other things to consider</h1>
+<h2 id="what-about-synchronization">what about synchronization?</h2>
+<p>I recently bought Obsidian Sync and it works well for syncing with my phone and iPad.<br />
+Before buying it I set up a crontab job that automatically commits and pushes the notes folder on my mac; here's my note on how to get it done bc it can be a bit frustrating:</p>
+<h3 id="automating-git-with-crontab-for-mac">automating git with crontab for mac</h3>
+<p>#git #cron #obsidian #mac<br />
+for mac:<br />
+make sure cron has path to your scripts<br />
+GIT PUSH DOESNT WORK, you have to generate a SSH key on mac then add it to github<br />
+https://askubuntu.com/questions/117978/script-doesnt-run-via-crontab-but-works-fine-standalone<br />
+https://superuser.com/questions/564829/git-push-to-github-via-cron-on-mac</p>
+<h2 id="mobile-app">mobile app</h2>
+<p>It just came out so I haven't used it much. It's definitely a little different from the desktop app and it feels like it works best with a connected keyboard, but it seems to include everything including themes and custom plugins. For touch control you either swipe from the edges for the gray menus to navigate files, outlines, etc. or from swipe down to reveal the command palette from the top edge. I'm still getting used to it but its a clever way to find your way towards essential actions. I think the iPad version needs some formatting adjustment so the gray menus don't take up so much space when opened.
+<img src="/assets/updates/notion-to-obsidian/obsidian-mobile5.png" alt="on Obsidian mobile, my &quot;home&quot; workspace with my main to-do and bookmarks." /><br />
+my &quot;home&quot; workspace with my main to-do and bookmarks.
+<img src="/assets/updates/notion-to-obsidian/obsidian-mobile4.png" alt="on Obsidian mobile, swipe for the menu." />
+swipe for the menu.
+<img src="/assets/updates/notion-to-obsidian/obsidian-mobile3.png" alt="on Obsidian mobile, editing view with keyboard." />
+editing view with keyboard.
+<img src="/assets/updates/notion-to-obsidian/obsidian-mobile1.png" alt="on Obsidian mobile, full-page editing view." />
+full-page editing view.
+<img src="/assets/updates/notion-to-obsidian/obsidian-mobile2.png" alt="on Obsidian mobile, full-page reading view." />
+full-page reading view.</p>
+<h1 id="more-screenshots">more screenshots</h1>
+<p>I was going to describe my Obsidian and Notion workflows and compare them, but it's been difficult trying to put the experience into words. When revisiting my Notion workspace to take screenshots I remembered that one thing I realized when switching to Obsidian was just how over-engineered I made everything in Notion; I re-organized the Skills section of my resume into a table just so I could have it sync in both my Skills page and Resume page, and for what? I have to admit that most of my interest in Notion was spending hours reorganizing my notes to use fancy new features when I should have been doing work. Obsidian made me flatten everything down into plain Markdown, headings, tags, and cross-linking which has been sufficient. </p>
+<p>So, instead of describing my workflow I will show you some of the main pages I used in Notion as well as the workspace layouts I currently use in Obsidian.</p>
+<h2 id="notion-screenshots">Notion screenshots</h2>
+<p><img src="/assets/updates/notion-to-obsidian/notion-structure.png" alt="the directory of my Notion system." /><br />
+the directory of my Notion system.
+<img src="/assets/updates/notion-to-obsidian/notion-main.png" alt="my main Notion page where I would link to important stuff and to-do." /> 
+my main Notion page where I would link to important stuff and to-do. The top quote block would usually have the most important thing I had to do that day.
+<img src="/assets/updates/notion-to-obsidian/notion-classes.png" alt="Notion page for managing classes." />
+Notion page for managing classes.
+<img src="/assets/updates/notion-to-obsidian/notion-resume.png" alt="Notion page for managing resume." />
+Notion page for managing resume.</p>
+<h2 id="obsidian-screenshots">Obsidian screenshots</h2>
+<p><img src="/assets/updates/notion-to-obsidian/obsidian-example.png" alt="typical layout. current writing in the center, and bookmarks and my main to-do pinned to the right." />
+typical layout. current writing in the center, and bookmarks and my main to-do pinned to the right. If I need to open something else I split panels horizontally and <code>Cmd+O</code> what I'm looking for.
+<img src="/assets/updates/notion-to-obsidian/obsidian-bookmarks-main.png" alt="&quot;bookmarks + main&quot; layout. When I'm web browsing or not doing anything I have this layout open." />
+&quot;bookmarks + main&quot; layout. When I'm web browsing or not doing anything I have this layout open. One of the biggest differences I've had to adjust to in Obsidian was when importing my bookmarks; you might have noticed that a lot of them remain uncategorized. In Notion, categorizing was pretty easy as I could search for the right tag and then have the bookmarks table sort by topic. I could also have multiple topics tagged for each without hassle. Since there's no such thing in stock Obsidian, I've opted for a plain-Markdown list organized by headers. This lead to a dilemma: do I have to pick just one category for each? do I add extra tags? Since I can't re-sort a plaintext list easily, I just chose to put bookmarks under one header by their most relevant topic. This has taken a bit more effort so currently I have 200 or so bookmarks just listed under &quot;to file&quot;. Also, Obsidian's tags don't really work for this since searching through tags means going one by one through each mention of the tag instead of something like a filtered list of what you want. I think tags were designed with the assumption that you are tagging the page, not specific content. Been looking at the <a href="https://github.com/blacksmithgu/obsidian-dataview">dataview</a> plugin to maybe make a better bookmarks thing; reach out if you have a solution of your own.
+<img src="/assets/updates/notion-to-obsidian/obsidian-workspaces.png" alt="save and load different &quot;workspaces&quot; which are saved panel configurations." /><br />
+save and load different &quot;workspaces&quot; which are saved panel configurations. 
+<img src="/assets/updates/notion-to-obsidian/obsidian-graph.png" alt="unlabeled graph view of all my notes." />
+unlabeled graph view of all my notes. yellow dots represent tags present in the notes (gray) they are connected to. bigger gray dots are notes with more text. connections between gray dots mean one note is hyperlinked to the other. Unlike the world wide web, you can see the &quot;backlinks&quot; of each note, or every instance of that note being hyperlinked in another note, letting you backtrack to see the context around that note.</p>
+<p>Ultimately, Notion and Obsidian become very different beasts if you want to use them as more than a basic place to write and store your notes. For a note-taker who needs something for school, I can wholeheartedly recommend Obsidian. The context and search features help you revisit and re-contextualize your notes when it's time to review them, and otherwise it functions as a minimalist note-taking app suited for someone who, for example, might have had issues or hit roadblocks with Apple Notes or Evernote. I can only recommend Notion if you are willing to compromise basic necessities like offline access for a more complex platform that can more broadly manage various parts of your life beyond note-taking. </p>
+<p>I really miss that aspect of Notion where it has really gone beyond note-taking - once you discover its powers you can kind of map out your entire life on it, like a &quot;life system&quot; that surpasses the typical system of using your OS Desktop as a space to stuff random docs, spreadsheets, screenshots, notes, etc. I don't know how to convey the satisfaction of mapping out my mental lists of movies, books, video games, bookmarks, study areas, and more onto tables where I can store what I know, how I feel, and what I want to explore, all with very little friction. It's a shame that this amazing software had to manifest as a web-based lagfest that keeps all its data in a black box that I lose access to when my wi-fi cuts out. </p>
+<p>Notion's flaws have created a demand for something similar built on saner foundations. The most hyped platform I have seen so far is <a href="https://anytype.io/">Anytype.io</a>, which seems to be more self-aware about being an operating environment for people whose lives revolve around files and data. They promise an open-source platform that runs completely locally like Obsidian while providing the flexibility to essentially make your own apps and workflows like Notion, among many more promised features like using IPFS protocol and encrypted peer-to-peer data exchange/sync. </p>
+<p>Until then, I am sticking with Obsidian. I used Obsidian to write most of the stuff for this website and it's worked well for that as the Markdown transfers to Zola; I just have to redo all the image links. If you're deciding between platforms for school, work, research, anything like that I hope this helped.</p>
+
+  </article>
+</div>
+                                
+    <canvas></canvas>
+    
+<script src="/js/contentVisual.js"></script>
+
+  </div>
+</body>
+
+</html>
