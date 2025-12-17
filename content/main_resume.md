@@ -5,8 +5,8 @@ path = "/resume"
 # James Park
 ## Software Development Engineer
 
-Last updated: 5 Nov 2023  
-[Download resume PDF](/assets/JamesParkResume2023.pdf)
+Last updated: 17 Dec 2025
+[Download resume PDF](/assets/JamesParkResume2026.pdf)
 
 [github (code)](https://github.com/idkwhojamesis)  
 [codepen (front-end demos)](https://codepen.io/idkwhojamesis)  
@@ -16,12 +16,12 @@ Currently based in Newcastle, WA
 ## Experience
 
 ### Software Development Engineer, Amazon Web Services (Aug 2022 - Present)
-- Designed, developed, and tested multiple features and fixes for the AWS Systems Manager service, using a security and scaling-first approach to serve 100,000+ customers (Java, Golang, TypeScript, Ruby, AWS API).
+- Designed and delivered high-scale, security-first features for AWS Systems Manager, serving a customer base of 100,000+ and leveraging Java, Golang, TypeScript, and AWS services (S3, CloudFormation, IAM, DynamoDB, EC2, CloudWatch, SQS, SNS).
+- Led a 14-month project to build an AWS SSM microservice in 7 isolated ISO-certified regions, requiring close coordination with multiple engineers with ISO access and bringing AWS services in ISO regions up to parity with commercial regions.
 - Built an additional UI component in the service's AWS web console for accessing the SSM Documents API (AWS SDK, TypeScript, React, Jest, Sinon).
-- Optimized the service's ability to stream to AWS CloudWatch Logs in real time (Golang).
-- Wrote strong documentation for the service's region expansion process, which reduced the completion time from 2 months to 3 weeks for 3 new regions.
+- Optimized the AWS SSM Session Manager microservice's ability to stream to AWS CloudWatch Logs in real time (Golang).
+- Reduced the AWS SSM Health microservice’s region expansion time from 2 months to 2 weeks by creating comprehensive, standardized documentation that streamlined the process for 3 new regions.
 - Transitioned the service's region expansion efforts from a manual process to an automated zero-touch approach, saving ~100 man-hours per new region (CloudFormation, IAM, internal CI/CD tools).
-- Regularly facilitated cross-team communication to rapidly overcome obstacles and crowdsource knowledge.
 
 ## Education
 
