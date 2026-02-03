@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- generics -->
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="/android-chrome-192x192.png" sizes="192x192">
+  <!-- Android -->
+  <link rel="shortcut icon" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="shortcut icon" sizes="512x512" href="/android-chrome-512x512.png">
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  
+    <link rel="alternate" type="application/rss+xml" title="idkwhojamesis" href="https://idkwhojamesis.com/rss.xml">
+    
+
+  <title>james park</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+    canvas {
+      width: 120vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: -10px;
+      top: 0;
+    }
+    h1 {
+      line-height: 100%;
+    }
+    #landing-title {
+      opacity: 0.8;
+      position: fixed;
+      bottom: 35%;
+      left: 2%;
+      padding: 1rem;
+      z-index: 2;
+    }
+    .title {
+      font-size: 2em;
+      margin: 0;
+    }
+    .desc {
+      margin: 0;
+    }
+    body {
+      font-size: 1.2em;
+      height: 100vh;
+      font-family: 'EB Garamond', serif;
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      overflow-wrap: break-word;
+    }
+    img {
+      display: block;
+      max-width: 80%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+    }
+    a {
+      font-style: italic;
+      color: white;
+    }
+    code {
+      white-space: pre-wrap;
+    }
+    .textbox {
+      color: white;
+      min-width: 300px;
+      width: 50vw;
+      max-width: 600px;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      z-index: 1;
+      line-height: 150%;
+    }
+    .dropdown {
+      position: fixed;
+      z-index: 2;
+      padding: 1rem;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .navbar {
+      display: none;
+      opacity: 0;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      transition: opacity 0.7s;
+      transition-delay: 1s;
+      transition-property: opacity;
+    }
+    #menu {
+      font-style:normal; 
+      background-color:black; 
+      text-align: right;
+    }
+    #home-menu {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    .subtitle {
+      font-size: 1.3em;
+      font-style: italic;
+      text-decoration: none;
+      padding: 5px;
+    }
+    .link {
+      width: 120px;
+      transition: letter-spacing 0.3s;
+    }
+    .link:hover {
+      letter-spacing: 0.1em;
+    }
+    .dropdown:hover .navbar {
+      display: flex;
+      opacity: 1;
+    }
+    .dropdown:hover #home-menu {
+      opacity: 0;
+    }
+  </style>
+
+  
+  <style>
+    .dropdown {
+      top:2%;
+      right:2%;
+    }
+    .navbar {
+      text-align: right;
+    }
+    .link {
+      background-color: black;
+      padding-right: 20px;
+    }
+  </style>
+  
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div id="fullpage">
+      
+      
+      <div class="dropdown">
+        <a class="subtitle link" id="menu" >[ j p ]</a>
+        <nav class="navbar">
+          <a class="subtitle link" href="/">home</a>
+          <a class="subtitle link" href="/about/">about</a>
+          <a class="subtitle link" href="/portfolio/">portfolio</a>
+          <a class="subtitle link" href="/resume/">resume</a>
+          <a class="subtitle link" href="/updates/">updates</a>
+        </nav>
+        
+      </div>
+      </div>
+    </div>  
+    
+<div class="textbox">
+    <h1 id="portfolio">Portfolio</h1>
+<p>Some games and prototypes I have made or helped make. </p>
+<p>All of these can be played on my <a href="https://idkwhojamesis.itch.io/"><strong>itch.io page.</strong></a></p>
+<h2 id="factoria-2018-2024">factoria 2018 (2024)</h2>
+<p><img src="/assets/updates/nerfstudio/mall_gaussian.png" alt="Screenshot of the mall project" /></p>
+<p><a href="https://idkwhojamesis.itch.io/factoria-2018">Download on Windows, Mac</a></p>
+<p>In Winter 2018 I took more than a thousand pictures of &quot;The Marketplace at Factoria&quot;, a small mall in Bellevue, WA near where I grew up, intending to reconstruct the main interior of the mall using photogrammetry and create a real-time walking experience. After my first attempt in 2019 using RealityCapture was mostly a failure, I tried again in 2024 using a new reconstruction technique called Gaussian Splats using <a href="https://docs.nerf.studio/nerfology/methods/splat.html">Nerfstudio</a>. This still turned out pretty bad and I realized that the data I gathered back then was insufficient, but splats are at least optimized enough to be rendered in an Unreal app using the <a href="https://lumalabs.ai/ue">Luma AI plugin</a>. You can try it above, and I also provided the project folder if you're curious.</p>
+<h2 id="heaviest-hammer-2022">heaviest hammer (2022)</h2>
+<p><img src="/assets/portfolio/hammergif2.gif" alt="heaviest hammer screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/heaviest-hammer">Download on Windows</a></p>
+<p>For itch's Mini Game Jam 100: &quot;Chaos&quot;. Super janky, but the main idea is the use of a weapon that charges in power by shaking your mouse as hard as you can. I used Unity 2019 for this one.</p>
+<h2 id="as-tensions-rise-2021">&quot;...as tensions rise&quot; (2021)</h2>
+<p><img src="/assets/portfolio/atr-gif.gif" alt="as tensions rise screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/as-tensions-rise">Play in browser</a></p>
+<p>For GMTK Game Jam 2021: &quot;Joined Together&quot;. You are watching the perspective of an aerial news crew as they broadcast a mass gathering in front of a corporate building. 
+This project uses Babylon's Solid Particle System to depict a lively crowd that can rapidly increase in population. </p>
+<h2 id="7-33-2021">-7.33- (2021)</h2>
+<p><img src="/assets/portfolio/seventhirtythree.png" alt="7.33 screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/seventhirtythree">Play in browser</a></p>
+<p>Final group project for a Game Design Projects class.</p>
+<p>A girl and her dog look too far into the mysterious connection between her parents and the monster in the basement. We were assigned to make a project surrounding a serious topic, and this project deals with the trauma of parental emotional abuse and alcoholism.</p>
+<p>Team:
+Julia Sparago - concept, story, level design, dialogue<br />
+Kyle Horstmann  - topic research and interviews, dialogue</p>
+<h2 id="traces-of-poison-2020">Traces of Poison (2020)</h2>
+<p><img src="/assets/portfolio/poison.jpg" alt="Traces of Poison screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/traces-of-poison">Play in browser</a></p>
+<p>Final project for an Intro to Game Narrative class.</p>
+<p>Two friends have to fight each other for their freedom. Change the outcome with your actions to unlock 7 different endings.</p>
+<p>Thank you to Prof. Chris Vicari and the class for a fun semester (despite the pandemic cutting it short)! Also, shoutout to my friend Kevin for extensive and extremely helpful QA. </p>
+<h2 id="fix-the-penguin-2020">Fix The Penguin (2020)</h2>
+<p><img src="/assets/portfolio/penguin-gif.gif" alt="penguin game screenshot" />
+<em>Now I am become death, destroyer of worlds</em></p>
+<p><a href="https://idkwhojamesis.itch.io/fix-the-penguin-gamejam">Play in browser (requires keyboard+mouse)</a></p>
+<p>Team submission for 2020 Playcrafting Global Game Jam NYC. I did audioMixer programming and some bug fixing. </p>
+<p>After a majestic penguin statue is blown to bits, you must pick up its limbs and put it back together. How exactly these limbs are arranged, however, is up to you...</p>
+<p>Team:<br />
+<a href="https://degugames.itch.io/">Paul Blieka</a> - lead programmer<br />
+<a href="https://www.artstation.com/joel0827">Joel Sanchez</a> - art, modeling, post-processing<br />
+<a href="https://www.robertkarpay.com">Robert Karpay</a> - music<br />
+Mike Thompson - UI<br />
+me - adaptive audio programming, bug fixing</p>
+<h2 id="telegolf-2019-on-pause">Telegolf (2019 - on pause)</h2>
+<p><img src="/assets/portfolio/telegolf-gif.gif" alt="telegolf screenshot" /></p>
+<p><a href="https://idkwhojamesis.itch.io/telegolf">Play in browser (requires keyboard+mouse) (demo)</a></p>
+<p>Navigate courses and find secrets with a golf ball that can teleport you to its location. Planning to turn this into a full game, although admittedly progress as been slow as I am struggling to design interesting levels around this mechanic.</p>
+
+</div>
+                                
+    <canvas></canvas>
+    
+<script src="/js/contentVisual.js"></script>
+
+  </div>
+</body>
+
+</html>
