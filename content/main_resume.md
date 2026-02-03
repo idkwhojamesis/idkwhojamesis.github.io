@@ -6,13 +6,13 @@ path = "/resume"
 ## Software Development Engineer
 
 Last updated: 17 Dec 2025
-[Download resume PDF](/assets/JamesParkResume2026.pdf)
+[Download resume PDF](/assets/JamesParkResume2026Feb.pdf)
 
 [github (code)](https://github.com/idkwhojamesis)  
 [codepen (front-end demos)](https://codepen.io/idkwhojamesis)  
 [itch.io (games)](https://idkwhojamesis.itch.io/)
 
-Currently based in Newcastle, WA
+Currently based in Seattle, WA
 ## Experience
 
 ### Software Development Engineer, Amazon Web Services (Aug 2022 - Present)
