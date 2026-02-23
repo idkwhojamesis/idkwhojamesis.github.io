@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- generics -->
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="/android-chrome-192x192.png" sizes="192x192">
+  <!-- Android -->
+  <link rel="shortcut icon" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="shortcut icon" sizes="512x512" href="/android-chrome-512x512.png">
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  
+    <link rel="alternate" type="application/rss+xml" title="idkwhojamesis" href="https://idkwhojamesis.com/rss.xml">
+    
+
+  <title>james park</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+    canvas {
+      width: 120vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: -10px;
+      top: 0;
+    }
+    h1 {
+      line-height: 100%;
+    }
+    #landing-title {
+      opacity: 0.8;
+      position: fixed;
+      bottom: 35%;
+      left: 2%;
+      padding: 1rem;
+      z-index: 2;
+    }
+    .title {
+      font-size: 2em;
+      margin: 0;
+    }
+    .desc {
+      margin: 0;
+    }
+    body {
+      font-size: 1.2em;
+      height: 100vh;
+      font-family: 'EB Garamond', serif;
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      overflow-wrap: break-word;
+    }
+    img {
+      display: block;
+      max-width: 80%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+    }
+    a {
+      font-style: italic;
+      color: white;
+    }
+    code {
+      white-space: pre-wrap;
+    }
+    .textbox {
+      color: white;
+      min-width: 300px;
+      width: 50vw;
+      max-width: 600px;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      z-index: 1;
+      line-height: 150%;
+    }
+    .dropdown {
+      position: fixed;
+      z-index: 2;
+      padding: 1rem;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .navbar {
+      display: none;
+      opacity: 0;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      transition: opacity 0.7s;
+      transition-delay: 1s;
+      transition-property: opacity;
+    }
+    #menu {
+      font-style:normal; 
+      background-color:black; 
+      text-align: right;
+    }
+    #home-menu {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    .subtitle {
+      font-size: 1.3em;
+      font-style: italic;
+      text-decoration: none;
+      padding: 5px;
+    }
+    .link {
+      width: 120px;
+      transition: letter-spacing 0.3s;
+    }
+    .link:hover {
+      letter-spacing: 0.1em;
+    }
+    .dropdown:hover .navbar {
+      display: flex;
+      opacity: 1;
+    }
+    .dropdown:hover #home-menu {
+      opacity: 0;
+    }
+  </style>
+
+  
+  <style>
+    .dropdown {
+      top:2%;
+      right:2%;
+    }
+    .navbar {
+      text-align: right;
+    }
+    .link {
+      background-color: black;
+      padding-right: 20px;
+    }
+  </style>
+  
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div id="fullpage">
+      
+      
+      <div class="dropdown">
+        <a class="subtitle link" id="menu" >[ j p ]</a>
+        <nav class="navbar">
+          <a class="subtitle link" href="/">home</a>
+          <a class="subtitle link" href="/about/">about</a>
+          <a class="subtitle link" href="/portfolio/">portfolio</a>
+          <a class="subtitle link" href="/resume/">resume</a>
+          <a class="subtitle link" href="/updates/">updates</a>
+        </nav>
+        
+      </div>
+      </div>
+    </div>  
+    
+<div class="textbox">
+  <article>
+    <h1 class="title">cloud-based nerfstudio using AWS EC2 and S3 Mountpoint</h1>
+    <time datetime="2024-05-01" class="subtitle">2024-05-01</time>
+    <p>Below are notes on how I set up <a href="https://docs.nerf.studio/index.html">Nerfstudio</a> on an EC2 g5.xlarge instance, for <a href="https://idkwhojamesis.itch.io/factoria-2018">a project where I reconstruct a mall using pictures I took in 2018</a>. I turned these images into Gaussian splats, then used the <a href="https://lumalabs.ai/ue">Luma AI plugin for Unreal Engine 5</a> to stitch the splats together into a walkable first-person experience. </p>
+<p><img src="/assets/updates/nerfstudio/mall_gaussian.png" alt="Screenshot of the mall project" /></p>
+<p>https://docs.nerf.studio/quickstart/installation.html</p>
+<h1 id="set-up-aws-resources">Set up AWS resources</h1>
+<h2 id="ec2-instance">EC2 Instance</h2>
+<ul>
+<li>Plan is to install nerfstudio on a fresh GPU-enabled EC2 instance running Ubuntu.</li>
+<li>You will need to request a quota increase on G-type instances if you haven't already. 
+<ul>
+<li>Quota for G-type on-demand instances: https://us-west-2.console.aws.amazon.com/servicequotas/home/services/ec2/quotas/L-DB2E81BA</li>
+<li>Need to increase vCPU limit to at least 4 to run a g5.xlarge instance.</li>
+</ul>
+</li>
+<li>The <a href="https://aws.amazon.com/releasenotes/aws-deep-learning-base-gpu-ami-ubuntu-20-04/">AWS Deep Learning Base GPU AMI</a> seems to have all the base requirements. It runs Ubuntu 20.04 and installs both CUDA 12.1 and CUDA 11.8. 
+<ul>
+<li>A major pain point with installation is making sure that the default CUDA is set to 11.8. The default in this AMI is 12.1, so once the instance is launched you need to make sure to configure 11.8 to be the default. </li>
+<li>The AMI link above says to change running CUDA version by updating the symbolic link <code>/usr/local/cuda</code>.</li>
+<li><code>sudo rm /usr/local/cuda</code></li>
+<li><code>sudo ln -sfn /usr/local/cuda-11.8 /usr/local/cuda</code></li>
+</ul>
+</li>
+<li>Allocated 75GB on disk and wasn't enough later on, so extending to 200. </li>
+<li>I started a g5.xlarge instance with the AWS Deep Learning Base GPU AMI.</li>
+<li>to SSH into the host on Windows OpenSSH with a .pem file, need to change the key file's permissions to ONLY Read, on ONLY your user specifically.</li>
+<li>In the instance's security group open port 7007 to use the nerfstudio viewer. You can access it on your local machine on the address <code>http://&lt;instance address&gt;:7007</code></li>
+</ul>
+<pre><code>conda activate nerfstudio
+</code></pre>
+<h3 id="change-default-cuda-version">change default CUDA version</h3>
+<ul>
+<li>Git clone and use this script to switch CUDA version to 11.8: https://github.com/phohenecker/switch-cuda/tree/master</li>
+<li>Or just change running CUDA version by updating the symbolic link <code>/usr/local/cuda</code>.
+<ul>
+<li><code>sudo rm /usr/local/cuda</code></li>
+<li><code>sudo ln -sfn /usr/local/cuda-11.8 /usr/local/cuda</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="install-nerfstudio">install nerfstudio</h2>
+<p>https://docs.nerf.studio/quickstart/installation.html</p>
+<ul>
+<li>install miniconda https://docs.anaconda.com/free/miniconda/#quick-command-line-install then restart the shell. I had to do <code>exit</code> then <code>/bin/bash</code> then <code>cd /</code></li>
+<li>install as specified above.</li>
+</ul>
+<h2 id="s3-mountpoint">s3 mountpoint</h2>
+<ul>
+<li>https://docs.aws.amazon.com/AmazonS3/latest/userguide/mountpoint-installation.html#mountpoint.install.deb</li>
+<li>did credentials by having the instance profile provide full s3 access.</li>
+<li>create folder where you want to mount, then <code>mount-s3 &lt;bucket name&gt; &lt;folder name&gt;</code></li>
+<li>Currently not able to have the output dir for <code>ns-process-data</code> as a folder inside the s3 bucket; <code>PermissionError: [Errno 1] Operation not permitted: 'processed-data/images/frame_00001.jpg'</code></li>
+</ul>
+<h3 id="remount-when-restarting-instance-after-stopping">remount when restarting instance after stopping</h3>
+<pre><code>mount-s3 factoria-2018-dataset .&#x2F;s3mount-factoria-2018-dataset
+</code></pre>
+<h2 id="install-colmap-and-ffmpeg">install COLMAP and ffmpeg</h2>
+<ul>
+<li>needed to train custom image sets.</li>
+<li>https://docs.nerf.studio/quickstart/custom_dataset.html#installing-colmap</li>
+<li>worked without issue.</li>
+<li>Just installed ffmpeg using conda <code>conda install ffmpeg</code> and works without issue</li>
+</ul>
+<h2 id="creating-the-splat">creating the splat!!!</h2>
+<p>Process image data</p>
+<pre><code> ns-process-data images --data .&#x2F;s3mount-factoria-2018-dataset&#x2F;area-4&#x2F; --output-dir ~&#x2F;area-4-processed
+</code></pre>
+<p>Generate the splat</p>
+<pre><code>ns-train splatfacto --data ~&#x2F;area-4-processed --output-dir ~&#x2F;area-4-outputs
+</code></pre>
+<pre><code>ns-render camera-path --load-config &#x2F;home&#x2F;ubuntu&#x2F;area-4-outputs-ingp&#x2F;area-4-processed&#x2F;instant-ngp&#x2F;2024-04-14_080837&#x2F;config.yml --camera-path-filename &#x2F;home&#x2F;ubuntu&#x2F;area-4-processed&#x2F;camera_paths&#x2F;2024-04-14-09-59-00.json --output-path renders&#x2F;area-4-processed&#x2F;2024-04-14-09-59-00.mp4
+</code></pre>
+<h2 id="do-the-command-in-background-even-after-terminal-exits">do the command in background even after terminal exits</h2>
+<p>https://phoenixnap.com/kb/linux-run-command-background</p>
+<pre><code>nohup [command] &amp;
+</code></pre>
+<p>Check the background processes' status in the current shell session with the <strong><code>jobs</code></strong> command:</p>
+<pre><code>jobs
+</code></pre>
+<p>The output saves in the <strong>nohup.out</strong> log file. Verify the log with <a href="https://phoenixnap.com/kb/linux-cat-command">cat</a>:</p>
+<pre><code>cat nohup.out
+</code></pre>
+<p>To bring a background process back to the foreground, use <strong><code>fg</code></strong> followed by the job ID or process ID.</p>
+<p>For instance, if Vim had job ID 1, bring it back to the foreground using the job ID with:</p>
+<pre><code>fg 1%
+</code></pre>
+<p>To use the process ID, execute:</p>
+<pre><code>fg 2781
+</code></pre>
+
+  </article>
+</div>
+                                
+    <canvas></canvas>
+    
+<script src="/js/contentVisual.js"></script>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- generics -->
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="/android-chrome-192x192.png" sizes="192x192">
+  <!-- Android -->
+  <link rel="shortcut icon" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="shortcut icon" sizes="512x512" href="/android-chrome-512x512.png">
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  
+    <link rel="alternate" type="application/rss+xml" title="idkwhojamesis" href="https://idkwhojamesis.com/rss.xml">
+    
+
+  <title>james park</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+    canvas {
+      width: 120vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: -10px;
+      top: 0;
+    }
+    h1 {
+      line-height: 100%;
+    }
+    #landing-title {
+      opacity: 0.8;
+      position: fixed;
+      bottom: 35%;
+      left: 2%;
+      padding: 1rem;
+      z-index: 2;
+    }
+    .title {
+      font-size: 2em;
+      margin: 0;
+    }
+    .desc {
+      margin: 0;
+    }
+    body {
+      font-size: 1.2em;
+      height: 100vh;
+      font-family: 'EB Garamond', serif;
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      overflow-wrap: break-word;
+    }
+    img {
+      display: block;
+      max-width: 80%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+    }
+    a {
+      font-style: italic;
+      color: white;
+    }
+    code {
+      white-space: pre-wrap;
+    }
+    .textbox {
+      color: white;
+      min-width: 300px;
+      width: 50vw;
+      max-width: 600px;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      z-index: 1;
+      line-height: 150%;
+    }
+    .dropdown {
+      position: fixed;
+      z-index: 2;
+      padding: 1rem;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .navbar {
+      display: none;
+      opacity: 0;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      transition: opacity 0.7s;
+      transition-delay: 1s;
+      transition-property: opacity;
+    }
+    #menu {
+      font-style:normal; 
+      background-color:black; 
+      text-align: right;
+    }
+    #home-menu {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    .subtitle {
+      font-size: 1.3em;
+      font-style: italic;
+      text-decoration: none;
+      padding: 5px;
+    }
+    .link {
+      width: 120px;
+      transition: letter-spacing 0.3s;
+    }
+    .link:hover {
+      letter-spacing: 0.1em;
+    }
+    .dropdown:hover .navbar {
+      display: flex;
+      opacity: 1;
+    }
+    .dropdown:hover #home-menu {
+      opacity: 0;
+    }
+  </style>
+
+  
+  <style>
+    .dropdown {
+      top:2%;
+      right:2%;
+    }
+    .navbar {
+      text-align: right;
+    }
+    .link {
+      background-color: black;
+      padding-right: 20px;
+    }
+  </style>
+  
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div id="fullpage">
+      
+      
+      <div class="dropdown">
+        <a class="subtitle link" id="menu" >[ j p ]</a>
+        <nav class="navbar">
+          <a class="subtitle link" href="/">home</a>
+          <a class="subtitle link" href="/about/">about</a>
+          <a class="subtitle link" href="/portfolio/">portfolio</a>
+          <a class="subtitle link" href="/resume/">resume</a>
+          <a class="subtitle link" href="/updates/">updates</a>
+        </nav>
+        
+      </div>
+      </div>
+    </div>  
+    
+<div class="textbox">
+    <h1 id="james-park">James Park</h1>
+<h2 id="software-development-engineer">Software Development Engineer</h2>
+<p>Last updated: 23 Feb 2026
+<a href="/assets/JamesParkResume2026Mar.pdf">Download resume PDF</a></p>
+<p><a href="https://github.com/idkwhojamesis">github (code)</a><br />
+<a href="https://codepen.io/idkwhojamesis">codepen (front-end demos)</a><br />
+<a href="https://idkwhojamesis.itch.io/">itch.io (games)</a></p>
+<p>Currently based in Seattle, WA</p>
+<h2 id="experience">Experience</h2>
+<h3 id="software-development-engineer-amazon-web-services-aug-2022-present">Software Development Engineer, Amazon Web Services (Aug 2022 - Present)</h3>
+<ul>
+<li>Designed and delivered high-scale, security-first features for AWS Systems Manager, serving a customer base of 100,000+ and leveraging Java, Golang, TypeScript, and AWS services (S3, CloudFormation, IAM, DynamoDB, EC2, CloudWatch, SQS, SNS).</li>
+<li>Led a 14-month project to build an AWS SSM microservice in 7 isolated ISO-certified regions, requiring close coordination with multiple engineers with ISO access and bringing AWS services in ISO regions up to parity with commercial regions.</li>
+<li>Built an additional UI component in the service's AWS web console for accessing the SSM Documents API (AWS SDK, TypeScript, React, Jest, Sinon).</li>
+<li>Optimized the AWS SSM Session Manager microservice's ability to stream to AWS CloudWatch Logs in real time (Golang).</li>
+<li>Reduced the AWS SSM Health microservice’s region expansion time from 2 months to 2 weeks by creating comprehensive, standardized documentation that streamlined the process for 3 new regions.</li>
+<li>Transitioned the service's region expansion efforts from a manual process to an automated zero-touch approach, saving ~100 man-hours per new region (CloudFormation, IAM, internal CI/CD tools).</li>
+</ul>
+<h2 id="education">Education</h2>
+<h3 id="m-s-computer-science-georgia-tech-2022-on-pause">M.S., Computer Science, Georgia Tech (2022 - on pause)</h3>
+<ul>
+<li>Relevant Coursework: Human-Computer Interaction</li>
+</ul>
+<h3 id="m-s-computer-science-fordham-univ-spring-2021-transferred">M.S., Computer Science, Fordham Univ. (Spring 2021 - transferred)</h3>
+<ul>
+<li>Relevant Coursework: Object Software Design (JS), Computer Algorithms (Python), Artificial Intelligence (Python)</li>
+</ul>
+<h3 id="b-a-new-media-and-digital-design-fordham-univ-2017-21">B.A., New Media and Digital Design, Fordham Univ. (2017 - '21)</h3>
+<ul>
+<li>3.5/4 GPA, Dean's List</li>
+<li>Relevant Coursework: Computer Science I+II (C++), Data Structures, Info and Data Management (Python, SQL), Intro to Video Game Design (C#), Creative Coding (JS)</li>
+<li>Member of Design for America, an idea incubator tackling social challenges through design</li>
+</ul>
+<h2 id="contributions">Contributions</h2>
+<ul>
+<li><a href="https://github.com/vercel/next.js/pull/36876">Include router.asPath caveats in docs by idkwhojamesis · Pull Request #36876 · vercel/next.js</a> (May 2022)</li>
+</ul>
+<h2 id="projects-and-activities">Projects and Activities</h2>
+<h3 id="updated-digital-twin-with-high-performance-radiance-field-pipeline-2026">Updated Digital Twin with High-Performance Radiance Field Pipeline - 2026</h3>
+<ul>
+<li>Replaced COLMAP-based Structure-from-Motion step from previous iteration with GLOMAP (Global SfM) and LightGlue (Neural Feature Matching) to increase pose accuracy for challenging dataset.</li>
+<li>Integrated Physically-Plausible ISP (NVIDIA PPISP) into the training loop to dynamically correct auto-exposure and white-balance drift across large-scale image dataset.</li>
+</ul>
+<h3 id="photorealistic-real-time-3d-digital-twin-aws-nerfstudio-unreal-engine-2024">Photorealistic Real-Time 3D Digital Twin - AWS, Nerfstudio, Unreal Engine - 2024</h3>
+<p><a href="https://idkwhojamesis.itch.io/factoria-2018">Project page</a><br />
+<a href="https://www.idkwhojamesis.com/updates/nerfstudio-on-aws/">Notes on cloud setup</a></p>
+<ul>
+<li>Architected a cloud-native 3D reconstruction pipeline using Nerfstudio on AWS G5 instances to transform a 1.2k image unstructured dataset into a high-fidelity Gaussian Splat of a large mall interior. </li>
+<li>Integrated AWS S3 Mountpoint for data staging, enabling real-time streaming of multi-GB datasets to the training environment and reducing local storage overhead by 90%.</li>
+<li>Ported the digital twin into an interactive first-person walkthrough in Unreal Engine 5, using Luma AI plugin for real-time rendering of Gaussian splats through Niagara.</li>
+</ul>
+<h3 id="volunteer-ieeevr-2020-research-conference-remote-mar-2020">Volunteer, IEEEVR 2020 Research Conference; Remote (Mar 2020)</h3>
+<p><a href="http://www.ieeevr.org/2020/">Organization homepage</a></p>
+<ul>
+<li>Moderating and troubleshooting <a href="https://hubs.mozilla.com/">Mozilla Hubs (A-Frame) social spaces</a> designed for presenting postgrad CS research focused on graphics, UX research for VR</li>
+</ul>
+<h3 id="developer-brokebook-new-york-ny-aug-2019-mar-2020">Developer, Brokebook; New York, NY (Aug 2019 - Mar 2020)</h3>
+<p><a href="https://github.com/idkwhojamesis/brokebook_web">Github repo</a></p>
+<ul>
+<li>Utilized Django (Python), SQLite database, and Bootstrap CSS to design and develop a web application that allows users to search for books they want to borrow from other users in their area.</li>
+</ul>
+<h3 id="unity-programmer-playcrafting-global-game-jam-new-york-ny-feb-2020">Unity Programmer, Playcrafting Global Game Jam; New York, NY (Feb 2020)</h3>
+<p><a href="https://idkwhojamesis.itch.io/fix-the-penguin-gamejam">Web demo</a></p>
+<ul>
+<li>Utilized Unity SoundMixer to create a dynamic audio experience, implement 3D positional audio, and manage and adjust audio settings in real-time.</li>
+<li>Source control via git (Bitbucket) and tracking via JIRA and Unity collaboration features to work with a team of developers on a large project.</li>
+<li>Managed project completion on a tight 3-day schedule for a professionally evaluated product.</li>
+<li>Developed and maintained productive working relationships with team members involved in industry software engineering and 3D asset creation.</li>
+</ul>
+<h3 id="xr-volunteer-games-for-change-new-york-ny-jun-2019">XR Volunteer, Games for Change; New York, NY (Jun 2019)</h3>
+<p><a href="http://www.gamesforchange.org/xr4c/">XR for Change page</a></p>
+<ul>
+<li>Demonstrated features in Magic Leap One LuminOS, Oculus Go, and SteamVR ecosystem to 1000+ industry professionals and researchers.</li>
+<li>Tested a virtual reality application with an AI conversational agent designed to react dynamically to voice input.</li>
+<li>Operated specialized VR equipment for accessibility (eg. voice commands, custom controllers, eye tracking).</li>
+<li>Demonstrated a strong commitment to generating interest among colleagues in bleeding-edge mixed reality hardware.</li>
+</ul>
+<h2 id="skills">Skills</h2>
+<h3 id="languages">Languages</h3>
+<ul>
+<li>JavaScript/TypeScript - 4 yrs.</li>
+<li>Python - 2 yrs.</li>
+<li>Other languages: Java, Golang</li>
+</ul>
+<h3 id="web">Web</h3>
+<ul>
+<li>UI Frameworks: React</li>
+<li>CSS Frameworks: Bootstrap, Tailwind</li>
+<li>Node.js/NPM package management</li>
+<li>Testing: Jest, Sinon, Mocha, Chai</li>
+<li>WebGL/3D: Babylon.js (check out the interactive site background!)</li>
+<li>HTML/CSS, Markdown</li>
+<li>MySQL, SQLite</li>
+</ul>
+<h3 id="cloud">Cloud</h3>
+<ul>
+<li>AWS Systems Manager, EC2, CloudFormation, CloudWatch, IAM</li>
+</ul>
+<h3 id="games-and-xr">Games and XR</h3>
+<ul>
+<li>Unity (building to Meta Quest, PC)</li>
+<li>RealityCapture (photogrammetry asset capture)</li>
+</ul>
+<h3 id="etc">Etc.</h3>
+<ul>
+<li>Microsoft Office (Excel, Word, PowerPoint, OneNote)</li>
+<li>Photoshop, Illustrator, GIMP</li>
+</ul>
+
+</div>
+                                
+    <canvas></canvas>
+    
+<script src="/js/contentVisual.js"></script>
+
+  </div>
+</body>
+
+</html>

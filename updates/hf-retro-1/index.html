@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- generics -->
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="/android-chrome-192x192.png" sizes="192x192">
+  <!-- Android -->
+  <link rel="shortcut icon" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="shortcut icon" sizes="512x512" href="/android-chrome-512x512.png">
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  
+    <link rel="alternate" type="application/rss+xml" title="idkwhojamesis" href="https://idkwhojamesis.com/rss.xml">
+    
+
+  <title>james park</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+    canvas {
+      width: 120vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: -10px;
+      top: 0;
+    }
+    h1 {
+      line-height: 100%;
+    }
+    #landing-title {
+      opacity: 0.8;
+      position: fixed;
+      bottom: 35%;
+      left: 2%;
+      padding: 1rem;
+      z-index: 2;
+    }
+    .title {
+      font-size: 2em;
+      margin: 0;
+    }
+    .desc {
+      margin: 0;
+    }
+    body {
+      font-size: 1.2em;
+      height: 100vh;
+      font-family: 'EB Garamond', serif;
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      overflow-wrap: break-word;
+    }
+    img {
+      display: block;
+      max-width: 80%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+    }
+    a {
+      font-style: italic;
+      color: white;
+    }
+    code {
+      white-space: pre-wrap;
+    }
+    .textbox {
+      color: white;
+      min-width: 300px;
+      width: 50vw;
+      max-width: 600px;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      z-index: 1;
+      line-height: 150%;
+    }
+    .dropdown {
+      position: fixed;
+      z-index: 2;
+      padding: 1rem;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .navbar {
+      display: none;
+      opacity: 0;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      transition: opacity 0.7s;
+      transition-delay: 1s;
+      transition-property: opacity;
+    }
+    #menu {
+      font-style:normal; 
+      background-color:black; 
+      text-align: right;
+    }
+    #home-menu {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    .subtitle {
+      font-size: 1.3em;
+      font-style: italic;
+      text-decoration: none;
+      padding: 5px;
+    }
+    .link {
+      width: 120px;
+      transition: letter-spacing 0.3s;
+    }
+    .link:hover {
+      letter-spacing: 0.1em;
+    }
+    .dropdown:hover .navbar {
+      display: flex;
+      opacity: 1;
+    }
+    .dropdown:hover #home-menu {
+      opacity: 0;
+    }
+  </style>
+
+  
+  <style>
+    .dropdown {
+      top:2%;
+      right:2%;
+    }
+    .navbar {
+      text-align: right;
+    }
+    .link {
+      background-color: black;
+      padding-right: 20px;
+    }
+  </style>
+  
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div id="fullpage">
+      
+      
+      <div class="dropdown">
+        <a class="subtitle link" id="menu" >[ j p ]</a>
+        <nav class="navbar">
+          <a class="subtitle link" href="/">home</a>
+          <a class="subtitle link" href="/about/">about</a>
+          <a class="subtitle link" href="/portfolio/">portfolio</a>
+          <a class="subtitle link" href="/resume/">resume</a>
+          <a class="subtitle link" href="/updates/">updates</a>
+        </nav>
+        
+      </div>
+      </div>
+    </div>  
+    
+<div class="textbox">
+  <article>
+    <h1 class="title">Heaven&#x27;s Few Retrospective 1 - Ideation to Prototyping</h1>
+    <time datetime="2024-08-04" class="subtitle">2024-08-04</time>
+    <h2 id="preface">Preface</h2>
+<p>'Heaven's Few' is a game for VR that I've been slowly iterating on since 2019. The game is still in pre-production stage, with the goal of delivering a playable vertical slice running on Meta Quest. Since the history of this idea is spread out over time and scattered across old notes, screenshots, and Discord messages, this retrospective is me collecting everything into one place and looking back at all the exploration and learning I've done so far. I don't really go into the details of the game itself here, but more about how I grew this idea over time and the train of thought that I've had about this game from 2019 all the way to today. </p>
+<h2 id="introduction">Introduction</h2>
+<p>Sometime in 2019, I sketched out a concept for a VR game where a player would move the entire room around them. The inspiration came when I was using <a href="https://en.wikipedia.org/wiki/Oculus_Medium">Oculus Medium</a> to smooth out some gaps in a <a href="https://www.capturingreality.com/">RealityCapture</a> mesh. The mesh was a reconstruction of one section's interior near my high school, so I found myself wandering this virtual mall, spinning it, zooming in and out, and &quot;moving&quot; through it by dragging the mesh towards or away from me. I started to notice that this kind of interaction was really fun and encouraged meaningful exploration. Maybe more importantly, it was a novel and unexplored interaction that only felt natural in virtual reality and nowhere else. So, could this be a good game?</p>
+<p>The below clip is photogrammetry expert Azad Balabanian moving a room around in Oculus Medium. It looks like he's moving around the room, but he's actually moving the room around him <a href="https://youtube.com/clip/Ugkx0OkRoAygKwghmVnJdb1I5spBFkj1VeU9?si=9PSQr-1VeUZUFW8o">(link)</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1o8UllCqmp8?si=4gvNr3cejqriLknh&amp;clip=Ugkx0OkRoAygKwghmVnJdb1I5spBFkj1VeU9&amp;clipt=ENeD0wEY7_jTAQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p>The first note I made explaining this idea.
+<img src="/assets/updates/2024-08-04-hf-retro-1/notebook-idea.png" alt="The first note I made explaining this idea." /></p>
+<h2 id="2020-first-prototype-and-inspirations-from-half-life-alyx">2020: First prototype, and inspirations from Half-Life: Alyx</h2>
+<p>This was still early in my game development learning journey and I still didn't really know what I was doing, but I started to see if I could at least develop a working prototype demonstrating the mechanic I had in mind. I remember a lot of struggle just getting the headset and controllers to work with the prototype, first setting up the stuff that would make a WMR headset work in Unity (was using the <a href="https://support.lenovo.com/us/en/solutions/pd500067-overview-for-lenovo-explorer">Lenovo Explorer</a> at this time), then setting up the input to go through Steam Input so that I could use SteamVR features like button remapping. The prototype that ultimately came out of this had an incomplete version of the game mechanic where the player could not rotate the room, but I was able to put the player mid-air in a room with physics objects, and they could drag the room around by holding grip/trigger and moving the controller around, and that would make the physics objects bounce around accordingly. Unfortunately I couldn't get any input to work when I booted it up recently through Virtual Desktop to my Quest 2, so I don't have good footage to show here. In February 2020 I uploaded <a href="https://idkwhojamesis.itch.io/shift-vr">this build of the prototype (link)</a> to Itch.</p>
+<p><strong>Half-Life: Alyx spoiler below</strong>, skip to the next heading if needed.</p>
+<p>Shortly after this in March was when <a href="https://store.steampowered.com/app/546560/HalfLife_Alyx/">Half-Life: Alyx</a> released. Mild gameplay spoilers, but if you've played the game you know that some later levels have some trippy layouts that play with orientation and gravity in weird ways, so of course I wanted to dig deeper into this as reference for my own project. A half-working version of Hammer 2 (Source 2's map editor) was leaked somewhere on Reddit so I spent some time exploring that, and shortly afterward the official HL:A Workshop Tools dropped. I'll just quote a summary from my &quot;two years of CS&quot; post:</p>
+<blockquote>
+<p>Following the release of the Half-Life: Alyx Workshop Tools, I wanted to see how the later anti-gravity levels worked and see if I could make my own. I had thought that maybe the gravity of parts of the level had actually changed and affected which direction the player would stand.
+The actual implementation is a bit more hacky than that: rooms were rotated so its &quot;floor&quot; would be a wall/ceiling, giving the illusion of anti-gravity, and forces would be applied to parts of the level so that objects would &quot;fall&quot; in ways that would disobey gravity.
+I played around with this a little bit with a custom level, throwing shopping carts at walls and using force points to make them stick. Once I rebuild my PC maybe I'll include some footage.</p>
+</blockquote>
+<blockquote>
+<p>Shown below is one of the Half-Life Alyx's trippiest rooms exposed: forces are added at different parts of the hallway to make some objects &quot;fall&quot; towards the upper &quot;flipped&quot; hallway's floor <a href="https://youtu.be/75Y1Wnd1Iuc?si=xGcJju2hpzYfFuWD&amp;t=1778">link to level footage (29:38)</a>.</p>
+</blockquote>
+<p><img src="/assets/updates/2020-01-03/hla.png" alt="Half-Life: Alyx hallway level" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hla-hall.png" alt="Half-life: Alyx hallway screenshot" /></p>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/75Y1Wnd1Iuc?si=X5ExGpQcDFYF737g&amp;start=1778" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p>Not sure if I ever recorded footage or if I even have that custom level anymore. Part of my dive into the HL:A Workshop Tools was to see if I could actually just build this game in Source 2 or at least as a HL:A mod, but ultimately it didn't seem flexible enough to build the foundation I needed, and at this point I don't think we're getting full Source 2 access the same way we have access to Unity and Unreal.</p>
+<p>From here the progress of this idea died out for a bit; the pandemic was in full force and I had moved away from college back to my parent's house. I had a lot of time to spare for a couple months but I had school to finish and wanted to explore some other stuff around then. What ultimately froze the project though was that in July I got into a serious relationship, and various aspects of it took up a lot of my time for the remainder of 2020.</p>
+<h2 id="2022-initial-ideas-on-vibe-and-story-and-starting-to-piece-things-together">2022 - Initial ideas on vibe and story, and starting to piece things together</h2>
+<h3 id="portal-and-the-pillars-of-a-great-game">Portal and the pillars of a great game</h3>
+<p>A lot of other things made up my life throughout 2021, but the idea of this game continued to linger in the back of my mind. Around late 2021 and early 2022 things were cooling down, I had more time to use my PC and more time to organize my mind and my goals, including this game. During this time I was able to think on big aspects that I hadn't really thought of much before: what would this game actually look like, and be about? And what should I name it??</p>
+<p>The first <a href="https://store.steampowered.com/app/400/Portal/">Portal</a> is my favorite game of all time and is kind of the base reference for what I would want to make in almost every aspect. This is really generalizing it, and is all pretty obvious, but these things are the crucial pillars of a game I would be proud to make, all equally important:</p>
+<ul>
+<li>Novel gameplay mechanics that challenge and reshape the way players think about the real world.</li>
+<li>A compelling world and story that should also challenge a player's thinking, and provide a context to the gameplay that encourages players to think deeper and engage meaningfully with their play.</li>
+<li>A visual aesthetic that is beautiful and cohesive, and directs the emotional context for the story and gameplay by evoking certain moods. Portal would just not hit the same without that cool-toned blue-gray atmosphere that makes you feel the inhumanity of the test chambers.</li>
+<li>On the technical side, performant and free of significant bugs. I like games that optimize for weaker hardware like mobile platforms and take creative approaches to maximizing smaller performance budgets.</li>
+</ul>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/portal.png" alt="Portal screenshot" /></p>
+<p>Of course, hitting all four of those points successfully is ridiculously hard and requires the right people in the right place at the right time, but I'm still allowing myself to shoot for the moon here with the hope of landing on a close-enough star.</p>
+<p>Initial ideas for the game started off as the typical Portal-like vibe - you're in a lab, you're in test chambers that test the room-moving mechanic in various ways, you slowly uncover why you're in the test chambers and are compelled to break out of the lab, etc. It's definitely hard to break out of the &quot;Portal-like&quot; tropes if you have a game that revolves around gameplay mechanics that break traditional rules of spatial navigation; it's convenient to just explain it away as either magic or experimental technology. Even fast-forwarding to today in 2024, the basic ideas for Heaven's Few are still pretty much that. It did bother me for a while how easily I was falling into these tropes, but nowadays I'm okay with it and I'll just try to nail the execution and keep things interesting.</p>
+<p>There was another early idea closer to my experiences in Oculus Medium - what if the game was set inside a program like that, and I'm inside the 'editor' exploring various reconstructions of real places? And maybe I slowly uncover the dark secrets and lost souls that haunt these places.. honestly that still sounds pretty cool, but I think what turned me off from it was that I would have to create highly detailed levels that should basically look like photorealistic 3D scans, otherwise the whole premise might be lost on people. Honestly though I still like the idea of a game set inside of an editing program, I think Sam Barlow mentioned in <a href="https://www.youtube.com/watch?v=YkylPbU_ZuM">his interview on the AIAS Game Maker's Notebook podcast</a> of an idea for a horror game set inside of an interactive architectural blueprint, as a novel way to reduce art design load.</p>
+<p>I think the first name I thought of was simply &quot;TURN&quot;, referring to how the player could turn levels around themselves. I also thought of &quot;Shift&quot;. I wasn't really happy with either so most of the docs around this time refer to the game as &quot;turn prototype&quot;. The first prototype I mentioned above is called &quot;shift vr prototype&quot; on Itch, but you can see that the .exe name is &quot;turn1&quot;. I had to call it something simple and this worked for now, and reinforced to me that this was still very much in prototype phase.</p>
+<h3 id="early-concept-art">Early 'concept art'</h3>
+<p>I made some drawings around this time to feel out what kind of vibe I wanted for the game. Drawing is not my strong suit so uh.. keep an open mind about these.</p>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/drawing1.jpg" alt="Drawing of cover art idea" />
+Cover art idea, it's you against the opps.</p>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/drawing2.png" alt="Drawing of cover art idea 2" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/drawing3.png" alt="Drawing of cover art idea 3" />
+Was trying to evoke a grittier, funkier take on 2000s cybergoth type stuff with these two. the spikes on the right side of the last picture are big fingers with long neon nails.</p>
+<p>I also made this quick sketchout in shapesXR, a 3D editing tool for Meta Quest. This probably demonstrates the gameplay concept better than anything else I've shown.
+<img src="/assets/updates/2024-08-04-hf-retro-1/3Dsketch1.png" alt="3D sketch of mechanic 1" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/3Dsketch2.png" alt="3D sketch of mechanic 2" /></p>
+<h3 id="first-draft-of-the-design-document">First draft of the design document</h3>
+<p>I watched <a href="https://youtu.be/QOAW9ioWAvE?si=VHMs_9KDDmXo1rG1">Mark Cerny’s 2002 “Method” talk at DICE</a> around this time and realized I should probably lay out the foundation of a design document so ideation can be more focused and categorized. Definitely worth checking it out by the way, the main thing I remember is the distinct difference between the exploration of pre-prod/prototype stage versus the defined goals a team should have if an idea is good enough to take to production stage. </p>
+<p>On March 30 2022 I created the Google doc that would be the design document. This is still what I’m adding onto now as I get more ideas, eventually I’ll have to do a pass where I remove ideas that didn’t stick and move more detailed material into separate documentation. In this first draft I basically just added categories based on an example game design document I found online, and copied in my notes and random ideas where it felt appropriate. </p>
+<p>Level idea I posted early on in the doc.
+<img src="/assets/updates/2024-08-04-hf-retro-1/lego-level.jpg" alt="Level idea built with LEGO pieces" /></p>
+<p>Screenshot of the top of the doc now.
+<img src="/assets/updates/2024-08-04-hf-retro-1/top-of-doc.png" alt="Screenshot of the top of the doc now" /></p>
+<p>At this point I continued to try building on a Portal-type story, even down to containing the game mechanic into a tool the player wields. It was called the T.R.A.Y. aka the Tool for Revolving Around You, it would look like a tray and you would be able to shift the room around by moving the T.R.A.Y. the way you’d want the room to move. </p>
+<p>Quote from the document:</p>
+<blockquote>
+<p>tool for doing the abilities - starting to realize the “portal gun”/“the gameplay mechanic is a tool” trope is really overused, if you have that then your story basically always starts in a research lab or something lol</p>
+<ul>
+<li>the tool can be damaged by enemies</li>
+<li>can use as melee weapon</li>
+<li>or idk should it be like an eyeball? w an iris color that changes based on health</li>
+</ul>
+</blockquote>
+<p>I would continue adding ideas here and there, but life would get in the way again and I hadn’t even started a new prototype yet. </p>
+<p>Around July I started working full-time again, and in August I got into my current job as an SDE at Amazon Web Services. I thought this would pretty much kill off any chance to work on the game, but 2023 ended up being the year when prototyping finally took off.</p>
+<h2 id="2023-prototyping-in-unity-but-then">2023: Prototyping in Unity, but then…</h2>
+<h3 id="bonelab-trenchbroom-planning-the-year">Bonelab, Trenchbroom, planning the year</h3>
+<p>Late 2022 was when <a href="https://www.meta.com/experiences/4215734068529064/">Bonelab</a> and the <a href="https://github.com/StressLevelZero/MarrowSDK">Marrow SDK</a> had come out. I figured this could be a good way for me to quickly jump back into Unity and test out VR game ideas via Bonelab modding. The Marrow SDK features were really limited at launch though without installing additional mod tools. </p>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/bonelab1.jpg" alt="Bonelab shenanigans" /></p>
+<p>A bit earlier on I was introduced to <a href="https://trenchbroom.github.io/">Trenchbroom</a>, an open source 3D modeling tool intended for Quake and GoldSrc maps. A big concern I had before starting the game was deciding which tools could help me cover my weaker areas of gamedev faster, and I was looking to Trenchbroom as a solution for me to quickly block out and texture levels. Previously I would use <a href="https://unity.com/features/probuilder">ProBuilder</a> in Unity for everything, but it was pretty clunky for doing anything more detailed than a really basic blockout. I also bought and tried the <a href="https://assetstore.unity.com/packages/tools/modeling/umodeler-80868">UModeler</a> addon later but it still wasn’t quite what I needed for map-making (it seems pretty good though if you stick with it). The typical choice here would be fully diving into Blender but I still found it overwhelming and didn’t want to spend too much time learning it when I already needed to dive into Unity. As a test for Trenchbroom being a viable option, I made a couple test maps and also tested the Trenchbroom-to-Unity workflow by importing the first map of Quake into TB then importing that to Bonelab.</p>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/bonelab-quake.jpg" alt="Bonelab Quake map" /></p>
+<p>Early in the year I made a whole plan of how I would spend my time, this is what the schedule looked like:
+<img src="/assets/updates/2024-08-04-hf-retro-1/2023-schedule.png" alt="2023 schedule" /></p>
+<p>This fell apart around March but it proved to be really helpful throughout the year to remind myself what I had planned on doing, and I think it did push me to do more with my time than I otherwise would have. 'Euler' was another name for the project. The 'level-based app' I mention was the idea that is implemented in Quake, Source games like Half-Life, and many other games - I wanted there to be the foundation of the game, and then levels that you could download as files and just put in a folder in the game to play, and levels would be self-contained files/folders that keep their assets separate from the game foundation. </p>
+<h3 id="sharing-progress-new-prototypes-pulling-in-inspirations-for-story">Sharing progress, new prototypes, pulling in inspirations for story</h3>
+<p>Around April or May, my good friend Mark and I had the idea to share progress on our respective projects every Saturday so we could keep each other accountable on progress. This pushed me to finally develop a prototype of the game idea that would make the core mechanic playable and produce a recording of the prototype that could explain the mechanic. I've made a couple more prototypes since then, but in some ways I feel like this first one was the coolest and was the clearest in terms of demonstrating the core mechanic of moving the room. The more I've fleshed it out in future prototypes, the more obstacles I would run into during development that would result in a game that would not show the mechanic as effectively. In mid-July I recorded this gameplay of the prototype <a href="https://www.youtube.com/watch?v=r57ptTArWW4">(link)</a>. </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r57ptTArWW4?si=K1EgCHXv1-0XusS-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p>This was a standalone Unity project that utilized the Meta hand-tracking features that had recently released then. A pinch gesture would 'freeze time' (actually just turning off physics simulation of all level objects) and I could rotate the level with my hand.</p>
+<p>Our talks also encouraged me to think more seriously about the story and aesthetic of the game. I was (and still am) really into the y2k aesthetic and also the 2000s 'rave' style and atmosphere; think the beginning of The Matrix and the club scene in Pusher. I like those lighting rigs they have on DJ stages and having them beam green and red rays everywhere.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SF7AGLeNyxc?si=FpJnIvW8R06mcslh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p>For lore and setting details, I decided to pull some elements from a worldbuilding exercise I did in college. I took a class called &quot;Introduction to Game Narrative&quot; or something like that (shoutout Prof. Chris Vicari at Fordham!!!) where we were introduced to the art of worldbuilding and Dungeons and Dragons -style DMing, to push us to think about how games can deliver narratives in ways that other mediums cannot. The final project for the first half of the semester had us develop a &quot;world bible&quot; describing a world that could facilitate roleplaying in TTRPG style. </p>
+<p>I took this as an opportunity to flesh out a take on 'AI surpasses humanity' that I've thought about since high school, and thought even more about in 2019. It was the year of GPT-2, invasive data collection, and the mainstream emergence of this idea that AI is a real thing we should worry about. It became widely understood that online data is used for purposes beyond entertainment and communciation. Alongside its use cases for surveillance and advertising, it is valuable for AI LLM models that can 'grow' by training on social media and all the data that humanity has enthusiastically created and shared online for the last couple decades.</p>
+<p>Long story short, I created an entire lore bible for a hypothetical TTRPG called &quot;BEINGS OF RECREATION&quot;, with &quot;RECREATION&quot; meaning re-creation, not pickleball or walks on the beach. The main idea was that in 2500, the characters would be experimental AI models that were individually trained on different historical datasets, to manifest the 'personalities' of different Internet demographics. So there would be one trained on 2016 front-page Facebook content and ultimately be kind of like your average American right-leaning Gen X mom, and another one would be trained on 2012 4chan posts and have a more cynical personality and sharp sense of humor. In a similar way that <a href="https://en.wikipedia.org/wiki/Characters_of_the_Hyperdimension_Neptunia_series">Hyperdimension Neptunia's characters</a> are manifestations of different game consoles living in their own world, this world had manifestations of internet subcultures living amongst each other. These AIs would have a sense of geography by treating servers as spaces and datacenters as the &quot;cities&quot; of this virtual layer of Earth. </p>
+<p>Quote from the world bible:</p>
+<blockquote>
+<p>These beings tribalize themselves within the models they learned from, segregated by year. The culture of each site, their memes, jokes, concerns, emotions, interests, are the religion and culture of these beings. It is all they know as they do not inhabit a physical world. Every memory of each individual is shared by everyone else of the same model (but again every being has an individual instance of thought)  When a Being is born, it starts with the intelligence of their Model. HOWEVER, new memories and thoughts created are individual, and thus every Being grows differently from their initial model over time. The culture within each model is already incredibly rich which encourages same-Models to stick together. Some are more open to new ideas than others.</p>
+</blockquote>
+<p>Was I cooking something interesting here or just fresh off an acid-induced period of mania that lasted months? Anyways I would think about this world every now and then, and fast-forwarding to 2023, the memory of this assignment made me wonder if playing as an AI could be an interesting game story. I wrote this all down when it came to me, and here is where the title &quot;Heaven's Few&quot; was first thought of, referring to a group of AI models feared and worshipped by society as they are the first to demonstrate capabilities beyond human comprehension. Pasted below is the entry in my &quot;new ideas&quot; note in Obsidian:</p>
+<pre><code>[[Turn prototype]] - different characters with different movement tech?
+- one can move the environment itself (as described), this is the only way they can navigate the space
+- one can grip the air as an instant handle, to launch from, spin around, etc. but obeys gravity
+	- limited number of handles can be used while in air, touch ground to reset
+	- maintain rotation so you can do stuff sideways, upside down
+		- snap to upright when hitting the floor
+	- in multi other players can also grab the hooks
+- one can traverse in zero gravity but has to push off objects - already done in echo vr
+	- character 1 could bounce them around in a room
+- the beings of recreation characters???
+	- the three were tasked with finishing the Navigational Quiz, an obstacle course humanly impossible to complete. Countless beings had tried, but only these three figured out methods of manipulating space itself, meaning they could finish the test and officially &quot;surpass&quot; humanity.
+		- First level: you play as A, running your 8 billionth iteration of the Quiz. Like every other time, you manage to pass the first few obstacles with above-average running , jumping, and bullet-time focus (demonstrate basic controls). Eventually you reach where no one has crossed, it&#x27;s just a very deep chasm that goes on for 100 meters. As you jump, you pause and take the time to calculate a solution, and you figure out the first ability: turning the entire space around you. You do so for the first time, and walk on the ceiling towards the end. 
+		- You then do the same, playing as B (using space handles to launch your self far enough), the playing as C (pushing off the back wall and the side walls and floating to the end).
+	- they were nicknamed &quot;heaven&#x27;s few&quot;, both idolized and hated by mankind. they had not yet entered the real world, but were in a physically realistic simulation environment run by scientists at MIT. once they passed the test, it made the news and caused widespread shock. the government demanded they study the neural networks and datasets that could reproduce the results, to realize the experiment in real life. 
+		- levels would involve enemies being replicas of the characters, using the same movement mechanics 
+	- The first one was deemed too powerful and forced into a &quot;coma&quot; by the government, unable to perform tasks but continuously having &quot;dreams&quot; of the human data it was trained on. The other two are tasked with exploring its dreams and investigating its true capabilities and intents.
+		- the dreams are distortions of everyday human spaces - infinitely random pools, apartment stairs, hotel hallways
+</code></pre>
+<p>Hits on a lot of cliches and tropes, but could maybe be an interesting game right? And they say it's all about the execution, so... maybe this could be good if the execution is good.</p>
+<p>A month later in late August 2023, I produced another prototype. This one was in a big box like the last one, but now it had a concrete texture and it was more of a physics playground with stairs, tunnels, ramps, etc. so that I could have more fun shaking the room around and seeing what you could do by throwing around some physics cubes and balls. I think this is the most &quot;fun&quot; prototype I've had so far, at this point my janky implementation of the mechanics was playable enough (I switched back to VR controllers instead of hand-tracking, for better accuracy) and I integrated the <a href="https://assetstore.unity.com/packages/tools/game-toolkits/auto-hand-vr-interaction-165323">Auto Hand Unity addon</a> as the foundation for the VR interaction mechanics - I could climb walls, grab and throw objects, and float and walk around as I pleased. I iterated on this prototype until mid-September <a href="https://www.youtube.com/watch?v=FL6FKF9sJ5U">(link)</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FL6FKF9sJ5U?si=s95SibweHpycogT3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="some-concept-art-around-this-time-in-pixel-studio">Some concept art around this time in Pixel Studio</h3>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/hfpixel6.PNG" alt="pixel art 6" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpixel2.PNG" alt="pixel art 2" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpixel3.PNG" alt="pixel art 3" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpixel4.PNG" alt="pixel art 4" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpixel5.PNG" alt="pixel art 5" /></p>
+<h3 id="the-last-unity-prototype-and-the-big-decision">The last Unity prototype, and the big decision</h3>
+<p>After the 'concrete playground' prototype it seemed like it was time to try making a whole level, with more than one room and some sense of progression. I sketched out a layout in <a href="https://excalidraw.com/">Excalidraw</a> and began mapping it out in Unity; I wasn't fully on Trenchbroom yet for level mapping, so for this I think I used UModeler. The level would have big spaces where the player would float around and learn to launch off walls to bridge large gaps, and have some other ideas like spinning a weighted, heavy wheel by rotating the entire level.</p>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/hf1-preprod-level-1.png" alt="preprod level sketch" /></p>
+<p>Making a multi-room level as opposed to a single box room started to strain the 'jank debt' that I had accumulated by bootstrapping on top of the Auto Hand addon and implementing my game mechanic in a weird way. The two worst examples of this were that </p>
+<ol>
+<li>the easiest way I could move and rotate the entire level based on my hand movement was... parenting the entire level GameObject under the left hand GameObject. This was weird and definitely not scalable to a level with many GameObjects, but a more apparent technical issue came about from the fact that I'm, well, moving the entire level constantly. This led to #2:</li>
+<li>the level not being static meshes meant no baked lighting, and purely realtime lighting would be a performance death sentence, not even mentioning the fact that I was building for the Quest mobile platform. And for reasons that are too specific to explain, every collider required TWO colliders, because the Auto Hand hands could not grab onto a collider with a certain property that I needed, so EVERY MESH had two colliders on it. This was largely because Auto Hand had a different approach to climbing than what I needed, and didn't naturally support free-climbing walls (like the climbing in Boneworks), and definitely would not accommodate free-climbing walls that weren't static.</li>
+</ol>
+<p>Despite this, I figured that I would have this fleshed-out level prototype in hand that I could show people, and after I finished building it I could start the project proper and build a workflow that is performant and easier to build levels for. At least I would have this prototype that I could play around in, and refer to while building the real game.</p>
+<p>This was around September 2023. And if you are familiar with Unity history around this time, you will probably not be surprised by my decision that month to throw out the years of experience I had learning Unity, and switch to another game engine.</p>
+<p>September 12 2023 was when news broke of Unity's new plans for a 'pay-per-install' fee that, in the initial announcement, had implied that it would apply to all versions of Unity past and present. <a href="https://archive.ph/Ecxcl">Read an archive of an article about the announcement here.</a> The important thing was that this scared a lot of independent and small game developers, and eroded an already eroding foundation of trust that indies had with Unity, because the initial terms of the change had implied that any small developer with a Unity game would be hit with large fees if their game one day went viral and received millions of downloads, even if the game was completely free-to-play. Yes, they eventually rolled back these terms to something much more reasonable and even introduced some benefits for small-scale devs in the change, but even this rollback caused concern as it demonstrated how easily the company could - and more importantly, did - change the terms of their relationship with developers based on the whims of senior-level executives. </p>
+<p>I remember seeing that <a href="https://archive.ph/XycMs">the developers of Slay the Spire fully committed to leaving Unity after this and switched to Godot for their future projects</a>, and it forced me to do the grown-up thing and seriously think about what I needed for building Heaven’s Few long-term. I was thinking about the best way to keep this project healthy over the next couple years, and not land it in a situation where its chances of future success are affected by the health of its technical bedrock, the game engine itself. </p>
+<p>I still miss how fast I could prototype and iterate in Unity, how well it ran on my Macbook, the fast startup, the Asset Store, the tutorial community, and the strong, still unmatched support for VR and especially Quest titles. But at the time, this news worried me the more I tried to imagine myself and the game in, say, 2027. And if this caused a large part of the community to move away to another engine, I honestly just wanted to use the engine with the best community, since I needed all the external help I could get. On top of this, the technical debt of my prototypes had me realizing that creating a production-level Unity game is a very, very different beast than prototyping, and would require a lot of discipline to avoid a whole array of known pitfalls that plague independent Unity developers. I still didn't know enough about game engines and the game development process to make a fully informed decision, so I just thought: which game engine had a community like Unity's, was popular enough so that I had plenty of examples to learn from, and had a history of developer trust and long-term support? I had played around with <a href="https://godotengine.org/">Godot</a> a little before this, and was really impressed by the UX and just how fun it felt to use, but I didn't see myself as one of the early adopters for its 3D features. Godot was still too new to the point that building a production-level game on this for Quest would mean being the first to run into obstacles that have already been addressed in more mature engines.</p>
+<p>So, instead of Unity or Godot, even though there weren't many Quest or mobile games running this, and most of its new features were irrelevant to VR, and many recent games on this engine had very concerning issues with in-game stutters (which absolutely must not happen in VR), and the UI/UX looked overwhelming compared to Unity and Godot, I started to look into <a href="https://www.unrealengine.com/en-US/unreal-engine-5">Unreal Engine 5</a>. </p>
+<p>I wasn't the only one doing this, and there were a lot of new resources that taught Unity devs how to transfer most of their engine knowledge to Unreal's paradigms. Unreal seemed promising, but the only way I would know for sure was if I dove straight in and worked on a project inside it. So, I resolved to keep using Unity to iterate on this 'level' prototype until it was stable enough to play through, and once I had a build of that prototype that I could play around in, call it quits with Unity and build a 'vertical slice' of the game in Unreal, that would continue the last prototype's goal of demonstrating a look and feel for the game that would give an idea of what the final game could be like. My last recording of the last Unity prototype was on November 1 2023 <a href="https://www.youtube.com/watch?v=dJUyy7YDlfs">(link)</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dJUyy7YDlfs?si=lMz06bYk5P8dsy8Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p>By November 26 2023, according to my Discord message history, I was able to get a playable VR project in Unreal Engine 5.3 built and running on my Quest 2.</p>
+<p>2024 (so far) has been a lot less dramatic than everything you just read above. That stretch of time between July and November 2023 was when a lot of formative work happened, and seeing my 4-year-old idea finally come to life for the first time is a feeling I will always remember. </p>
+<h2 id="2024-unreal-engine-5-3-storybuilding-the-foundations-of-a-production-workflow-and-what-s-next">2024: Unreal Engine 5.3, storybuilding, the foundations of a production workflow, and what's next</h2>
+<h3 id="vrexpansionplugin">VRExpansionPlugin</h3>
+<p>For now, my approach to learning Unreal Engine has basically been to dive straight back into the game and try making what I need to make, and throughout the year I've also gained additional experience by doing a couple side projects in the engine. </p>
+<p>The first thing I needed to quickly onboard to VR was to see what kind of VR frameworks were out there for Unreal, similar to how I used Auto Hand in Unity. There is an official VRTemplate that provides basic functions like grabbing and teleporting, but I found that a couple popular VR games made in UE4 used an open-source plugin called the<a href="https://vreue4.com/"> VR Expansion Plugin</a>; the big examples are <a href="https://www.meta.com/experiences/7614022262006379/">Ghosts of Tabor</a> and <a href="https://www.meta.com/experiences/5817243991680545/">Into The Radius VR</a>. What gave me confidence to choose this as the foundation for my own project was that, although both of these games started as PC VR games, they were both ported to the Quest and they both run relatively well on it. On January 6 I uploaded this recording of me in a box level, using the VREPlugin character, and testing out a really, really broken version of level rotation <a href="https://www.youtube.com/watch?v=iGeFDtfNl8s">(link)</a>:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iGeFDtfNl8s?si=oeMZIOGrOxysRCo0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="setting-up-aws-and-a-perforce-version-control-depot">Setting up AWS and a Perforce version control depot</h3>
+<p>Another crucial element of building a big piece of software is version control. While Git is the go-to for most people and what I’m familiar with, <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/using-source-control-in-the-unreal-editor">Unreal’s built-in version control features</a> seem to work best with <a href="https://www.perforce.com/products/helix-core">Perforce</a>, so I went with that since I didn’t want to fight the engine too much. What pushed me to finally get this set up was the fact that I’ll eventually want more people to work on the project, and once I have this set up, sharing the project would be as simple as adding a new Perforce user and sharing the server details. Well, kind of. I’m using the pre-built version of 5.3, and for reasons I’m forgetting right now, any contributors would also have to download the same binary and setup third-party plugins themselves before pulling in the project (I think I have the VREPlugin as an engine-side plugin?). Once things are set up though, my future team members should be able to push and pull project updates easily.</p>
+<p>Even though it’s a bit more expensive and unnecessary in this stage of development, I opted to <a href="https://www.perforce.com/products/helix-core/install-enhanced-studio-pack-aws?mkt_tok=ODQ2LUhFTC0yMjIAAAGQzxbIKNuX3JIcUImS86VqJUzS6gixGBHQFvhHBgzwHLrJesPFWF2GV-kqM6e4h1qXthBDsr8AFvSZiyoIkXh_u9Iy6a-60exCDPv8hw4q#outputs">set up the Perforce server in a new AWS account</a> I set up for any cloud resources the game might need. I undershot the hardware requirements at first and the server struggled to ingest the initial commit with the entire project folder, so I had to restart the setup process with a host with more CPU and disk space. Since it’s just me working on it right now, if I’m not committing any changes to the server I just stop the EC2 instance to save on cost. I was also granted $300 in AWS credit from some promotional email and I think I’m still using that.</p>
+<h3 id="trenchbroom-to-unreal">Trenchbroom to Unreal</h3>
+<p>This time I wanted to start building and playing in maps that actually look decent, so I started looking into importing Trenchbroom maps to Unreal. Thankfully this is a workflow already covered by other developers, using the <a href="https://nte.itch.io/hammuer">HammUEr plugin</a>. The creators of a game called <a href="https://store.steampowered.com/app/1371690/GRAVEN/">GRAVEN</a> posted a guide on their steam page of <a href="https://store.steampowered.com/news/app/1371690/view/2905347823300141067">how they used Trenchbroom to create production-ready levels in UE4</a>, and this helped me get some of my old Trenchbroom maps into UE5.</p>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/testmap-trenchbroom.png" alt="test map in Trenchbroom" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/testmap-unreal.png" alt="test map imported to Unreal" /></p>
+<h4 id="what-about-textures">What about textures?</h4>
+<p>I have been using an old texture manager called <a href="https://valvedev.info/tools/wally/">Wally</a> for making collections of low-res textures that maintain a consistent tone thanks to the color range limitations imposed in order to stay within the supported color palette of the old games it is intended for, like Quake. It has just enough art features to make materials like wood, steel and concrete, and has a couple features like stamping and tinting that make it easy to add natural detail. </p>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/wally.png" alt="Wally screenshot" /></p>
+<p>More recently though, I have been pulling the 2K resolution textures from Quixel Megascan materials and downsizing them using Box filter on ImageMagick, and the results give off that grimy Half-Life 1 look that I'm going for.</p>
+<p>The look I've been going for right now is 128x128 textures with no filtering and no compression; I'm keeping it low-res to imply a lot of detail, and removing filtering so that the textures don't look all soft and smeared over. This might end up causing a lot of aliasing on high-contrast edges that might be distracting in VR, so I'll adjust this as I continue to iterate on the art side. For now though this seems like an easy way to produce a consistent aesthetic and quickly make different types of surfaces. It also means that I don't have to worry about texture memory at all.</p>
+<pre><code>magick .&#x2F;concrete_slab_2k.jpg -filter Box -resize 128x128 concrete_slab_128x128_box.png
+</code></pre>
+<p><img src="/assets/updates/2024-08-04-hf-retro-1/magick-concrete.png" alt="Megascan texture vs. compressed for concrete" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/magick-wood.png" alt="Megascan texture vs. compressed for wood" /></p>
+<h3 id="story-developments">Story developments</h3>
+<p>I have been able to come up with a lot more ideas regarding the story, mainly the big themes I want it to convey, the setting and how it would be structured. I'm trying not to just shamelessly copy stories that inspire me, but this year I finally got around to watching Evangelion, playing Metal Gear Solid 1 and 2, OMORI, growing my class consciousness and thinking more about the emotional and spiritual damage that comes with otherness, alienation, and lack of unity. All these themes are gelling into something that is starting to make sense in the little world I'm creating here. </p>
+<p>Something interesting that I want to try to explore is how AI is trained on a wealth of human input, but cannot personally connect to that broader human experience in the way that people are supposed to when they are also trained on human input. It is trained and 'raised' like us but it can never be us, it's very weird and it's obvious that most AI companies are led by people who can't tell that it's very weird. I'll keep working on this idea and see where it goes. I kind of worry that this 'AI is like humans but not treated like humans' thing will go too far in the way that it did (IMO) in Detroit: Become Human, which just directly re-enacted multiple types of historical oppression like segregated buses and border patrol, but replacing the victims of these systems from real life with AI androids. Some parts of that game are interesting though.</p>
+<h3 id="what-s-next">What's next?</h3>
+<p>That's pretty much all I'm comfortable sharing now, work has been really eating into my time but I'm still focused on getting out a vertical slice that represents a compelling version of the game in Unreal. I am having issues fully implementing the level shifting mechanic in the same way I did in Unity, and am seeking help for implementing this. If I can't get that done soon enough, I am just working on a playable level that utilizes the gameplay mechanics that I already have working, like hands interacting with physics objects and floating around in zero-gravity. </p>
+<p>I need to find an efficient way to model everything else other than maps, Trenchbroom kind of only works for mapping and nothing more detailed like props and characters. I've been using <a href="https://www.blockbench.net/">Blockbench</a> in another project and it seems like the way forward especially since I'm committing to a relatively low-poly, low-res aesthetic. It has built-in, straightforward texturing and UV tools which is really important for saving time.</p>
+<p>Going back to the Cerny talk about &quot;Method&quot;, it made me look back at the meandering path I've taken to exploring this game and appreciating more and more the fact that I'm not jumping into &quot;make the full game&quot; mode too soon. Keeping this a solo endeavor allows me to maintain the freedom needed to experiment and iterate, until the idea is ready to grow into something more cohesive. I value the lack of external pressure I've had in this process; doing this type of exploration in a &quot;real&quot; game dev team would require asking for money that few investors would want to give, and it would impose a pressure to move out of this non-linear stage ASAP into something more quantifiable. It's not perfect of course, choosing this path means that I have to do unrelated work full-time like a normal person and barely have an hour or two per day to focus on the project. But it gives me a lot of time to think, and I'm getting more world experience that I can pull into this, and I believe it will result in a more meaningful game in the future. But, if I get the chance to start working on the game full-time, I will gladly jump into &quot;make the full game&quot; mode sooner, and I acknowledge that the final game will definitely not include everything I want in it, and may not even be a 'good game', and while I'll try my best, I'm mostly okay with that.</p>
+<p>Thank you for reading this. The game is still in very, very early days and progress has been very slow and wandering over the past five years. This project is kind of like a 20% of my life that I haven't shared with anyone (except Mark), and this post is a record of that 20% to finally share with others as well as to collect everything for myself; I forgot a lot of this stuff until I went back into my photos and Discord history and old notes. Hopefully I make enough progress to write another one of these sometime soon.</p>
+<p>In the meantime, here is my latest prototype:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2X3eLVD_wsM?si=EwWzI97_vQlGr_nV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p>And here is some recent concept art:
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpixel1.PNG" alt="pixel art 1" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpencil1.png" alt="pencil art 1" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpencil2.png" alt="pencil art 2" />
+<img src="/assets/updates/2024-08-04-hf-retro-1/hfpencil3.png" alt="pencil art 3" /></p>
+
+  </article>
+</div>
+                                
+    <canvas></canvas>
+    
+<script src="/js/contentVisual.js"></script>
+
+  </div>
+</body>
+
+</html>

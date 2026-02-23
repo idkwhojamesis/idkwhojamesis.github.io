@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- generics -->
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="/android-chrome-192x192.png" sizes="192x192">
+  <!-- Android -->
+  <link rel="shortcut icon" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="shortcut icon" sizes="512x512" href="/android-chrome-512x512.png">
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  
+    <link rel="alternate" type="application/rss+xml" title="idkwhojamesis" href="https://idkwhojamesis.com/rss.xml">
+    
+
+  <title>james park</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+    canvas {
+      width: 120vw;
+      height: 120vh;
+      display: block;
+      position: fixed;
+      z-index: 0;
+      left: -10px;
+      top: 0;
+    }
+    h1 {
+      line-height: 100%;
+    }
+    #landing-title {
+      opacity: 0.8;
+      position: fixed;
+      bottom: 35%;
+      left: 2%;
+      padding: 1rem;
+      z-index: 2;
+    }
+    .title {
+      font-size: 2em;
+      margin: 0;
+    }
+    .desc {
+      margin: 0;
+    }
+    body {
+      font-size: 1.2em;
+      height: 100vh;
+      font-family: 'EB Garamond', serif;
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      overflow-wrap: break-word;
+    }
+    img {
+      display: block;
+      max-width: 80%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+    }
+    a {
+      font-style: italic;
+      color: white;
+    }
+    code {
+      white-space: pre-wrap;
+    }
+    .textbox {
+      color: white;
+      min-width: 300px;
+      width: 50vw;
+      max-width: 600px;
+      position: relative;
+      padding: 2px;
+      margin: 20px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      z-index: 1;
+      line-height: 150%;
+    }
+    .dropdown {
+      position: fixed;
+      z-index: 2;
+      padding: 1rem;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .navbar {
+      display: none;
+      opacity: 0;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      transition: opacity 0.7s;
+      transition-delay: 1s;
+      transition-property: opacity;
+    }
+    #menu {
+      font-style:normal; 
+      background-color:black; 
+      text-align: right;
+    }
+    #home-menu {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    .subtitle {
+      font-size: 1.3em;
+      font-style: italic;
+      text-decoration: none;
+      padding: 5px;
+    }
+    .link {
+      width: 120px;
+      transition: letter-spacing 0.3s;
+    }
+    .link:hover {
+      letter-spacing: 0.1em;
+    }
+    .dropdown:hover .navbar {
+      display: flex;
+      opacity: 1;
+    }
+    .dropdown:hover #home-menu {
+      opacity: 0;
+    }
+  </style>
+
+  
+  <style>
+    .dropdown {
+      top:2%;
+      right:2%;
+    }
+    .navbar {
+      text-align: right;
+    }
+    .link {
+      background-color: black;
+      padding-right: 20px;
+    }
+  </style>
+  
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+<body>
+  <div id="fullpage">
+      
+      
+      <div class="dropdown">
+        <a class="subtitle link" id="menu" >[ j p ]</a>
+        <nav class="navbar">
+          <a class="subtitle link" href="/">home</a>
+          <a class="subtitle link" href="/about/">about</a>
+          <a class="subtitle link" href="/portfolio/">portfolio</a>
+          <a class="subtitle link" href="/resume/">resume</a>
+          <a class="subtitle link" href="/updates/">updates</a>
+        </nav>
+        
+      </div>
+      </div>
+    </div>  
+    
+  <div class="textbox">
+      <h1 class="title">updates</h1>
+      <ol>
+      
+        <li style="list-style-type: none;"><time datetime="2024-08-04">2024-08-04</time> <a href="https://idkwhojamesis.com/updates/hf-retro-1/">Heaven&#x27;s Few Retrospective 1 - Ideation to Prototyping</a></li>
+      
+        <li style="list-style-type: none;"><time datetime="2024-05-01">2024-05-01</time> <a href="https://idkwhojamesis.com/updates/nerfstudio-on-aws/">cloud-based nerfstudio using AWS EC2 and S3 Mountpoint</a></li>
+      
+        <li style="list-style-type: none;"><time datetime="2021-08-23">2021-08-23</time> <a href="https://idkwhojamesis.com/updates/notion-to-obsidian/">migrating from Notion to Obsidian</a></li>
+      
+        <li style="list-style-type: none;"><time datetime="2021-08-14">2021-08-14</time> <a href="https://idkwhojamesis.com/updates/kenopsia/">kenopsia, liminal spaces, malls, nostalgia, the end of retail</a></li>
+      
+        <li style="list-style-type: none;"><time datetime="2021-01-03">2021-01-03</time> <a href="https://idkwhojamesis.com/updates/two-year-review/">two years of CS - a review of 2019-2020</a></li>
+      
+        <li style="list-style-type: none;"><time datetime="2020-05-18">2020-05-18</time> <a href="https://idkwhojamesis.com/updates/welcome/">welcome to the site!</a></li>
+      
+      </ol>
+  </div>
+                                
+    <canvas></canvas>
+    
+<script src="/js/dirVisual.js"></script>
+
+  </div>
+</body>
+
+</html>
